@@ -208,4 +208,23 @@ export class AccountClient {
     );
     return response.data;
   }
+
+  /**
+   * Get a list of TV shows in the account's watchlist.
+   */
+  async getWatchlistTV(
+    params: GetWatchlistParams
+  ): Promise<PaginatedResponse<FavoriteTV>> {
+    const queryParams: Record<string, any> = {};
+    if (params.sessionId) queryParams["session_id"] = params.sessionId;
+    if (params.language) queryParams["language"] = params.language;
+    if (params.page) queryParams["page"] = params.page;
+    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
+
+    const response = await this.axiosInstance.get(
+      `account/${params.accountId}/watchlist/tv`,
+      { params: queryParams }
+    );
+    return response.data;
+  }
 }

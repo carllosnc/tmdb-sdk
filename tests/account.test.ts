@@ -46,6 +46,48 @@ describe("TMDBClient - Account Namespace", () => {
     expect(get).toHaveBeenCalledWith("account/7/watchlist/movies", { params: {} });
   });
 
+  test("should fetch watchlist TV with query params", async () => {
+    const get = mock(() =>
+      Promise.resolve({
+        data: { page: 1, results: [], total_pages: 0, total_results: 0 },
+      })
+    );
+    const client = new AccountClient({ get } as unknown as AxiosInstance);
+
+    const response = await client.getWatchlistTV({
+      accountId: 42,
+      sessionId: "test-session",
+      language: "en-US",
+      page: 2,
+      sortBy: "created_at.desc",
+    });
+
+    expect(get).toHaveBeenCalledTimes(1);
+    expect(get).toHaveBeenCalledWith("account/42/watchlist/tv", {
+      params: {
+        session_id: "test-session",
+        language: "en-US",
+        page: 2,
+        sort_by: "created_at.desc",
+      },
+    });
+    expect(response.page).toBe(1);
+    expect(response.results).toEqual([]);
+  });
+
+  test("should fetch watchlist TV with account id only", async () => {
+    const get = mock(() =>
+      Promise.resolve({
+        data: { page: 1, results: [], total_pages: 0, total_results: 0 },
+      })
+    );
+    const client = new AccountClient({ get } as unknown as AxiosInstance);
+
+    await client.getWatchlistTV({ accountId: 7 });
+
+    expect(get).toHaveBeenCalledWith("account/7/watchlist/tv", { params: {} });
+  });
+
   const token = process.env.TMDB_TOKEN;
 
   if (token) {
@@ -116,6 +158,24 @@ describe("TMDBClient - Account Namespace", () => {
       const accountId = account.id;
 
       const response = await client.account.getWatchlistMovies({
+        accountId,
+        language: "en-US",
+        page: 1,
+        sortBy: "created_at.asc",
+      });
+      expect(response).toBeDefined();
+      expect(response.page).toBeTypeOf("number");
+      expect(Array.isArray(response.results)).toBe(true);
+      expect(response.total_pages).toBeTypeOf("number");
+      expect(response.total_results).toBeTypeOf("number");
+    });
+
+    test("should fetch watchlist TV from live TMDB API", async () => {
+      const client = new TMDBClient({ accessToken: token });
+      const account = await client.account.getDetails();
+      const accountId = account.id;
+
+      const response = await client.account.getWatchlistTV({
         accountId,
         language: "en-US",
         page: 1,
