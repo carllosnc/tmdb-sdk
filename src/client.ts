@@ -17,6 +17,7 @@ import { NetworkClient } from "./client/network/index.ts";
 import { PersonClient } from "./client/person/index.ts";
 import { ReviewClient } from "./client/review/index.ts";
 import { SearchClient } from "./client/search/index.ts";
+import { TrendingClient } from "./client/trending/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -43,6 +44,7 @@ export class TMDBClient {
   public person: PersonClient;
   public review: ReviewClient;
   public search: SearchClient;
+  public trending: TrendingClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -80,6 +82,7 @@ export class TMDBClient {
     this.person = new PersonClient(this.client);
     this.review = new ReviewClient(this.client);
     this.search = new SearchClient(this.client);
+    this.trending = new TrendingClient(this.client);
   }
 
   /**
