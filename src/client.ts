@@ -3,6 +3,7 @@ import { AccountClient } from "./client/account/index.ts";
 import { AuthenticationClient } from "./client/authentication/index.ts";
 import { CertificationClient } from "./client/certification/index.ts";
 import { ChangesClient } from "./client/changes/index.ts";
+import { CollectionClient } from "./client/collection/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -15,6 +16,7 @@ export class TMDBClient {
   public authentication: AuthenticationClient;
   public certification: CertificationClient;
   public changes: ChangesClient;
+  public collection: CollectionClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -38,6 +40,7 @@ export class TMDBClient {
     this.authentication = new AuthenticationClient(this.client);
     this.certification = new CertificationClient(this.client);
     this.changes = new ChangesClient(this.client);
+    this.collection = new CollectionClient(this.client);
   }
 
   /**
