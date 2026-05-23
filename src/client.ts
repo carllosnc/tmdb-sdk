@@ -5,6 +5,7 @@ import { CertificationClient } from "./client/certification/index.ts";
 import { ChangesClient } from "./client/changes/index.ts";
 import { CollectionClient } from "./client/collection/index.ts";
 import { CompanyClient } from "./client/company/index.ts";
+import { ConfigurationClient } from "./client/configuration/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -19,6 +20,7 @@ export class TMDBClient {
   public changes: ChangesClient;
   public collection: CollectionClient;
   public company: CompanyClient;
+  public configuration: ConfigurationClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -44,13 +46,14 @@ export class TMDBClient {
     this.changes = new ChangesClient(this.client);
     this.collection = new CollectionClient(this.client);
     this.company = new CompanyClient(this.client);
+    this.configuration = new ConfigurationClient(this.client);
   }
 
   /**
    * Get system wide configuration information (e.g. image URLs, sizes, etc.)
+   * @see https://developer.themoviedb.org/reference/configuration-details
    */
-  async getConfiguration(): Promise<any> {
-    const response = await this.client.get("configuration");
-    return response.data;
+  async getConfiguration(): Promise<import("./types/configuration.ts").ConfigurationDetails> {
+    return this.configuration.getDetails();
   }
 }
