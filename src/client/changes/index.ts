@@ -3,10 +3,10 @@ import {
   type GetMovieChangesParams,
   type GetPersonChangesParams,
   type GetTVChangesParams,
-  type MovieChangesResponse,
-  type PersonChangesResponse,
+  type ChangedMoviesResponse,
+  type ChangedPeopleResponse,
   type TVChangesResponse,
-} from "../../types/changes.ts";
+} from "../../types/changes.js";
 
 export class ChangesClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -18,7 +18,7 @@ export class ChangesClient {
    */
   async getMovieList(
     params?: GetMovieChangesParams
-  ): Promise<MovieChangesResponse> {
+  ): Promise<ChangedMoviesResponse> {
     const queryParams: Record<string, any> = {};
     if (params?.startDate) queryParams["start_date"] = params.startDate;
     if (params?.endDate) queryParams["end_date"] = params.endDate;
@@ -37,7 +37,7 @@ export class ChangesClient {
    */
   async getPersonList(
     params?: GetPersonChangesParams
-  ): Promise<PersonChangesResponse> {
+  ): Promise<ChangedPeopleResponse> {
     const queryParams: Record<string, any> = {};
     if (params?.startDate) queryParams["start_date"] = params.startDate;
     if (params?.endDate) queryParams["end_date"] = params.endDate;

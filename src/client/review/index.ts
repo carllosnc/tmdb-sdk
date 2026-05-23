@@ -1,5 +1,5 @@
 import { type AxiosInstance } from "axios";
-import { type ReviewDetails } from "../../types/review.ts";
+import { type ReviewDetails } from "../../types/review.js";
 
 export class ReviewClient {
   constructor(private axiosInstance: AxiosInstance) {}

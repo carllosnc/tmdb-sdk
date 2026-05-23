@@ -33,8 +33,8 @@ import {
   type AddRatingRequest,
   type AddRatingParams,
   type DeleteRatingParams,
-  type TMDBResponse,
-} from "../../types/movie.ts";
+} from "../../types/movie.js";
+import { type TMDBResponse } from "../../types/account.js";
 
 export class MovieClient {
   constructor(private axiosInstance: AxiosInstance) {}

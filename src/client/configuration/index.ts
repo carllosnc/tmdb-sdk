@@ -6,7 +6,7 @@ import {
   type JobDepartment,
   type LanguageInfo,
   type TimezoneInfo,
-} from "../../types/configuration.ts";
+} from "../../types/configuration.js";
 
 export class ConfigurationClient {
   constructor(private axiosInstance: AxiosInstance) {}

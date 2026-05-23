@@ -2,7 +2,7 @@ import { type AxiosInstance } from "axios";
 import {
   type GenreListResponse,
   type GetGenreListParams,
-} from "../../types/genre.ts";
+} from "../../types/genre.js";
 
 export class GenreClient {
   constructor(private axiosInstance: AxiosInstance) {}

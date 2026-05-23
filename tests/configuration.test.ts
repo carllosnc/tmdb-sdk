@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { ConfigurationClient } from "../src/client/configuration/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { ConfigurationClient } from "../src/client/configuration/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Configuration Namespace", () => {
   test("should fetch configuration details with mock data", async () => {

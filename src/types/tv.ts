@@ -1,5 +1,4 @@
 import type {
-  Genre,
   ProductionCompany,
   ProductionCountry,
   SpokenLanguage,
@@ -10,7 +9,8 @@ import type {
   Review,
   Keyword,
   CountryWatchProviders,
-} from "./movie.ts";
+} from "./movie.js";
+import type { Genre } from "./genre.js";
 
 export interface TvResult {
   adult: boolean;

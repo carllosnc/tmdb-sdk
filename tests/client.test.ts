@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { TMDBClient } from "../src/index.ts";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Core Client", () => {
   test("should instantiate successfully with token", () => {

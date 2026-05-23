@@ -9,7 +9,7 @@ import {
   type SuccessResponse,
   type ValidateKeyResponse,
   type ValidateRequestTokenWithLoginRequest,
-} from "../../types/authentication.ts";
+} from "../../types/authentication.js";
 
 export class AuthenticationClient {
   constructor(private axiosInstance: AxiosInstance) {}

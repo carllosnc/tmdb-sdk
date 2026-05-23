@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { KeywordClient } from "../src/client/keyword/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { KeywordClient } from "../src/client/keyword/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Keyword Namespace", () => {
   test("should fetch keyword details with mock data", async () => {

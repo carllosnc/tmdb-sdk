@@ -1,5 +1,5 @@
-import type { MovieResult } from "./movie.ts";
-import type { PersonKnownFor, PersonResult } from "./person.ts";
+import type { MovieResult } from "./movie.js";
+import type { PersonKnownFor, PersonResult } from "./person.js";
 
 export interface SearchCollectionResult {
   adult: boolean;

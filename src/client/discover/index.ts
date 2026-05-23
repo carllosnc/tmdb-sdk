@@ -4,7 +4,7 @@ import {
   type DiscoverMoviesParams,
   type DiscoverTvParams,
   type DiscoverTvResponse,
-} from "../../types/discover.ts";
+} from "../../types/discover.js";
 
 function toSnakeCase(key: string): string {
   return key.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);

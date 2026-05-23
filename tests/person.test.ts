@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { PersonClient } from "../src/client/person/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { PersonClient } from "../src/client/person/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Person Namespace", () => {
   test("should fetch popular people with mock data", async () => {

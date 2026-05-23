@@ -3,7 +3,7 @@ import {
   type CompanyAlternativeNamesResponse,
   type CompanyDetails,
   type CompanyImagesResponse,
-} from "../../types/company.ts";
+} from "../../types/company.js";
 
 export class CompanyClient {
   constructor(private axiosInstance: AxiosInstance) {}

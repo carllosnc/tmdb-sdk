@@ -18,7 +18,7 @@ import {
   type GetRatedParams,
   type RatedEpisode,
   type GetWatchlistParams,
-} from "../../types/account.ts";
+} from "../../types/account.js";
 
 export class AccountClient {
   constructor(private axiosInstance: AxiosInstance) {}

@@ -3,7 +3,7 @@ export interface ChangedMovie {
   adult: boolean | null;
 }
 
-export interface MovieChangesResponse {
+export interface ChangedMoviesResponse {
   results: ChangedMovie[];
   page: number;
   total_pages: number;
@@ -21,7 +21,7 @@ export interface ChangedPerson {
   adult: boolean | null;
 }
 
-export interface PersonChangesResponse {
+export interface ChangedPeopleResponse {
   results: ChangedPerson[];
   page: number;
   total_pages: number;

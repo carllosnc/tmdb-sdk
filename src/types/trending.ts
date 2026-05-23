@@ -1,5 +1,5 @@
-import type { MovieResult } from "./movie.ts";
-import type { PersonResult } from "./person.ts";
+import type { MovieResult } from "./movie.js";
+import type { PersonResult } from "./person.js";
 
 export type TimeWindow = "day" | "week";
 

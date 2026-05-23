@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { ChangesClient } from "../src/client/changes/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { ChangesClient } from "../src/client/changes/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Changes Namespace", () => {
   test("should fetch movie changes with mock data", async () => {

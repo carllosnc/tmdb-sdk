@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { CertificationClient } from "../src/client/certification/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { CertificationClient } from "../src/client/certification/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Certification Namespace", () => {
   test("should fetch movie certifications with mock data", async () => {

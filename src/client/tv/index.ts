@@ -34,7 +34,7 @@ import {
   type TvSeriesVideosResponse,
   type TvSeriesVideosParams,
   type TvSeriesWatchProvidersResponse,
-} from "../../types/tv.ts";
+} from "../../types/tv.js";
 import {
   type TvSeasonAccountStates,
   type TvSeasonAccountStatesParams,
@@ -55,13 +55,13 @@ import {
   type TvEpisodeImagesParams,
   type TvEpisodeVideosParams,
   type TvEpisodeGroupDetails,
-} from "../../types/tv.ts";
+} from "../../types/tv.js";
 import {
-  type TMDBResponse,
   type AddRatingRequest,
   type AddRatingParams,
   type DeleteRatingParams,
-} from "../../types/movie.ts";
+} from "../../types/movie.js";
+import { type TMDBResponse } from "../../types/account.js";
 
 export class TvClient {
   constructor(private axiosInstance: AxiosInstance) {}

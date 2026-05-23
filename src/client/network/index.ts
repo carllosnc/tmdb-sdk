@@ -3,7 +3,7 @@ import {
   type NetworkDetails,
   type NetworkAlternativeNamesResponse,
   type NetworkImagesResponse,
-} from "../../types/network.ts";
+} from "../../types/network.js";
 
 export class NetworkClient {
   constructor(private axiosInstance: AxiosInstance) {}

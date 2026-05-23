@@ -3,7 +3,7 @@ import {
   type KeywordDetails,
   type KeywordMoviesParams,
   type KeywordMoviesResponse,
-} from "../../types/keyword.ts";
+} from "../../types/keyword.js";
 
 export class KeywordClient {
   constructor(private axiosInstance: AxiosInstance) {}

@@ -5,7 +5,7 @@ import {
   type CollectionTranslationsResponse,
   type GetCollectionDetailsParams,
   type GetCollectionImagesParams,
-} from "../../types/collection.ts";
+} from "../../types/collection.js";
 
 export class CollectionClient {
   constructor(private axiosInstance: AxiosInstance) {}

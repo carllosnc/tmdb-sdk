@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { ReviewClient } from "../src/client/review/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { ReviewClient } from "../src/client/review/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Review Namespace", () => {
   test("should fetch review details with mock data", async () => {

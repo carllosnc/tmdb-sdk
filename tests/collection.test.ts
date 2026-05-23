@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { CollectionClient } from "../src/client/collection/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { CollectionClient } from "../src/client/collection/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Collection Namespace", () => {
   test("should fetch collection details with mock data", async () => {

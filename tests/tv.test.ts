@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { TvClient } from "../src/client/tv/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { TvClient } from "../src/client/tv/index.js";
+import { TMDBClient } from "../src/index.js";
 
 const emptyResponse = {
   page: 1,

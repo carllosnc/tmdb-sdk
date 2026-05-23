@@ -46,10 +46,7 @@ export interface BelongsToCollection {
   backdrop_path: string | null;
 }
 
-export interface Genre {
-  id: number;
-  name: string;
-}
+import type { Genre } from "./genre.js";
 
 export interface ProductionCompany {
   id: number;
@@ -395,7 +392,4 @@ export interface DeleteRatingParams {
   guest_session_id?: string;
 }
 
-export interface TMDBResponse {
-  status_code: number;
-  status_message: string;
-}
+

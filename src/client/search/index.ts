@@ -14,7 +14,7 @@ import {
   type SearchPersonResponse,
   type SearchTvParams,
   type SearchTvResponse,
-} from "../../types/search.ts";
+} from "../../types/search.js";
 
 export class SearchClient {
   constructor(private axiosInstance: AxiosInstance) {}

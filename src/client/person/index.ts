@@ -17,7 +17,7 @@ import {
   type PersonTaggedImagesResponse,
   type PersonTaggedImagesParams,
   type PersonTranslationsResponse,
-} from "../../types/person.ts";
+} from "../../types/person.js";
 
 export class PersonClient {
   constructor(private axiosInstance: AxiosInstance) {}

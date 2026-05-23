@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { GuestSessionClient } from "../src/client/guest-session/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { GuestSessionClient } from "../src/client/guest-session/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - GuestSession Namespace", () => {
   const guestSessionId = "mock-session-id";

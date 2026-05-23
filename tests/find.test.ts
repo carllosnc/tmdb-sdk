@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { FindClient } from "../src/client/find/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { FindClient } from "../src/client/find/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Find Namespace", () => {
   test("should find by external ID with mock data", async () => {

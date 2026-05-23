@@ -14,7 +14,7 @@ import {
   type ClearListParams,
   type DeleteListParams,
   type ListStatusResponse,
-} from "../../types/list.ts";
+} from "../../types/list.js";
 
 export class ListClient {
   constructor(private axiosInstance: AxiosInstance) {}

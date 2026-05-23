@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { DiscoverClient } from "../src/client/discover/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { DiscoverClient } from "../src/client/discover/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Discover Namespace", () => {
   test("should fetch movie discover with mock data", async () => {

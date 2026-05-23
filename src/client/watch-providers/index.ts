@@ -4,7 +4,7 @@ import {
   type WatchProviderRegionResponse,
   type WatchProvidersListParams,
   type WatchProvidersResponse,
-} from "../../types/watch-providers.ts";
+} from "../../types/watch-providers.js";
 
 export class WatchProvidersClient {
   constructor(private axiosInstance: AxiosInstance) {}

@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { SearchClient } from "../src/client/search/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { SearchClient } from "../src/client/search/index.js";
+import { TMDBClient } from "../src/index.js";
 
 const get = mock(() =>
   Promise.resolve({

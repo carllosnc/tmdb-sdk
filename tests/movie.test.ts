@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { MovieClient } from "../src/client/movie/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { MovieClient } from "../src/client/movie/index.js";
+import { TMDBClient } from "../src/index.js";
 
 const mockResponse = {
   page: 1,

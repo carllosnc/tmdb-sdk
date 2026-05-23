@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { NetworkClient } from "../src/client/network/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { NetworkClient } from "../src/client/network/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Network Namespace", () => {
   test("should fetch network details with mock data", async () => {

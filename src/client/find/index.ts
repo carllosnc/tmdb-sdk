@@ -2,7 +2,7 @@ import { type AxiosInstance } from "axios";
 import {
   type FindByIdParams,
   type FindByIdResponse,
-} from "../../types/find.ts";
+} from "../../types/find.js";
 
 export class FindClient {
   constructor(private axiosInstance: AxiosInstance) {}

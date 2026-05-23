@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { ListClient } from "../src/client/list/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { ListClient } from "../src/client/list/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - List Namespace", () => {
   test("should fetch list details with query params", async () => {

@@ -1,4 +1,4 @@
-import { type TMDBResponse } from "./account.ts";
+import { type TMDBResponse } from "./account.js";
 
 export interface ListDetailsParams {
   listId: number;

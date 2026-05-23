@@ -1,9 +1,52 @@
 {
   "name": "tmdb-sdk",
-  "module": "index.ts",
+  "version": "0.1.0",
+  "description": "A lightweight, fully-typed TypeScript client for the TMDB API v3",
+  "license": "MIT",
+  "author": "carllosnc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carllosnc/tmdb-sdk.git"
+  },
+  "keywords": [
+    "tmdb",
+    "themoviedb",
+    "api",
+    "client",
+    "typescript",
+    "sdk"
+  ],
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./*": {
+      "import": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "bun test"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "typescript": "^5"

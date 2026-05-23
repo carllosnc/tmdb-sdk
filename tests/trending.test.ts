@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { TrendingClient } from "../src/client/trending/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { TrendingClient } from "../src/client/trending/index.js";
+import { TMDBClient } from "../src/index.js";
 
 const emptyResponse = {
   page: 1,

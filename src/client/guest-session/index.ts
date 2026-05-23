@@ -6,7 +6,7 @@ import {
   type GuestSessionRatedTvEpisodesResponse,
   type GuestSessionRatedTvParams,
   type GuestSessionRatedTvResponse,
-} from "../../types/guest-session.ts";
+} from "../../types/guest-session.js";
 
 export class GuestSessionClient {
   constructor(private axiosInstance: AxiosInstance) {}

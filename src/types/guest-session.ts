@@ -1,4 +1,4 @@
-import type { PaginatedResponse } from "./account.ts";
+import type { PaginatedResponse } from "./account.js";
 
 export interface GuestSessionRatedMovie {
   adult: boolean;

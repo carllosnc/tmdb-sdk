@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { GenreClient } from "../src/client/genre/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { GenreClient } from "../src/client/genre/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Genre Namespace", () => {
   test("should fetch movie genres with mock data", async () => {

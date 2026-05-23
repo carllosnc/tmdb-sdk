@@ -5,7 +5,7 @@ import {
   type TrendingPeopleResponse,
   type TrendingParams,
   type TrendingTvResponse,
-} from "../../types/trending.ts";
+} from "../../types/trending.js";
 
 export class TrendingClient {
   constructor(private axiosInstance: AxiosInstance) {}

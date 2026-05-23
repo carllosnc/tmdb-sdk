@@ -1,7 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { AxiosInstance } from "axios";
-import { AuthenticationClient } from "../src/client/authentication/index.ts";
-import { TMDBClient } from "../src/index.ts";
+import { AuthenticationClient } from "../src/client/authentication/index.js";
+import { TMDBClient } from "../src/index.js";
 
 describe("TMDBClient - Authentication Namespace", () => {
   test("should validate API key", async () => {

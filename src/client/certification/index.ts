@@ -1,5 +1,5 @@
 import { type AxiosInstance } from "axios";
-import { type CertificationsResponse } from "../../types/certification.ts";
+import { type CertificationsResponse } from "../../types/certification.js";
 
 export class CertificationClient {
   constructor(private axiosInstance: AxiosInstance) {}
