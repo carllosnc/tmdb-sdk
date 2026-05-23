@@ -16,6 +16,7 @@ import { MovieClient } from "./client/movie/index.ts";
 import { NetworkClient } from "./client/network/index.ts";
 import { PersonClient } from "./client/person/index.ts";
 import { ReviewClient } from "./client/review/index.ts";
+import { SearchClient } from "./client/search/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -41,6 +42,7 @@ export class TMDBClient {
   public network: NetworkClient;
   public person: PersonClient;
   public review: ReviewClient;
+  public search: SearchClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -77,6 +79,7 @@ export class TMDBClient {
     this.network = new NetworkClient(this.client);
     this.person = new PersonClient(this.client);
     this.review = new ReviewClient(this.client);
+    this.search = new SearchClient(this.client);
   }
 
   /**
