@@ -8,6 +8,9 @@ import { CompanyClient } from "./client/company/index.ts";
 import { ConfigurationClient } from "./client/configuration/index.ts";
 import { DiscoverClient } from "./client/discover/index.ts";
 import { FindClient } from "./client/find/index.ts";
+import { GenreClient } from "./client/genre/index.ts";
+import { GuestSessionClient } from "./client/guest-session/index.ts";
+import { KeywordClient } from "./client/keyword/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -25,6 +28,9 @@ export class TMDBClient {
   public configuration: ConfigurationClient;
   public discover: DiscoverClient;
   public find: FindClient;
+  public genre: GenreClient;
+  public guestSession: GuestSessionClient;
+  public keyword: KeywordClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -53,6 +59,9 @@ export class TMDBClient {
     this.configuration = new ConfigurationClient(this.client);
     this.discover = new DiscoverClient(this.client);
     this.find = new FindClient(this.client);
+    this.genre = new GenreClient(this.client);
+    this.guestSession = new GuestSessionClient(this.client);
+    this.keyword = new KeywordClient(this.client);
   }
 
   /**
