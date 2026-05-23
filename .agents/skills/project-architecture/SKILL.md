@@ -50,6 +50,22 @@ Create 3 files following existing patterns:
 4. **`src/index.ts`** — Re-export the new types and client class.
 5. **`tests/<namespace>.test.ts`** — Add tests (see §6).
 
+### Comment Conventions for Client Functions
+
+Every client method must include a JSDoc block with:
+- A brief description of what the endpoint returns.
+- An `@see` tag linking to the official TMDB developer docs.
+
+```ts
+/**
+ * Get the top level details of a movie by ID.
+ * @see https://developer.themoviedb.org/reference/movie-details
+ */
+async getDetails(id: number): Promise<MovieDetails> { ... }
+```
+
+Do not add `@param` or `@returns` tags — the TypeScript types serve that purpose. Keep descriptions concise (1 sentence).
+
 ## 4. Authentication
 
 Handled centrally in `TMDBClient` constructor:
