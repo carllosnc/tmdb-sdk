@@ -6,6 +6,7 @@ import { ChangesClient } from "./client/changes/index.ts";
 import { CollectionClient } from "./client/collection/index.ts";
 import { CompanyClient } from "./client/company/index.ts";
 import { ConfigurationClient } from "./client/configuration/index.ts";
+import { DiscoverClient } from "./client/discover/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -21,6 +22,7 @@ export class TMDBClient {
   public collection: CollectionClient;
   public company: CompanyClient;
   public configuration: ConfigurationClient;
+  public discover: DiscoverClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -47,6 +49,7 @@ export class TMDBClient {
     this.collection = new CollectionClient(this.client);
     this.company = new CompanyClient(this.client);
     this.configuration = new ConfigurationClient(this.client);
+    this.discover = new DiscoverClient(this.client);
   }
 
   /**
