@@ -24,8 +24,9 @@ export class AccountClient {
   constructor(private axiosInstance: AxiosInstance) {}
 
   /**
-   * Get the public details of an account.
-   * If a session ID is provided, it retrieves details of the authenticated account.
+   * Get account details.
+   * Omit accountId for the authenticated account when session_id is provided.
+   * @see https://developer.themoviedb.org/reference/account-details
    */
   async getDetails(params?: GetAccountDetailsParams): Promise<AccountDetails> {
     const queryParams: Record<string, any> = {};
@@ -40,6 +41,7 @@ export class AccountClient {
 
   /**
    * Mark a movie or TV show as a favorite.
+   * @see https://developer.themoviedb.org/reference/account-add-favorite
    */
   async addFavorite(
     params: AddFavoriteParams,
@@ -59,7 +61,8 @@ export class AccountClient {
   }
 
   /**
-   * Add a movie or TV show to your watchlist.
+   * Add a movie or TV show to the watchlist.
+   * @see https://developer.themoviedb.org/reference/account-add-to-watchlist
    */
   async addToWatchlist(
     params: AddWatchlistParams,
@@ -79,7 +82,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of favorite movies for the account.
+   * Get favorite movies for an account.
+   * @see https://developer.themoviedb.org/reference/account-get-favorites
    */
   async getFavoriteMovies(
     params: GetFavoritesParams
@@ -98,7 +102,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of favorite TV shows for the account.
+   * Get favorite TV shows for an account.
+   * @see https://developer.themoviedb.org/reference/account-favorite-tv
    */
   async getFavoriteTV(
     params: GetFavoritesParams
@@ -117,7 +122,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of custom lists created by the account.
+   * Get custom lists for an account.
+   * @see https://developer.themoviedb.org/reference/account-lists
    */
   async getLists(
     params: GetListsParams
@@ -134,7 +140,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of rated movies for the account.
+   * Get rated movies for an account.
+   * @see https://developer.themoviedb.org/reference/account-rated-movies
    */
   async getRatedMovies(
     params: GetRatedParams
@@ -153,7 +160,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of rated TV shows for the account.
+   * Get rated TV shows for an account.
+   * @see https://developer.themoviedb.org/reference/account-rated-tv
    */
   async getRatedTV(
     params: GetRatedParams
@@ -172,7 +180,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of rated TV episodes for the account.
+   * Get rated TV episodes for an account.
+   * @see https://developer.themoviedb.org/reference/account-rated-tv-episodes
    */
   async getRatedTVEpisodes(
     params: GetRatedParams
@@ -191,7 +200,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of movies in the account's watchlist.
+   * Get watchlist movies for an account.
+   * @see https://developer.themoviedb.org/reference/account-watchlist-movies
    */
   async getWatchlistMovies(
     params: GetWatchlistParams
@@ -210,7 +220,8 @@ export class AccountClient {
   }
 
   /**
-   * Get a list of TV shows in the account's watchlist.
+   * Get watchlist TV shows for an account.
+   * @see https://developer.themoviedb.org/reference/account-watchlist-tv
    */
   async getWatchlistTV(
     params: GetWatchlistParams
