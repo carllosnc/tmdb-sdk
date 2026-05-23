@@ -40,7 +40,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "bun run build",
     "typecheck": "tsc -p tsconfig.json",
     "test": "bun test"
   },
