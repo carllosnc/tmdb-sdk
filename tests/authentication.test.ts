@@ -88,7 +88,38 @@ describe("TMDBClient - Authentication Namespace", () => {
     expect(response.session_id).toBeTypeOf("string");
   });
 
+  test("should validate a request token with login", async () => {
+    const validatedToken = {
+      success: true,
+      expires_at: "2018-07-24 04:10:26 UTC",
+      request_token: "1531f1a558c8357ce8990cf887ff196e8f5402ec",
+    };
+    const request = {
+      username: "johnny_appleseed",
+      password: "test123",
+      request_token: "1531f1a558c8357ce8990cf887ff196e8f5402ec",
+    };
+    const post = mock(() => Promise.resolve({ data: validatedToken }));
+    const client = new AuthenticationClient({
+      post,
+    } as unknown as AxiosInstance);
+
+    const response = await client.validateRequestTokenWithLogin(request);
+
+    expect(post).toHaveBeenCalledTimes(1);
+    expect(post).toHaveBeenCalledWith(
+      "authentication/token/validate_with_login",
+      request
+    );
+    expect(response).toEqual(validatedToken);
+    expect(response.success).toBe(true);
+    expect(response.request_token).toBeTypeOf("string");
+    expect(response.expires_at).toBeTypeOf("string");
+  });
+
   const token = process.env.TMDB_TOKEN;
+  const tmdbUsername = process.env.TMDB_USERNAME;
+  const tmdbPassword = process.env.TMDB_PASSWORD;
   const validatedRequestToken = process.env.TMDB_VALIDATED_REQUEST_TOKEN;
   const v4AccessToken = process.env.TMDB_V4_ACCESS_TOKEN;
 
@@ -126,6 +157,24 @@ describe("TMDBClient - Authentication Namespace", () => {
         expect(response.success).toBe(true);
         expect(response.session_id).toBeTypeOf("string");
         expect(response.session_id.length).toBeGreaterThan(0);
+      });
+    }
+
+    if (tmdbUsername && tmdbPassword) {
+      test("should validate request token with login via live TMDB API", async () => {
+        const client = new TMDBClient({ accessToken: token });
+        const { request_token } = await client.authentication.createRequestToken();
+        const response = await client.authentication.validateRequestTokenWithLogin({
+          username: tmdbUsername,
+          password: tmdbPassword,
+          request_token,
+        });
+
+        expect(response).toBeDefined();
+        expect(response.success).toBe(true);
+        expect(response.request_token).toBeTypeOf("string");
+        expect(response.request_token.length).toBeGreaterThan(0);
+        expect(response.expires_at).toBeTypeOf("string");
       });
     }
 

@@ -22,3 +22,9 @@ export interface Session {
 export interface CreateSessionFromV4TokenRequest {
   access_token: string;
 }
+
+export interface ValidateRequestTokenWithLoginRequest {
+  username: string;
+  password: string;
+  request_token: string;
+}

@@ -5,6 +5,7 @@ import {
   type GuestSession,
   type RequestToken,
   type Session,
+  type ValidateRequestTokenWithLoginRequest,
 } from "../../types/authentication.ts";
 
 export class AuthenticationClient {
@@ -29,6 +30,21 @@ export class AuthenticationClient {
    */
   async createRequestToken(): Promise<RequestToken> {
     const response = await this.axiosInstance.get("authentication/token/new");
+    return response.data;
+  }
+
+  /**
+   * Validate a request token with username and password.
+   * Step 2 of user login; prefer browser authorization when possible.
+   * @see https://developer.themoviedb.org/reference/authentication-create-session-from-login
+   */
+  async validateRequestTokenWithLogin(
+    request: ValidateRequestTokenWithLoginRequest
+  ): Promise<RequestToken> {
+    const response = await this.axiosInstance.post(
+      "authentication/token/validate_with_login",
+      request
+    );
     return response.data;
   }
 
