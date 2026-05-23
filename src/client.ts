@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 import { AccountClient } from "./client/account/index.ts";
+import { AuthenticationClient } from "./client/authentication/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -9,6 +10,7 @@ export interface TMDBClientConfig {
 export class TMDBClient {
   private client: AxiosInstance;
   public account: AccountClient;
+  public authentication: AuthenticationClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -29,6 +31,7 @@ export class TMDBClient {
     });
 
     this.account = new AccountClient(this.client);
+    this.authentication = new AuthenticationClient(this.client);
   }
 
   /**
