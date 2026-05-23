@@ -28,3 +28,11 @@ export interface ValidateRequestTokenWithLoginRequest {
   password: string;
   request_token: string;
 }
+
+export interface DeleteSessionRequest {
+  session_id: string;
+}
+
+export interface SuccessResponse {
+  success: boolean;
+}

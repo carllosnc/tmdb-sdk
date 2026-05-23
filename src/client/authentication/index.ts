@@ -2,9 +2,11 @@ import { type AxiosInstance } from "axios";
 import {
   type CreateSessionFromV4TokenRequest,
   type CreateSessionRequest,
+  type DeleteSessionRequest,
   type GuestSession,
   type RequestToken,
   type Session,
+  type SuccessResponse,
   type ValidateRequestTokenWithLoginRequest,
 } from "../../types/authentication.ts";
 
@@ -73,6 +75,17 @@ export class AuthenticationClient {
       "authentication/session/convert/4",
       request
     );
+    return response.data;
+  }
+
+  /**
+   * Delete a session.
+   * @see https://developer.themoviedb.org/reference/authentication-delete-session
+   */
+  async deleteSession(request: DeleteSessionRequest): Promise<SuccessResponse> {
+    const response = await this.axiosInstance.delete("authentication/session", {
+      data: request,
+    });
     return response.data;
   }
 }

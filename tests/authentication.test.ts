@@ -117,11 +117,30 @@ describe("TMDBClient - Authentication Namespace", () => {
     expect(response.expires_at).toBeTypeOf("string");
   });
 
+  test("should delete a session", async () => {
+    const result = { success: true };
+    const request = { session_id: "2629f70fb498edc263a0adb99118ac41f0053e8c" };
+    const del = mock(() => Promise.resolve({ data: result }));
+    const client = new AuthenticationClient({
+      delete: del,
+    } as unknown as AxiosInstance);
+
+    const response = await client.deleteSession(request);
+
+    expect(del).toHaveBeenCalledTimes(1);
+    expect(del).toHaveBeenCalledWith("authentication/session", {
+      data: request,
+    });
+    expect(response).toEqual(result);
+    expect(response.success).toBe(true);
+  });
+
   const token = process.env.TMDB_TOKEN;
   const tmdbUsername = process.env.TMDB_USERNAME;
   const tmdbPassword = process.env.TMDB_PASSWORD;
   const validatedRequestToken = process.env.TMDB_VALIDATED_REQUEST_TOKEN;
   const v4AccessToken = process.env.TMDB_V4_ACCESS_TOKEN;
+  const sessionId = process.env.TMDB_SESSION_ID;
 
   if (token) {
     test("should create a guest session from live TMDB API", async () => {
@@ -175,6 +194,18 @@ describe("TMDBClient - Authentication Namespace", () => {
         expect(response.request_token).toBeTypeOf("string");
         expect(response.request_token.length).toBeGreaterThan(0);
         expect(response.expires_at).toBeTypeOf("string");
+      });
+    }
+
+    if (sessionId) {
+      test("should delete a session via live TMDB API", async () => {
+        const client = new TMDBClient({ accessToken: token });
+        const response = await client.authentication.deleteSession({
+          session_id: sessionId,
+        });
+
+        expect(response).toBeDefined();
+        expect(response.success).toBe(true);
       });
     }
 
