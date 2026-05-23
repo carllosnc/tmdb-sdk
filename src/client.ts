@@ -11,6 +11,8 @@ import { FindClient } from "./client/find/index.ts";
 import { GenreClient } from "./client/genre/index.ts";
 import { GuestSessionClient } from "./client/guest-session/index.ts";
 import { KeywordClient } from "./client/keyword/index.ts";
+import { ListClient } from "./client/list/index.ts";
+import { MovieClient } from "./client/movie/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -31,6 +33,8 @@ export class TMDBClient {
   public genre: GenreClient;
   public guestSession: GuestSessionClient;
   public keyword: KeywordClient;
+  public list: ListClient;
+  public movie: MovieClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -62,6 +66,8 @@ export class TMDBClient {
     this.genre = new GenreClient(this.client);
     this.guestSession = new GuestSessionClient(this.client);
     this.keyword = new KeywordClient(this.client);
+    this.list = new ListClient(this.client);
+    this.movie = new MovieClient(this.client);
   }
 
   /**
