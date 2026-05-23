@@ -13,6 +13,7 @@ import { GuestSessionClient } from "./client/guest-session/index.ts";
 import { KeywordClient } from "./client/keyword/index.ts";
 import { ListClient } from "./client/list/index.ts";
 import { MovieClient } from "./client/movie/index.ts";
+import { NetworkClient } from "./client/network/index.ts";
 
 export interface TMDBClientConfig {
   accessToken?: string;
@@ -35,6 +36,7 @@ export class TMDBClient {
   public keyword: KeywordClient;
   public list: ListClient;
   public movie: MovieClient;
+  public network: NetworkClient;
 
   constructor(config: TMDBClientConfig) {
     const headers: Record<string, string> = {};
@@ -68,6 +70,7 @@ export class TMDBClient {
     this.keyword = new KeywordClient(this.client);
     this.list = new ListClient(this.client);
     this.movie = new MovieClient(this.client);
+    this.network = new NetworkClient(this.client);
   }
 
   /**
