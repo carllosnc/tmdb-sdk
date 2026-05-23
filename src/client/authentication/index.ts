@@ -7,11 +7,21 @@ import {
   type RequestToken,
   type Session,
   type SuccessResponse,
+  type ValidateKeyResponse,
   type ValidateRequestTokenWithLoginRequest,
 } from "../../types/authentication.ts";
 
 export class AuthenticationClient {
   constructor(private axiosInstance: AxiosInstance) {}
+
+  /**
+   * Validate the API key or access token.
+   * @see https://developer.themoviedb.org/reference/authentication-validate-key
+   */
+  async validateKey(): Promise<ValidateKeyResponse> {
+    const response = await this.axiosInstance.get("authentication");
+    return response.data;
+  }
 
   /**
    * Create a guest session.

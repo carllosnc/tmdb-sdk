@@ -4,6 +4,25 @@ import { AuthenticationClient } from "../src/client/authentication/index.ts";
 import { TMDBClient } from "../src/index.ts";
 
 describe("TMDBClient - Authentication Namespace", () => {
+  test("should validate API key", async () => {
+    const validateKeyResponse = {
+      success: true,
+      status_code: 1,
+      status_message: "Success.",
+    };
+    const get = mock(() => Promise.resolve({ data: validateKeyResponse }));
+    const client = new AuthenticationClient({ get } as unknown as AxiosInstance);
+
+    const response = await client.validateKey();
+
+    expect(get).toHaveBeenCalledTimes(1);
+    expect(get).toHaveBeenCalledWith("authentication");
+    expect(response).toEqual(validateKeyResponse);
+    expect(response.success).toBe(true);
+    expect(response.status_code).toBe(1);
+    expect(response.status_message).toBe("Success.");
+  });
+
   test("should create a guest session", async () => {
     const guestSession = {
       success: true,
@@ -143,6 +162,20 @@ describe("TMDBClient - Authentication Namespace", () => {
   const sessionId = process.env.TMDB_SESSION_ID;
 
   if (token) {
+    test("should validate API key from live TMDB API", async () => {
+      const client = new TMDBClient({ accessToken: token });
+      const response = await client.authentication.validateKey();
+
+      expect(response).toBeDefined();
+      expect(response.success).toBe(true);
+      if (response.status_code !== undefined) {
+        expect(response.status_code).toBe(1);
+      }
+      if (response.status_message !== undefined) {
+        expect(response.status_message).toBeTypeOf("string");
+      }
+    });
+
     test("should create a guest session from live TMDB API", async () => {
       const client = new TMDBClient({ accessToken: token });
       const response = await client.authentication.createGuestSession();

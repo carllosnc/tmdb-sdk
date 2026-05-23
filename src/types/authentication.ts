@@ -36,3 +36,9 @@ export interface DeleteSessionRequest {
 export interface SuccessResponse {
   success: boolean;
 }
+
+export interface ValidateKeyResponse {
+  success: boolean;
+  status_code?: number;
+  status_message?: string;
+}
