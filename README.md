@@ -1,70 +1,123 @@
-# TMDB - SDK
+# TMDB SDK
 
-A lightweight TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). It wraps common endpoints with typed requests and responses, organized by namespace (`account`, `authentication`).
-
-## Installation
+A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 21 namespaces, 242 tests, zero runtime dependencies beyond `axios`.
 
 ```bash
-bun install
+bun add tmdb-sdk
 ```
 
 ## Authentication
 
-Create a client with either a **v3/v4 read access token** (recommended) or an **API key**:
-
 ```typescript
-import { TMDBClient } from "./src/index.ts";
+import { TMDBClient } from "tmdb-sdk";
 
 const client = new TMDBClient({
-  accessToken: process.env.TMDB_TOKEN,
+  accessToken: process.env.TMDB_TOKEN, // recommended
 });
 
-// or
-const clientWithKey = new TMDBClient({
+// or with an API key
+const client2 = new TMDBClient({
   apiKey: process.env.TMDB_KEY,
 });
 ```
 
 Get credentials from your [TMDB API settings](https://www.themoviedb.org/settings/api).
 
-## Usage
+## Quick Start
 
 ```typescript
-import { TMDBClient } from "./src/index.ts";
-
 const client = new TMDBClient({ accessToken: process.env.TMDB_TOKEN });
 
-// Validate credentials
-const keyCheck = await client.authentication.validateKey();
-console.log(keyCheck.success); // true
-
-// System configuration (image base URLs, sizes, etc.)
+// System config
 const config = await client.getConfiguration();
-console.log(config.images.base_url);
 
-// Account (requires a user access token)
+// Account
 const account = await client.account.getDetails();
-console.log(account.username);
 
-// Guest session (no user login required)
-const guest = await client.authentication.createGuestSession();
-console.log(guest.guest_session_id);
+// Movie details
+const movie = await client.movie.getDetails(550);
+
+// TV series with season
+const season = await client.tv.getSeasonDetails(1399, 1);
+
+// Search
+const results = await client.search.getMovies({ query: "Matrix" });
+
+// Watch providers
+const regions = await client.watchProviders.getAvailableRegions();
 ```
+
+## Namespaces
+
+| Client | Key Methods |
+|---|---|
+| `client.account` | favorites, watchlist, ratings, lists |
+| `client.authentication` | sessions, request tokens, guest sessions, key validation |
+| `client.certification` | movie and TV certifications |
+| `client.changes` | movie, TV, and person change log |
+| `client.collection` | collection details, images, translations |
+| `client.company` | company details, alternative names, images |
+| `client.configuration` | API and image configuration |
+| `client.discover` | movie and TV discovery with filters |
+| `client.find` | find by external IDs |
+| `client.genre` | movie and TV genre lists |
+| `client.guestSession` | guest session rated movies/TV/episodes |
+| `client.keyword` | keyword details and movies |
+| `client.list` | create, read, update, delete lists |
+| `client.movie` | details, credits, images, videos, ratings, watch providers, recommendations, similar, and more |
+| `client.network` | network details and alternative names |
+| `client.person` | details, credits, external IDs, images, tagged images, changes |
+| `client.review` | review details |
+| `client.search` | multi, movie, TV, person, collection, company, keyword |
+| `client.trending` | trending movies, TV, people (day/week) |
+| `client.tv` | series, season, and episode details, credits, images, videos, ratings, watch providers, episode groups, and more |
+| `client.watchProviders` | available regions, movie providers, TV providers |
 
 ## Development
 
 ```bash
-# Run the demo script
-bun run index.ts
+# Install dependencies
+bun install
 
 # Run tests (mocked by default; set TMDB_TOKEN for live API tests)
 bun test
+
+# Type-check
+bun run tsc
+
+# Run the demo
+bun run index.ts
 ```
 
-## Project structure
+## Project Structure
 
-- `src/client/account` — favorites, watchlists, ratings, lists
-- `src/client/authentication` — sessions, request tokens, guest sessions, key validation
-- `src/types` — TypeScript types for API responses
+```
+src/
+├── client.ts            # TMDBClient — wires all sub-clients
+├── index.ts             # Barrel exports
+├── client/              # One directory per namespace
+│   ├── account/
+│   ├── authentication/
+│   ├── certification/
+│   ├── changes/
+│   ├── collection/
+│   ├── company/
+│   ├── configuration/
+│   ├── discover/
+│   ├── find/
+│   ├── genre/
+│   ├── guest-session/
+│   ├── keyword/
+│   ├── list/
+│   ├── movie/
+│   ├── network/
+│   ├── person/
+│   ├── review/
+│   ├── search/
+│   ├── trending/
+│   ├── tv/
+│   └── watch-providers/
+└── types/               # TypeScript interfaces for every endpoint
+```
 
-Built with [Bun](https://bun.com).
+Built with [Bun](https://bun.sh).
