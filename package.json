@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/carllosnc/tmdb-sdk.git"
   },
+  "homepage": "https://github.com/carllosnc/tmdb-sdk#readme",
   "keywords": [
     "tmdb",
     "themoviedb",
@@ -48,8 +49,11 @@
     "@types/bun": "latest",
     "typescript": "^6.0.3"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.0.0 || ^6.0.0"
   },
   "dependencies": {
     "axios": "^1.16.1"

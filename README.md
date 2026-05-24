@@ -85,7 +85,7 @@ bun install
 bun test
 
 # Type-check
-bun run tsc
+bun run typecheck
 
 # Run the demo
 bun run index.ts
