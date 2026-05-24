@@ -15,6 +15,7 @@ import {
   type SearchTvParams,
   type SearchTvResponse,
 } from "../../types/search.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class SearchClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -26,14 +27,8 @@ export class SearchClient {
   async searchCollections(
     params: SearchCollectionParams
   ): Promise<SearchCollectionResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.includeAdult !== undefined) queryParams["include_adult"] = params.includeAdult;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.region) queryParams["region"] = params.region;
-
     const response = await this.axiosInstance.get("search/collection", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -45,11 +40,8 @@ export class SearchClient {
   async searchCompanies(
     params: SearchCompanyParams
   ): Promise<SearchCompanyResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.page) queryParams["page"] = params.page;
-
     const response = await this.axiosInstance.get("search/company", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -61,11 +53,8 @@ export class SearchClient {
   async searchKeywords(
     params: SearchKeywordParams
   ): Promise<SearchKeywordResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.page) queryParams["page"] = params.page;
-
     const response = await this.axiosInstance.get("search/keyword", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -77,16 +66,8 @@ export class SearchClient {
   async searchMovies(
     params: SearchMovieParams
   ): Promise<SearchMovieResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.includeAdult !== undefined) queryParams["include_adult"] = params.includeAdult;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.primaryReleaseYear) queryParams["primary_release_year"] = params.primaryReleaseYear;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.region) queryParams["region"] = params.region;
-    if (params.year) queryParams["year"] = params.year;
-
     const response = await this.axiosInstance.get("search/movie", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -98,13 +79,8 @@ export class SearchClient {
   async searchMulti(
     params: SearchMultiParams
   ): Promise<SearchMultiResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.includeAdult !== undefined) queryParams["include_adult"] = params.includeAdult;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-
     const response = await this.axiosInstance.get("search/multi", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -116,13 +92,8 @@ export class SearchClient {
   async searchPeople(
     params: SearchPersonParams
   ): Promise<SearchPersonResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.includeAdult !== undefined) queryParams["include_adult"] = params.includeAdult;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-
     const response = await this.axiosInstance.get("search/person", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
@@ -134,15 +105,8 @@ export class SearchClient {
   async searchTvShows(
     params: SearchTvParams
   ): Promise<SearchTvResponse> {
-    const queryParams: Record<string, any> = { query: params.query };
-    if (params.firstAirDateYear) queryParams["first_air_date_year"] = params.firstAirDateYear;
-    if (params.includeAdult !== undefined) queryParams["include_adult"] = params.includeAdult;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.year) queryParams["year"] = params.year;
-
     const response = await this.axiosInstance.get("search/tv", {
-      params: queryParams,
+      params: buildQueryParams(params),
     });
     return response.data;
   }
