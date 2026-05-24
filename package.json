@@ -1,5 +1,5 @@
 {
-  "name": "@cnc/tmdb-sdk",
+  "name": "tmdb-sdk",
   "version": "0.1.0",
   "description": "A lightweight, fully-typed TypeScript client for the TMDB API v3",
   "license": "MIT",
