@@ -31,6 +31,16 @@ export { SearchClient } from "./client/search/index.js";
 export { TrendingClient } from "./client/trending/index.js";
 export { TvClient } from "./client/tv/index.js";
 export { WatchProvidersClient } from "./client/watch-providers/index.js";
+export {
+  ImageUrlBuilder,
+  type BackdropSize,
+  type ImageType,
+  type ImageUrlBuilderConfig,
+  type LogoSize,
+  type PosterSize,
+  type ProfileSize,
+  type StillSize,
+} from "./utils/image.js";
 export * from "./types/account.js";
 export * from "./types/authentication.js";
 export * from "./types/certification.js";
