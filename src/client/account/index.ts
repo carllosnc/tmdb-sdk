@@ -1,24 +1,25 @@
 import { type AxiosInstance } from "axios";
 import {
   type AccountDetails,
-  type GetAccountDetailsParams,
-  type AddFavoriteRequest,
   type AddFavoriteParams,
-  type AddWatchlistRequest,
+  type AddFavoriteRequest,
   type AddWatchlistParams,
-  type TMDBResponse,
+  type AddWatchlistRequest,
   type FavoriteMovie,
   type FavoriteTV,
-  type PaginatedResponse,
+  type GetAccountDetailsParams,
   type GetFavoritesParams,
-  type AccountList,
   type GetListsParams,
+  type GetRatedParams,
+  type GetWatchlistParams,
+  type PaginatedResponse,
+  type RatedEpisode,
   type RatedMovie,
   type RatedTV,
-  type GetRatedParams,
-  type RatedEpisode,
-  type GetWatchlistParams,
+  type TMDBResponse,
+  type AccountList,
 } from "../../types/account.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class AccountClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -29,13 +30,9 @@ export class AccountClient {
    * @see https://developer.themoviedb.org/reference/account-details
    */
   async getDetails(params?: GetAccountDetailsParams): Promise<AccountDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.sessionId) {
-      queryParams["session_id"] = params.sessionId;
-    }
-
-    const path = params?.accountId ? `account/${params.accountId}` : "account";
-    const response = await this.axiosInstance.get(path, { params: queryParams });
+    const { accountId, ...query } = params ?? {};
+    const path = accountId ? `account/${accountId}` : "account";
+    const response = await this.axiosInstance.get(path, { params: buildQueryParams(query) });
     return response.data;
   }
 
@@ -47,15 +44,11 @@ export class AccountClient {
     params: AddFavoriteParams,
     request: AddFavoriteRequest
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) {
-      queryParams["session_id"] = params.sessionId;
-    }
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.post(
-      `account/${params.accountId}/favorite`,
+      `account/${accountId}/favorite`,
       request,
-      { params: queryParams }
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -68,15 +61,11 @@ export class AccountClient {
     params: AddWatchlistParams,
     request: AddWatchlistRequest
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) {
-      queryParams["session_id"] = params.sessionId;
-    }
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.post(
-      `account/${params.accountId}/watchlist`,
+      `account/${accountId}/watchlist`,
       request,
-      { params: queryParams }
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -88,15 +77,10 @@ export class AccountClient {
   async getFavoriteMovies(
     params: GetFavoritesParams
   ): Promise<PaginatedResponse<FavoriteMovie>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/favorite/movies`,
-      { params: queryParams }
+      `account/${accountId}/favorite/movies`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -108,15 +92,10 @@ export class AccountClient {
   async getFavoriteTV(
     params: GetFavoritesParams
   ): Promise<PaginatedResponse<FavoriteTV>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/favorite/tv`,
-      { params: queryParams }
+      `account/${accountId}/favorite/tv`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -128,13 +107,10 @@ export class AccountClient {
   async getLists(
     params: GetListsParams
   ): Promise<PaginatedResponse<AccountList>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.page) queryParams["page"] = params.page;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/lists`,
-      { params: queryParams }
+      `account/${accountId}/lists`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -146,15 +122,10 @@ export class AccountClient {
   async getRatedMovies(
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedMovie>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/rated/movies`,
-      { params: queryParams }
+      `account/${accountId}/rated/movies`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -166,15 +137,10 @@ export class AccountClient {
   async getRatedTV(
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedTV>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/rated/tv`,
-      { params: queryParams }
+      `account/${accountId}/rated/tv`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -186,15 +152,10 @@ export class AccountClient {
   async getRatedTVEpisodes(
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedEpisode>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/rated/tv/episodes`,
-      { params: queryParams }
+      `account/${accountId}/rated/tv/episodes`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -206,15 +167,10 @@ export class AccountClient {
   async getWatchlistMovies(
     params: GetWatchlistParams
   ): Promise<PaginatedResponse<FavoriteMovie>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/watchlist/movies`,
-      { params: queryParams }
+      `account/${accountId}/watchlist/movies`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
@@ -226,15 +182,10 @@ export class AccountClient {
   async getWatchlistTV(
     params: GetWatchlistParams
   ): Promise<PaginatedResponse<FavoriteTV>> {
-    const queryParams: Record<string, any> = {};
-    if (params.sessionId) queryParams["session_id"] = params.sessionId;
-    if (params.language) queryParams["language"] = params.language;
-    if (params.page) queryParams["page"] = params.page;
-    if (params.sortBy) queryParams["sort_by"] = params.sortBy;
-
+    const { accountId, ...query } = params;
     const response = await this.axiosInstance.get(
-      `account/${params.accountId}/watchlist/tv`,
-      { params: queryParams }
+      `account/${accountId}/watchlist/tv`,
+      { params: buildQueryParams(query) }
     );
     return response.data;
   }
