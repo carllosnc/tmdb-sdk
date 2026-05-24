@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.3.0] - 2026-05-24
+
+### Added
+- Retry interceptor with exponential backoff (configurable via `TMDBClientConfig.retry`)
+- Shared `buildQueryParams` utility with camelCase-to-snake_case conversion
+- `page` and `includeAdult` params to `TrendingParams`
+- `append_to_response` support to `CollectionClient.getDetails`
+- `includeAdult` and `page` params to `FindByIdParams`
+- `region` param to `SearchMultiParams`, `SearchPersonParams`, `SearchTvParams`
+- Watch providers test suite (6 tests)
+
+### Changed
+- All client modules refactored to use shared `buildQueryParams` utility
+- `WatchProvidersListParams.watch_region` renamed to `watchRegion` (camelCase)
+- `append_to_response` handling: replaced non-null assertions with safe optional chaining
+
+### Fixed
+- Network client JSDoc `@see` URLs (were pointing to `alternative-names-copy`)
+- `tsconfig.build.json` missing `bun` types causing `setTimeout` resolution error
+
 ## [0.2.0] - 2026-05-24
 
 ### Added
