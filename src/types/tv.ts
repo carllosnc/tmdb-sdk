@@ -145,8 +145,34 @@ export type TvAppendToResponseValue =
   | "videos"
   | "watch/providers";
 
+export interface TvAppendToResponseMap {
+  account_states: TvSeriesAccountStates;
+  aggregate_credits: TvAggregateCreditsResponse;
+  alternative_titles: TvSeriesAlternativeTitlesResponse;
+  changes: TvSeriesChangesResponse;
+  content_ratings: TvContentRatingsResponse;
+  credits: TvCreditsResponse;
+  episode_groups: TvEpisodeGroupsResponse;
+  external_ids: TvSeriesExternalIdsResponse;
+  images: TvSeriesImagesResponse;
+  keywords: TvSeriesKeywordsResponse;
+  lists: TvSeriesListsResponse;
+  recommendations: TvListResponse;
+  reviews: TvSeriesReviewsResponse;
+  screened_theatrically: TvScreenedTheatricallyResponse;
+  similar: TvListResponse;
+  translations: TvSeriesTranslationsResponse;
+  videos: TvSeriesVideosResponse;
+  "watch/providers": TvSeriesWatchProvidersResponse;
+}
+
+export type WithTvAppendToResponse<T extends TvAppendToResponseValue[]> =
+  TvSeriesDetails & {
+    [K in T[number]]: TvAppendToResponseMap[K];
+  };
+
 export interface TvSeriesDetailsParams {
-  append_to_response?: TvAppendToResponseValue | `${TvAppendToResponseValue},${string}`;
+  append_to_response?: TvAppendToResponseValue[];
   language?: string;
 }
 
@@ -462,8 +488,25 @@ export type TvSeasonAppendToResponseValue =
   | "videos"
   | "watch/providers";
 
+export interface TvSeasonAppendToResponseMap {
+  account_states: TvSeasonAccountStates;
+  aggregate_credits: TvAggregateCreditsResponse;
+  changes: TvSeriesChangesResponse;
+  credits: TvCreditsResponse;
+  external_ids: TvSeasonExternalIdsResponse;
+  images: TvSeasonImagesResponse;
+  translations: TvSeriesTranslationsResponse;
+  videos: TvSeriesVideosResponse;
+  "watch/providers": TvSeriesWatchProvidersResponse;
+}
+
+export type WithTvSeasonAppendToResponse<T extends TvSeasonAppendToResponseValue[]> =
+  TvSeasonDetails & {
+    [K in T[number]]: TvSeasonAppendToResponseMap[K];
+  };
+
 export interface TvSeasonDetailsParams {
-  append_to_response?: TvSeasonAppendToResponseValue | `${TvSeasonAppendToResponseValue},${string}`;
+  append_to_response?: TvSeasonAppendToResponseValue[];
   language?: string;
 }
 
@@ -523,8 +566,23 @@ export type TvEpisodeAppendToResponseValue =
   | "translations"
   | "videos";
 
+export interface TvEpisodeAppendToResponseMap {
+  account_states: TvEpisodeAccountStates;
+  changes: TvSeriesChangesResponse;
+  credits: TvEpisodeCreditsResponse;
+  external_ids: TvEpisodeExternalIdsResponse;
+  images: TvEpisodeImagesResponse;
+  translations: TvSeriesTranslationsResponse;
+  videos: TvSeriesVideosResponse;
+}
+
+export type WithTvEpisodeAppendToResponse<T extends TvEpisodeAppendToResponseValue[]> =
+  TvEpisodeDetails & {
+    [K in T[number]]: TvEpisodeAppendToResponseMap[K];
+  };
+
 export interface TvEpisodeDetailsParams {
-  append_to_response?: TvEpisodeAppendToResponseValue | `${TvEpisodeAppendToResponseValue},${string}`;
+  append_to_response?: TvEpisodeAppendToResponseValue[];
   language?: string;
 }
 

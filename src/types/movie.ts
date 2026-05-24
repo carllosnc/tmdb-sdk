@@ -112,8 +112,31 @@ export type MovieAppendToResponseValue =
   | "videos"
   | "watch/providers";
 
+export interface MovieAppendToResponseMap {
+  account_states: MovieAccountStates;
+  alternative_titles: MovieAlternativeTitlesResponse;
+  changes: MovieChangesResponse;
+  credits: MovieCreditsResponse;
+  external_ids: MovieExternalIdsResponse;
+  images: MovieImagesResponse;
+  keywords: MovieKeywordsResponse;
+  lists: MovieListsResponse;
+  recommendations: MovieListResponse;
+  release_dates: MovieReleaseDatesResponse;
+  reviews: MovieReviewsResponse;
+  similar: MovieListResponse;
+  translations: MovieTranslationsResponse;
+  videos: MovieVideosResponse;
+  "watch/providers": MovieWatchProvidersResponse;
+}
+
+export type WithMovieAppendToResponse<T extends MovieAppendToResponseValue[]> =
+  MovieDetails & {
+    [K in T[number]]: MovieAppendToResponseMap[K];
+  };
+
 export interface MovieDetailsParams {
-  append_to_response?: MovieAppendToResponseValue | `${MovieAppendToResponseValue},${string}`;
+  append_to_response?: MovieAppendToResponseValue[];
   language?: string;
 }
 
@@ -408,5 +431,3 @@ export interface DeleteRatingParams {
   session_id?: string;
   guest_session_id?: string;
 }
-
-

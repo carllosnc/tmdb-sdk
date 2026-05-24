@@ -68,8 +68,24 @@ export type PersonAppendToResponseValue =
   | "translations"
   | "tv_credits";
 
+export interface PersonAppendToResponseMap {
+  changes: PersonChangesResponse;
+  combined_credits: CombinedCreditsResponse;
+  external_ids: PersonExternalIds;
+  images: PersonImagesResponse;
+  movie_credits: PersonMovieCreditsResponse;
+  tagged_images: PersonTaggedImagesResponse;
+  translations: PersonTranslationsResponse;
+  tv_credits: PersonTvCreditsResponse;
+}
+
+export type WithPersonAppendToResponse<T extends PersonAppendToResponseValue[]> =
+  PersonDetails & {
+    [K in T[number]]: PersonAppendToResponseMap[K];
+  };
+
 export interface PersonDetailsParams {
-  append_to_response?: PersonAppendToResponseValue | `${PersonAppendToResponseValue},${string}`;
+  append_to_response?: PersonAppendToResponseValue[];
   language?: string;
 }
 
