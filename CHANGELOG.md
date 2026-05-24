@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0] - 2026-05-24
+
+### Added
+- `append_to_response` now accepts typed arrays instead of raw strings
+- `WithMovieAppendToResponse`, `WithPersonAppendToResponse`, `WithTvAppendToResponse` utility types for typed response intersection
+- Discover and search examples (`examples/discover.ts`, `examples/search.ts`)
+- `append_to_response` dedup tests and TV append tests
+- Resources section in README with TMDB API links
+
+### Changed
+- `append_to_response` params: `string` → typed union arrays (`MovieAppendToResponseValue[]`, etc.)
+- Runtime dedup via `[...new Set(array)]` on `append_to_response` values
+- Client methods now convert arrays to comma-separated strings for the API
+
 ## [0.1.1] - 2026-05-24
 
 ### Added
