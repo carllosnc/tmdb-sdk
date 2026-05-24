@@ -58,8 +58,18 @@ export interface PersonDetails {
   profile_path: string | null;
 }
 
+export type PersonAppendToResponseValue =
+  | "changes"
+  | "combined_credits"
+  | "external_ids"
+  | "images"
+  | "movie_credits"
+  | "tagged_images"
+  | "translations"
+  | "tv_credits";
+
 export interface PersonDetailsParams {
-  append_to_response?: string;
+  append_to_response?: PersonAppendToResponseValue | `${PersonAppendToResponseValue},${string}`;
   language?: string;
 }
 

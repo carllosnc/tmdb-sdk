@@ -125,8 +125,28 @@ export interface TvSeriesDetails {
   vote_count: number;
 }
 
+export type TvAppendToResponseValue =
+  | "account_states"
+  | "aggregate_credits"
+  | "alternative_titles"
+  | "changes"
+  | "content_ratings"
+  | "credits"
+  | "episode_groups"
+  | "external_ids"
+  | "images"
+  | "keywords"
+  | "lists"
+  | "recommendations"
+  | "reviews"
+  | "screened_theatrically"
+  | "similar"
+  | "translations"
+  | "videos"
+  | "watch/providers";
+
 export interface TvSeriesDetailsParams {
-  append_to_response?: string;
+  append_to_response?: TvAppendToResponseValue | `${TvAppendToResponseValue},${string}`;
   language?: string;
 }
 
@@ -431,8 +451,19 @@ export interface TvSeasonDetails {
   vote_average: number;
 }
 
+export type TvSeasonAppendToResponseValue =
+  | "account_states"
+  | "aggregate_credits"
+  | "changes"
+  | "credits"
+  | "external_ids"
+  | "images"
+  | "translations"
+  | "videos"
+  | "watch/providers";
+
 export interface TvSeasonDetailsParams {
-  append_to_response?: string;
+  append_to_response?: TvSeasonAppendToResponseValue | `${TvSeasonAppendToResponseValue},${string}`;
   language?: string;
 }
 
@@ -483,8 +514,17 @@ export interface TvEpisodeDetails {
   vote_count: number;
 }
 
+export type TvEpisodeAppendToResponseValue =
+  | "account_states"
+  | "changes"
+  | "credits"
+  | "external_ids"
+  | "images"
+  | "translations"
+  | "videos";
+
 export interface TvEpisodeDetailsParams {
-  append_to_response?: string;
+  append_to_response?: TvEpisodeAppendToResponseValue | `${TvEpisodeAppendToResponseValue},${string}`;
   language?: string;
 }
 

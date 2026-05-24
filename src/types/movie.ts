@@ -95,8 +95,25 @@ export interface MovieDetails {
   vote_count: number;
 }
 
+export type MovieAppendToResponseValue =
+  | "account_states"
+  | "alternative_titles"
+  | "changes"
+  | "credits"
+  | "external_ids"
+  | "images"
+  | "keywords"
+  | "lists"
+  | "recommendations"
+  | "release_dates"
+  | "reviews"
+  | "similar"
+  | "translations"
+  | "videos"
+  | "watch/providers";
+
 export interface MovieDetailsParams {
-  append_to_response?: string;
+  append_to_response?: MovieAppendToResponseValue | `${MovieAppendToResponseValue},${string}`;
   language?: string;
 }
 
