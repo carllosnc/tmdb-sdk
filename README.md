@@ -137,6 +137,11 @@ src/
 └── types/               # TypeScript interfaces for every endpoint
 ```
 
+## Resources
+
+- [TMDB API Reference — Getting Started](https://developer.themoviedb.org/reference/getting-started)
+- [TMDB API Docs — Getting Started](https://developer.themoviedb.org/docs/getting-started)
+
 ---
 
 Carlos Costa @ 2026
