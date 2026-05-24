@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 import { createErrorInterceptor } from "./errors.js";
+import { setupRetry, type RetryConfig } from "./utils/retry.js";
 import { AccountClient } from "./client/account/index.js";
 import { AuthenticationClient } from "./client/authentication/index.js";
 import { CertificationClient } from "./client/certification/index.js";
@@ -25,6 +26,7 @@ import { WatchProvidersClient } from "./client/watch-providers/index.js";
 export interface TMDBClientConfig {
   accessToken?: string;
   apiKey?: string;
+  retry?: boolean | RetryConfig;
 }
 
 export class TMDBClient {
@@ -70,6 +72,10 @@ export class TMDBClient {
     });
 
     this.client.interceptors.response.use(undefined, createErrorInterceptor());
+
+    if (config.retry) {
+      setupRetry(this.client, config.retry === true ? undefined : config.retry);
+    }
 
     this.account = new AccountClient(this.client);
     this.authentication = new AuthenticationClient(this.client);
