@@ -35,6 +35,7 @@ import {
   type DeleteRatingParams,
 } from "../../types/movie.js";
 import { type TMDBResponse } from "../../types/account.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class MovieClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -44,12 +45,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-now-playing-list
    */
   async getNowPlaying(params?: NowPlayingParams): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.region) queryParams["region"] = params.region;
-
-    const response = await this.axiosInstance.get("movie/now_playing", { params: queryParams });
+    const response = await this.axiosInstance.get("movie/now_playing", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -58,12 +54,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-popular-list
    */
   async getPopular(params?: PopularParams): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.region) queryParams["region"] = params.region;
-
-    const response = await this.axiosInstance.get("movie/popular", { params: queryParams });
+    const response = await this.axiosInstance.get("movie/popular", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -72,12 +63,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-top-rated-list
    */
   async getTopRated(params?: TopRatedParams): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.region) queryParams["region"] = params.region;
-
-    const response = await this.axiosInstance.get("movie/top_rated", { params: queryParams });
+    const response = await this.axiosInstance.get("movie/top_rated", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -86,12 +72,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-upcoming-list
    */
   async getUpcoming(params?: UpcomingParams): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.region) queryParams["region"] = params.region;
-
-    const response = await this.axiosInstance.get("movie/upcoming", { params: queryParams });
+    const response = await this.axiosInstance.get("movie/upcoming", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -100,9 +81,10 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-details
    */
   async getDetails(id: number, params?: MovieDetailsParams): Promise<MovieDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
+    if (queryParams.append_to_response) {
+      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+    }
 
     const response = await this.axiosInstance.get(`movie/${id}`, { params: queryParams });
     return response.data;
@@ -116,11 +98,7 @@ export class MovieClient {
     id: number,
     params?: MovieAccountStatesParams
   ): Promise<MovieAccountStates> {
-    const queryParams: Record<string, any> = {};
-    if (params?.session_id) queryParams["session_id"] = params.session_id;
-    if (params?.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
-    const response = await this.axiosInstance.get(`movie/${id}/account_states`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/account_states`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -132,10 +110,7 @@ export class MovieClient {
     id: number,
     params?: MovieAlternativeTitlesParams
   ): Promise<MovieAlternativeTitlesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.country) queryParams["country"] = params.country;
-
-    const response = await this.axiosInstance.get(`movie/${id}/alternative_titles`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/alternative_titles`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -144,12 +119,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-changes
    */
   async getChanges(id: number, params?: MovieChangesParams): Promise<MovieChangesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.end_date) queryParams["end_date"] = params.end_date;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.start_date) queryParams["start_date"] = params.start_date;
-
-    const response = await this.axiosInstance.get(`movie/${id}/changes`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/changes`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -158,10 +128,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-credits
    */
   async getCredits(id: number, params?: MovieCreditsParams): Promise<MovieCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
-    const response = await this.axiosInstance.get(`movie/${id}/credits`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/credits`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -179,11 +146,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-images
    */
   async getImages(id: number, params?: MovieImagesParams): Promise<MovieImagesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_image_language) queryParams["include_image_language"] = params.include_image_language;
-    if (params?.language) queryParams["language"] = params.language;
-
-    const response = await this.axiosInstance.get(`movie/${id}/images`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/images`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -210,11 +173,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-lists
    */
   async getLists(id: number, params?: MovieListsParams): Promise<MovieListsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-
-    const response = await this.axiosInstance.get(`movie/${id}/lists`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/lists`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -226,11 +185,7 @@ export class MovieClient {
     id: number,
     params?: MovieRecommendationsParams
   ): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-
-    const response = await this.axiosInstance.get(`movie/${id}/recommendations`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/recommendations`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -248,11 +203,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-reviews
    */
   async getReviews(id: number, params?: MovieReviewsParams): Promise<MovieReviewsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-
-    const response = await this.axiosInstance.get(`movie/${id}/reviews`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/reviews`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -264,11 +215,7 @@ export class MovieClient {
     id: number,
     params?: MovieSimilarParams
   ): Promise<MovieListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-
-    const response = await this.axiosInstance.get(`movie/${id}/similar`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/similar`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -286,10 +233,7 @@ export class MovieClient {
    * @see https://developer.themoviedb.org/reference/movie-videos
    */
   async getVideos(id: number, params?: MovieVideosParams): Promise<MovieVideosResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
-    const response = await this.axiosInstance.get(`movie/${id}/videos`, { params: queryParams });
+    const response = await this.axiosInstance.get(`movie/${id}/videos`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -311,14 +255,10 @@ export class MovieClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.post(
       `movie/${id}/rating`,
       request,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -331,13 +271,9 @@ export class MovieClient {
     id: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.delete(
       `movie/${id}/rating`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
