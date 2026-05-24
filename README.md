@@ -89,6 +89,9 @@ bun run typecheck
 
 # Run the demo
 bun run index.ts
+
+# Run examples (requires TMDB_TOKEN in .env or --env-file)
+bun --env-file=.env run examples/movie.ts
 ```
 
 ## Project Structure
@@ -122,4 +125,6 @@ src/
 └── types/               # TypeScript interfaces for every endpoint
 ```
 
-Built with [Bun](https://bun.sh).
+---
+
+Carlos Costa @ 2026
