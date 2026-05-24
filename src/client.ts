@@ -90,12 +90,4 @@ export class TMDBClient {
     this.tv = new TvClient(this.client);
     this.watchProviders = new WatchProvidersClient(this.client);
   }
-
-  /**
-   * Get system wide configuration information (e.g. image URLs, sizes, etc.)
-   * @see https://developer.themoviedb.org/reference/configuration-details
-   */
-  async getConfiguration(): Promise<import("./types/configuration.ts").ConfigurationDetails> {
-    return this.configuration.getDetails();
-  }
 }

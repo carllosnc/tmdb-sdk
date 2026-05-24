@@ -26,7 +26,7 @@ describe("TMDBClient - Core Client", () => {
         ? new TMDBClient({ accessToken: token })
         : new TMDBClient({ apiKey: key });
 
-      const config = await client.getConfiguration();
+      const config = await client.configuration.getDetails();
       expect(config).toBeDefined();
       expect(config.images).toBeDefined();
       expect(config.images.base_url).toBeDefined();

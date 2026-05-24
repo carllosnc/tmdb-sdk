@@ -14,7 +14,7 @@ const client = token
 
 try {
   console.log("Fetching TMDB API configuration...");
-  const config = await client.getConfiguration();
+  const config = await client.configuration.getDetails();
   console.log("\nSuccess! TMDB configuration loaded:");
   console.log("Base Image URL:", config.images?.base_url);
   console.log("Secure Image URL:", config.images?.secure_base_url);
