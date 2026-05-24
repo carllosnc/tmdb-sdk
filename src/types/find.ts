@@ -94,5 +94,7 @@ export type ExternalSource =
 
 export interface FindByIdParams {
   externalSource: ExternalSource;
+  includeAdult?: boolean;
   language?: string;
+  page?: number;
 }
