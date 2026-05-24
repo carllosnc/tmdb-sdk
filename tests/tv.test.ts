@@ -80,6 +80,39 @@ describe("TMDBClient - TV Namespace", () => {
     });
   });
 
+  test("should fetch series details with append_to_response", async () => {
+    const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
+    const client = new TvClient({ get } as unknown as AxiosInstance);
+
+    await client.getDetails(1399, { append_to_response: ["credits", "videos"] });
+
+    expect(get).toHaveBeenCalledWith("tv/1399", {
+      params: { append_to_response: "credits,videos" },
+    });
+  });
+
+  test("should fetch season details with append_to_response", async () => {
+    const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
+    const client = new TvClient({ get } as unknown as AxiosInstance);
+
+    await client.getSeasonDetails(1399, 1, { append_to_response: ["credits", "videos"] });
+
+    expect(get).toHaveBeenCalledWith("tv/1399/season/1", {
+      params: { append_to_response: "credits,videos" },
+    });
+  });
+
+  test("should fetch episode details with append_to_response", async () => {
+    const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
+    const client = new TvClient({ get } as unknown as AxiosInstance);
+
+    await client.getEpisodeDetails(1399, 1, 1, { append_to_response: ["credits", "videos"] });
+
+    expect(get).toHaveBeenCalledWith("tv/1399/season/1/episode/1", {
+      params: { append_to_response: "credits,videos" },
+    });
+  });
+
   const token = process.env.TMDB_TOKEN;
 
   if (token) {

@@ -145,10 +145,21 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
     const client = new MovieClient({ get } as unknown as AxiosInstance);
 
-    await client.getDetails(550, { append_to_response: "videos,images" });
+    await client.getDetails(550, { append_to_response: ["videos", "images"] });
 
     expect(get).toHaveBeenCalledWith("movie/550", {
       params: { append_to_response: "videos,images" },
+    });
+  });
+
+  test("should deduplicate append_to_response values", async () => {
+    const get = mock(() => Promise.resolve({ data: { id: 550 } }));
+    const client = new MovieClient({ get } as unknown as AxiosInstance);
+
+    await client.getDetails(550, { append_to_response: ["credits", "videos", "credits"] });
+
+    expect(get).toHaveBeenCalledWith("movie/550", {
+      params: { append_to_response: "credits,videos" },
     });
   });
 

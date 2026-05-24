@@ -93,7 +93,7 @@ describe("TMDBClient - Person Namespace", () => {
     const get = mock(() => Promise.resolve({ data: {} }));
     const client = new PersonClient({ get } as unknown as AxiosInstance);
 
-    await client.getDetails(31, { language: "fr-FR", append_to_response: "combined_credits" });
+    await client.getDetails(31, { language: "fr-FR", append_to_response: ["combined_credits"] });
 
     expect(get).toHaveBeenCalledWith("person/31", {
       params: { language: "fr-FR", append_to_response: "combined_credits" },
