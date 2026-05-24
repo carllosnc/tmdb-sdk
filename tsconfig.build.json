@@ -7,7 +7,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "rootDir": "./src",
-    "types": [],
+    "types": ["bun"],
     "allowImportingTsExtensions": false
   },
   "include": ["src"]
