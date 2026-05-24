@@ -7,6 +7,7 @@ import {
   type LanguageInfo,
   type TimezoneInfo,
 } from "../../types/configuration.js";
+import { ImageUrlBuilder } from "../../utils/image.js";
 
 export class ConfigurationClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -18,6 +19,15 @@ export class ConfigurationClient {
   async getDetails(): Promise<ConfigurationDetails> {
     const response = await this.axiosInstance.get("configuration");
     return response.data;
+  }
+
+  /**
+   * Get an ImageUrlBuilder pre-configured with the current API configuration.
+   * @see https://developer.themoviedb.org/reference/configuration-details
+   */
+  async getImageBuilder(): Promise<ImageUrlBuilder> {
+    const config = await this.getDetails();
+    return ImageUrlBuilder.fromConfiguration(config.images);
   }
 
   /**
