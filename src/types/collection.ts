@@ -29,6 +29,7 @@ export interface CollectionDetails {
 
 export interface GetCollectionDetailsParams {
   language?: string;
+  append_to_response?: string[];
 }
 
 export interface CollectionImage {
