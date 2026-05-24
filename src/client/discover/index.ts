@@ -5,24 +5,7 @@ import {
   type DiscoverTvParams,
   type DiscoverTvResponse,
 } from "../../types/discover.js";
-
-function toSnakeCase(key: string): string {
-  return key.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
-}
-
-function buildQueryParams(
-  params?: Record<string, any>
-): Record<string, any> {
-  const queryParams: Record<string, any> = {};
-  if (!params) return queryParams;
-
-  for (const [key, value] of Object.entries(params)) {
-    if (value !== undefined) {
-      queryParams[toSnakeCase(key)] = value;
-    }
-  }
-  return queryParams;
-}
+import { buildQueryParams } from "../../utils/query.js";
 
 export class DiscoverClient {
   constructor(private axiosInstance: AxiosInstance) {}
