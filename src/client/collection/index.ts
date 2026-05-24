@@ -6,6 +6,7 @@ import {
   type GetCollectionDetailsParams,
   type GetCollectionImagesParams,
 } from "../../types/collection.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class CollectionClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -18,8 +19,10 @@ export class CollectionClient {
     collectionId: number,
     params?: GetCollectionDetailsParams
   ): Promise<CollectionDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
+    if (queryParams.append_to_response) {
+      queryParams.append_to_response = [...new Set(params!.append_to_response!)].join(",");
+    }
 
     const response = await this.axiosInstance.get(
       `collection/${collectionId}`,
@@ -36,13 +39,9 @@ export class CollectionClient {
     collectionId: number,
     params?: GetCollectionImagesParams
   ): Promise<CollectionImagesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.includeImageLanguage) queryParams["include_image_language"] = params.includeImageLanguage;
-
     const response = await this.axiosInstance.get(
       `collection/${collectionId}/images`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
