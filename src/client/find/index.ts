@@ -3,6 +3,7 @@ import {
   type FindByIdParams,
   type FindByIdResponse,
 } from "../../types/find.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class FindClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -15,14 +16,9 @@ export class FindClient {
     externalId: string,
     params: FindByIdParams
   ): Promise<FindByIdResponse> {
-    const queryParams: Record<string, any> = {
-      external_source: params.externalSource,
-    };
-    if (params.language) queryParams["language"] = params.language;
-
     const response = await this.axiosInstance.get(
       `find/${externalId}`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
