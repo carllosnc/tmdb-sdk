@@ -5,13 +5,13 @@
 A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 21 namespaces, 242 tests, zero runtime dependencies beyond `axios`.
 
 ```bash
-bun add tmdb-sdk
+bun add @carlosnc/tmdb-sdk
 ```
 
 ## Authentication
 
 ```typescript
-import { TMDBClient } from "tmdb-sdk";
+import { TMDBClient } from "@carlosnc/tmdb-sdk";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN, // recommended
@@ -31,7 +31,7 @@ Get credentials from your [TMDB API settings](https://www.themoviedb.org/setting
 const client = new TMDBClient({ accessToken: process.env.TMDB_TOKEN });
 
 // System config
-const config = await client.getConfiguration();
+const config = await client.configuration.getDetails();
 
 // Account
 const account = await client.account.getDetails();
@@ -47,6 +47,21 @@ const results = await client.search.getMovies({ query: "Matrix" });
 
 // Watch providers
 const regions = await client.watchProviders.getAvailableRegions();
+```
+
+## Movie Example
+
+```typescript
+const client = new TMDBClient({ accessToken: process.env.TMDB_TOKEN });
+
+const movie = await client.movie.getDetails(550);
+
+console.log("Title:", movie.title);
+console.log("Tagline:", movie.tagline);
+console.log("Release Date:", movie.release_date);
+console.log("Runtime:", movie.runtime, "mins");
+console.log("Genres:", movie.genres?.map((g) => g.name).join(", "));
+console.log("Overview:", movie.overview);
 ```
 
 ## Namespaces
@@ -86,9 +101,6 @@ bun test
 
 # Type-check
 bun run typecheck
-
-# Run the demo
-bun run index.ts
 
 # Run examples (requires TMDB_TOKEN in .env or --env-file)
 bun --env-file=.env run examples/movie.ts
