@@ -62,6 +62,7 @@ import {
   type DeleteRatingParams,
 } from "../../types/movie.js";
 import { type TMDBResponse } from "../../types/account.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class TvClient {
   constructor(private axiosInstance: AxiosInstance) {}
@@ -71,10 +72,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-airing-today-list
    */
   async getAiringToday(params?: TvAiringTodayParams): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.timezone) queryParams["timezone"] = params.timezone;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get("tv/airing_today", { params: queryParams });
     return response.data;
@@ -85,10 +83,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-on-the-air-list
    */
   async getOnTheAir(params?: TvOnTheAirParams): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.timezone) queryParams["timezone"] = params.timezone;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get("tv/on_the_air", { params: queryParams });
     return response.data;
@@ -99,9 +94,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-popular-list
    */
   async getPopular(params?: TvPopularParams): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get("tv/popular", { params: queryParams });
     return response.data;
@@ -112,9 +105,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-top-rated-list
    */
   async getTopRated(params?: TvTopRatedParams): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get("tv/top_rated", { params: queryParams });
     return response.data;
@@ -125,9 +116,10 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-details
    */
   async getDetails(id: number, params?: TvSeriesDetailsParams): Promise<TvSeriesDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
+    if (queryParams.append_to_response) {
+      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+    }
 
     const response = await this.axiosInstance.get(`tv/${id}`, { params: queryParams });
     return response.data;
@@ -141,9 +133,7 @@ export class TvClient {
     id: number,
     params?: TvSeriesAccountStatesParams
   ): Promise<TvSeriesAccountStates> {
-    const queryParams: Record<string, any> = {};
-    if (params?.session_id) queryParams["session_id"] = params.session_id;
-    if (params?.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/account_states`, { params: queryParams });
     return response.data;
@@ -157,10 +147,7 @@ export class TvClient {
     id: number,
     params?: TvAggregateCreditsParams
   ): Promise<TvAggregateCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
-    const response = await this.axiosInstance.get(`tv/${id}/aggregate_credits`, { params: queryParams });
+    const response = await this.axiosInstance.get(`tv/${id}/aggregate_credits`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -172,10 +159,7 @@ export class TvClient {
     id: number,
     params?: TvSeriesAlternativeTitlesParams
   ): Promise<TvSeriesAlternativeTitlesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.country) queryParams["country"] = params.country;
-
-    const response = await this.axiosInstance.get(`tv/${id}/alternative_titles`, { params: queryParams });
+    const response = await this.axiosInstance.get(`tv/${id}/alternative_titles`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -184,10 +168,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-changes
    */
   async getChanges(id: number, params?: TvSeriesChangesParams): Promise<TvSeriesChangesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.end_date) queryParams["end_date"] = params.end_date;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.start_date) queryParams["start_date"] = params.start_date;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/changes`, { params: queryParams });
     return response.data;
@@ -207,10 +188,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-credits
    */
   async getCredits(id: number, params?: TvCreditsParams): Promise<TvCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
-    const response = await this.axiosInstance.get(`tv/${id}/credits`, { params: queryParams });
+    const response = await this.axiosInstance.get(`tv/${id}/credits`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -237,9 +215,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-images
    */
   async getImages(id: number, params?: TvSeriesImagesParams): Promise<TvSeriesImagesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_image_language) queryParams["include_image_language"] = params.include_image_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/images`, { params: queryParams });
     return response.data;
@@ -268,9 +244,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-lists
    */
   async getLists(id: number, params?: TvSeriesListsParams): Promise<TvSeriesListsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/lists`, { params: queryParams });
     return response.data;
@@ -284,9 +258,7 @@ export class TvClient {
     id: number,
     params?: TvSeriesRecommendationsParams
   ): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/recommendations`, { params: queryParams });
     return response.data;
@@ -297,9 +269,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-reviews
    */
   async getReviews(id: number, params?: TvSeriesReviewsParams): Promise<TvSeriesReviewsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/reviews`, { params: queryParams });
     return response.data;
@@ -322,9 +292,7 @@ export class TvClient {
     id: number,
     params?: TvSeriesSimilarParams
   ): Promise<TvListResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-    if (params?.page) queryParams["page"] = params.page;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/similar`, { params: queryParams });
     return response.data;
@@ -344,9 +312,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-videos
    */
   async getVideos(id: number, params?: TvSeriesVideosParams): Promise<TvSeriesVideosResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_video_language) queryParams["include_video_language"] = params.include_video_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(`tv/${id}/videos`, { params: queryParams });
     return response.data;
@@ -370,14 +336,10 @@ export class TvClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.post(
       `tv/${id}/rating`,
       request,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -390,13 +352,9 @@ export class TvClient {
     id: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.delete(
       `tv/${id}/rating`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -410,9 +368,10 @@ export class TvClient {
     seasonNumber: number,
     params?: TvSeasonDetailsParams
   ): Promise<TvSeasonDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
+    if (queryParams.append_to_response) {
+      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+    }
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}`,
@@ -430,9 +389,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvSeasonAccountStatesParams
   ): Promise<TvSeasonAccountStates> {
-    const queryParams: Record<string, any> = {};
-    if (params?.session_id) queryParams["session_id"] = params.session_id;
-    if (params?.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/account_states`,
@@ -450,12 +407,9 @@ export class TvClient {
     seasonNumber: number,
     params?: TvAggregateCreditsParams
   ): Promise<TvAggregateCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/aggregate_credits`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -469,10 +423,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvSeriesChangesParams
   ): Promise<TvSeriesChangesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.end_date) queryParams["end_date"] = params.end_date;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.start_date) queryParams["start_date"] = params.start_date;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/changes`,
@@ -490,12 +441,9 @@ export class TvClient {
     seasonNumber: number,
     params?: TvCreditsParams
   ): Promise<TvCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/credits`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -523,9 +471,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvSeasonImagesParams
   ): Promise<TvSeasonImagesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_image_language) queryParams["include_image_language"] = params.include_image_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/images`,
@@ -557,9 +503,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvSeasonVideosParams
   ): Promise<TvSeriesVideosResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_video_language) queryParams["include_video_language"] = params.include_video_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/videos`,
@@ -592,9 +536,10 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeDetailsParams
   ): Promise<TvEpisodeDetails> {
-    const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
+    if (queryParams.append_to_response) {
+      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+    }
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
@@ -613,9 +558,7 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeAccountStatesParams
   ): Promise<TvEpisodeAccountStates> {
-    const queryParams: Record<string, any> = {};
-    if (params?.session_id) queryParams["session_id"] = params.session_id;
-    if (params?.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/account_states`,
@@ -634,10 +577,7 @@ export class TvClient {
     episodeNumber: number,
     params?: TvSeriesChangesParams
   ): Promise<TvSeriesChangesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.end_date) queryParams["end_date"] = params.end_date;
-    if (params?.page) queryParams["page"] = params.page;
-    if (params?.start_date) queryParams["start_date"] = params.start_date;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/changes`,
@@ -656,12 +596,9 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeCreditsParams
   ): Promise<TvEpisodeCreditsResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.language) queryParams["language"] = params.language;
-
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -691,9 +628,7 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeImagesParams
   ): Promise<TvEpisodeImagesResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_image_language) queryParams["include_image_language"] = params.include_image_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images`,
@@ -727,9 +662,7 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeVideosParams
   ): Promise<TvSeriesVideosResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params?.include_video_language) queryParams["include_video_language"] = params.include_video_language;
-    if (params?.language) queryParams["language"] = params.language;
+    const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/videos`,
@@ -749,14 +682,10 @@ export class TvClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.post(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
       request,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
@@ -771,13 +700,9 @@ export class TvClient {
     episodeNumber: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const queryParams: Record<string, any> = {};
-    if (params.session_id) queryParams["session_id"] = params.session_id;
-    if (params.guest_session_id) queryParams["guest_session_id"] = params.guest_session_id;
-
     const response = await this.axiosInstance.delete(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
-      { params: queryParams }
+      { params: buildQueryParams(params) }
     );
     return response.data;
   }
