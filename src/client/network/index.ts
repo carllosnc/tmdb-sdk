@@ -19,7 +19,7 @@ export class NetworkClient {
 
   /**
    * Get the alternative names of a network.
-   * @see https://developer.themoviedb.org/reference/alternative-names-copy
+   * @see https://developer.themoviedb.org/reference/network-alternative-names
    */
   async getAlternativeNames(networkId: number): Promise<NetworkAlternativeNamesResponse> {
     const response = await this.axiosInstance.get(`network/${networkId}/alternative_names`);
@@ -28,7 +28,7 @@ export class NetworkClient {
 
   /**
    * Get the TV network logos by ID.
-   * @see https://developer.themoviedb.org/reference/alternative-names-copy
+   * @see https://developer.themoviedb.org/reference/network-images
    */
   async getImages(networkId: number): Promise<NetworkImagesResponse> {
     const response = await this.axiosInstance.get(`network/${networkId}/images`);
