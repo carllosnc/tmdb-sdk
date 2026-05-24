@@ -4,7 +4,7 @@ export interface WatchProvidersRegionsParams {
 
 export interface WatchProvidersListParams {
   language?: string;
-  watch_region?: string;
+  watchRegion?: string;
 }
 
 export interface WatchProviderRegion {
