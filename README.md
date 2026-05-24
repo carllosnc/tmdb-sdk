@@ -5,13 +5,13 @@
 A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 21 namespaces, 242 tests, zero runtime dependencies beyond `axios`.
 
 ```bash
-bun add tmdb-sdk
+bun add @cnc/tmdb-sdk
 ```
 
 ## Authentication
 
 ```typescript
-import { TMDBClient } from "tmdb-sdk";
+import { TMDBClient } from "@cnc/tmdb-sdk";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN, // recommended
