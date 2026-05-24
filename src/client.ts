@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from "axios";
+import { createErrorInterceptor } from "./errors.js";
 import { AccountClient } from "./client/account/index.js";
 import { AuthenticationClient } from "./client/authentication/index.js";
 import { CertificationClient } from "./client/certification/index.js";
@@ -67,6 +68,8 @@ export class TMDBClient {
       headers,
       params,
     });
+
+    this.client.interceptors.response.use(undefined, createErrorInterceptor());
 
     this.account = new AccountClient(this.client);
     this.authentication = new AuthenticationClient(this.client);

@@ -1,4 +1,15 @@
 export { TMDBClient, type TMDBClientConfig } from "./client.js";
+export {
+  TMDBError,
+  TMDBClientError,
+  TMDBUnauthorizedError,
+  TMDBForbiddenError,
+  TMDBNotFoundError,
+  TMDBValidationError,
+  TMDBRateLimitError,
+  TMDBServerError,
+  type TMDBErrorBody,
+} from "./errors.js";
 export { AccountClient } from "./client/account/index.js";
 export { AuthenticationClient } from "./client/authentication/index.js";
 export { CertificationClient } from "./client/certification/index.js";
