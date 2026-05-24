@@ -36,7 +36,13 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-details
    */
   async getDetails(personId: number, params?: PersonDetailsParams): Promise<PersonDetails> {
-    const response = await this.axiosInstance.get(`person/${personId}`, { params });
+    const queryParams: Record<string, any> = {};
+    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
+    if (params?.language) queryParams["language"] = params.language;
+
+    const response = await this.axiosInstance.get(`person/${personId}`, {
+      params: Object.keys(queryParams).length > 0 ? queryParams : undefined,
+    });
     return response.data;
   }
 

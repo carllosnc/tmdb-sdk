@@ -101,7 +101,7 @@ export class MovieClient {
    */
   async getDetails(id: number, params?: MovieDetailsParams): Promise<MovieDetails> {
     const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = params.append_to_response;
+    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
     const response = await this.axiosInstance.get(`movie/${id}`, { params: queryParams });

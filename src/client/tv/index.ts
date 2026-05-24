@@ -126,7 +126,7 @@ export class TvClient {
    */
   async getDetails(id: number, params?: TvSeriesDetailsParams): Promise<TvSeriesDetails> {
     const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = params.append_to_response;
+    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
     const response = await this.axiosInstance.get(`tv/${id}`, { params: queryParams });
@@ -411,7 +411,7 @@ export class TvClient {
     params?: TvSeasonDetailsParams
   ): Promise<TvSeasonDetails> {
     const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = params.append_to_response;
+    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
     const response = await this.axiosInstance.get(
@@ -593,7 +593,7 @@ export class TvClient {
     params?: TvEpisodeDetailsParams
   ): Promise<TvEpisodeDetails> {
     const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = params.append_to_response;
+    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
     const response = await this.axiosInstance.get(
