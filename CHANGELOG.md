@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0] - 2026-05-24
+
+### Added
+- **TMDB API v4 support** — three new client namespaces:
+  - `accountV4` — get/create lists, favorites, rated, watchlist (7 endpoints)
+  - `authV4` — create request token, create access token, logout (3 endpoints)
+  - `listV4` — CRUD lists and manage items (9 endpoints)
+- New type files: `account-v4.ts`, `auth-v4.ts`, `list-v4.ts`
+- New test suites: 32 v4 tests across 3 files
+
+### Changed
+- `ImageUrlBuilder` utility with typed size constants and per-type convenience methods (`backdrop()`, `logo()`, `poster()`, `profile()`, `still()`)
+- `ConfigurationClient` now has `getImageBuilder()` for a pre-configured builder
+
 ## [0.3.0] - 2026-05-24
 
 ### Added
