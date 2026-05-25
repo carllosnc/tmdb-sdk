@@ -30,10 +30,11 @@ export interface TMDBClientConfig {
   accessToken?: string;
   apiKey?: string;
   retry?: boolean | RetryConfig;
+  axiosInstance?: AxiosInstance;
 }
 
 export class TMDBClient {
-  private client: AxiosInstance;
+  public http: AxiosInstance;
   public account: AccountClient;
   public accountV4: AccountV4Client;
   public authV4: AuthV4Client;
@@ -60,52 +61,56 @@ export class TMDBClient {
   public watchProviders: WatchProvidersClient;
 
   constructor(config: TMDBClientConfig) {
-    const headers: Record<string, string> = {};
-    const params: Record<string, string> = {};
-
-    if (config.accessToken) {
-      headers["Authorization"] = `Bearer ${config.accessToken}`;
-    } else if (config.apiKey) {
-      params["api_key"] = config.apiKey;
+    if (config.axiosInstance) {
+      this.http = config.axiosInstance;
     } else {
-      throw new Error("Either accessToken or apiKey must be provided to TMDBClient.");
+      const headers: Record<string, string> = {};
+      const params: Record<string, string> = {};
+
+      if (config.accessToken) {
+        headers["Authorization"] = `Bearer ${config.accessToken}`;
+      } else if (config.apiKey) {
+        params["api_key"] = config.apiKey;
+      } else {
+        throw new Error("Either accessToken or apiKey must be provided to TMDBClient.");
+      }
+
+      this.http = axios.create({
+        baseURL: "https://api.themoviedb.org/3/",
+        headers,
+        params,
+      });
     }
 
-    this.client = axios.create({
-      baseURL: "https://api.themoviedb.org/3/",
-      headers,
-      params,
-    });
-
-    this.client.interceptors.response.use(undefined, createErrorInterceptor());
+    this.http.interceptors.response.use(undefined, createErrorInterceptor());
 
     if (config.retry) {
-      setupRetry(this.client, config.retry === true ? undefined : config.retry);
+      setupRetry(this.http, config.retry === true ? undefined : config.retry);
     }
 
-    this.account = new AccountClient(this.client);
-    this.accountV4 = new AccountV4Client(this.client);
-    this.authV4 = new AuthV4Client(this.client);
-    this.authentication = new AuthenticationClient(this.client);
-    this.certification = new CertificationClient(this.client);
-    this.changes = new ChangesClient(this.client);
-    this.collection = new CollectionClient(this.client);
-    this.company = new CompanyClient(this.client);
-    this.configuration = new ConfigurationClient(this.client);
-    this.discover = new DiscoverClient(this.client);
-    this.find = new FindClient(this.client);
-    this.genre = new GenreClient(this.client);
-    this.guestSession = new GuestSessionClient(this.client);
-    this.keyword = new KeywordClient(this.client);
-    this.list = new ListClient(this.client);
-    this.listV4 = new ListV4Client(this.client);
-    this.movie = new MovieClient(this.client);
-    this.network = new NetworkClient(this.client);
-    this.person = new PersonClient(this.client);
-    this.review = new ReviewClient(this.client);
-    this.search = new SearchClient(this.client);
-    this.trending = new TrendingClient(this.client);
-    this.tv = new TvClient(this.client);
-    this.watchProviders = new WatchProvidersClient(this.client);
+    this.account = new AccountClient(this.http);
+    this.accountV4 = new AccountV4Client(this.http);
+    this.authV4 = new AuthV4Client(this.http);
+    this.authentication = new AuthenticationClient(this.http);
+    this.certification = new CertificationClient(this.http);
+    this.changes = new ChangesClient(this.http);
+    this.collection = new CollectionClient(this.http);
+    this.company = new CompanyClient(this.http);
+    this.configuration = new ConfigurationClient(this.http);
+    this.discover = new DiscoverClient(this.http);
+    this.find = new FindClient(this.http);
+    this.genre = new GenreClient(this.http);
+    this.guestSession = new GuestSessionClient(this.http);
+    this.keyword = new KeywordClient(this.http);
+    this.list = new ListClient(this.http);
+    this.listV4 = new ListV4Client(this.http);
+    this.movie = new MovieClient(this.http);
+    this.network = new NetworkClient(this.http);
+    this.person = new PersonClient(this.http);
+    this.review = new ReviewClient(this.http);
+    this.search = new SearchClient(this.http);
+    this.trending = new TrendingClient(this.http);
+    this.tv = new TvClient(this.http);
+    this.watchProviders = new WatchProvidersClient(this.http);
   }
 }
