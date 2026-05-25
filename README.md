@@ -71,7 +71,7 @@ console.log("Overview:", movie.overview);
 ## Namespaces
 
 | Client | Key Methods |
-|---|---|---|
+|---|---|
 | `client.account` | favorites, watchlist, ratings, lists |
 | `client.accountV4` | v4 favorites, watchlist, rated, lists |
 | `client.authV4` | v4 request token, access token, logout |

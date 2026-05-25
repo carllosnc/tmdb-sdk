@@ -240,7 +240,7 @@ describe("TMDBClient - Person Namespace", () => {
       homepage: null,
       id: 4064343,
       imdb_id: null,
-      known_for_department: null,
+      known_for_department: "",
       name: "Ángel Cruz",
       place_of_birth: null,
       popularity: 0.0,

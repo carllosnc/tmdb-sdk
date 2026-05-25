@@ -8,6 +8,8 @@ describe("TMDBClient - Collection Namespace", () => {
     const mockData = {
       id: 10,
       name: "Star Wars Collection",
+      original_language: "en",
+      original_name: "Star Wars Collection",
       overview: "An epic space-opera theatrical film series.",
       poster_path: "/22dj38IckjzEEUZwN1tPU5VJ1qq.jpg",
       backdrop_path: "/4z9ijhgEthfRHShoOvMaBlpciXS.jpg",
@@ -46,7 +48,11 @@ describe("TMDBClient - Collection Namespace", () => {
     const mockData = {
       id: 10,
       name: "Star Wars Collection",
+      original_language: "en",
+      original_name: "Star Wars Collection",
       overview: "",
+      poster_path: null,
+      backdrop_path: null,
       parts: [],
     };
 
