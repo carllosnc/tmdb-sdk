@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg" alt="TMDB" width="150"/>
+  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_1-8ba2ac31f354005783fab473602c34c3f4fd207150182061e425d366e4f34596.svg" alt="TMDB" width="250"/>
 </p>
 
 # TMDB SDK
@@ -145,6 +145,7 @@ src/
 
 - [TMDB API Reference — Getting Started](https://developer.themoviedb.org/reference/getting-started)
 - [TMDB API Docs — Getting Started](https://developer.themoviedb.org/docs/getting-started)
+- [TMDB API v3 vs v4 Comparison](https://sirjosh.mintlify.app/v3-vs-v4)
 
 ---
 
