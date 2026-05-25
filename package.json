@@ -46,10 +46,12 @@
     "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "bun run build",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "bun test"
+    "test": "bun test",
+    "docs": "typedoc"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "typedoc": "^0.28.19",
     "typescript": "^6.0.3"
   },
   "engines": {
