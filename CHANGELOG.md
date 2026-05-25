@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.0] - 2026-05-24
+
+### Added
+- `TMDBClient.http` — Axios instance is now public for post-construction configuration (timeout, proxy, custom interceptors)
+- `TMDBClientConfig.axiosInstance` — accept a custom Axios instance (useful for testing mocks, proxy setup)
+- v3 vs v4 API comparison link in README Resources section
+
+### Changed
+- Refined TMDB logo sizing in README header
+
 ## [0.4.0] - 2026-05-24
 
 ### Added
