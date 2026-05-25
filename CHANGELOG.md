@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1] - 2026-05-25
+
+### Fixed
+- CI matrix reduced to Linux-only (ubuntu-latest)
+- TypeScript errors in collection and person test mock data
+- README namespace table malformed column separator
+
 ## [0.6.0] - 2026-05-25
 
 ### Added
