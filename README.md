@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg" alt="TMDB" width="200"/>
+</p>
+
 # TMDB SDK
 
 [![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) ![npm](https://img.shields.io/npm/v/%40carlosnc%2Ftmdb-sdk) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun)
