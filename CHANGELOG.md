@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0] - 2026-05-25
+
+### Added
+- `credit` namespace — `CreditClient.getDetails()` for `/3/credit/{credit_id}`
+- Account, authentication, credit, trending, and TV series examples
+- Typedoc configuration + `bun run docs` script
+- GitHub Pages workflow for API docs deployment
+- Publish-release agent skill
+
+### Changed
+- README: updated namespace count (21 → 25) and test count (242 → 306)
+- `TvClient.getSeasonChanges` → `getSeasonChangesById` (correct URL)
+- `TvClient.getEpisodeChanges` → `getEpisodeChangesById` (correct URL)
+
 ## [0.5.0] - 2026-05-24
 
 ### Added
