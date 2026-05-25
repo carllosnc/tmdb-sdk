@@ -4,9 +4,9 @@
 
 # TMDB SDK
 
-[![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun)
+[![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) [![Docs](https://github.com/carllosnc/tmdb-sdk/actions/workflows/docs.yml/badge.svg)](https://carllosnc.github.io/tmdb-sdk/) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun)
 
-A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 21 namespaces, 242 tests, zero runtime dependencies beyond `axios`.
+A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 25 namespaces, 306 tests, zero runtime dependencies beyond `axios`.
 
 ```bash
 bun add @carlosnc/tmdb-sdk
@@ -71,12 +71,15 @@ console.log("Overview:", movie.overview);
 ## Namespaces
 
 | Client | Key Methods |
-|---|---|
+|---|---|---|
 | `client.account` | favorites, watchlist, ratings, lists |
+| `client.accountV4` | v4 favorites, watchlist, rated, lists |
+| `client.authV4` | v4 request token, access token, logout |
 | `client.authentication` | sessions, request tokens, guest sessions, key validation |
 | `client.certification` | movie and TV certifications |
 | `client.changes` | movie, TV, and person change log |
 | `client.collection` | collection details, images, translations |
+| `client.credit` | credit details by ID |
 | `client.company` | company details, alternative names, images |
 | `client.configuration` | API and image configuration |
 | `client.discover` | movie and TV discovery with filters |
@@ -85,6 +88,7 @@ console.log("Overview:", movie.overview);
 | `client.guestSession` | guest session rated movies/TV/episodes |
 | `client.keyword` | keyword details and movies |
 | `client.list` | create, read, update, delete lists |
+| `client.listV4` | v4 list CRUD and item management |
 | `client.movie` | details, credits, images, videos, ratings, watch providers, recommendations, similar, and more |
 | `client.network` | network details and alternative names |
 | `client.person` | details, credits, external IDs, images, tagged images, changes |
@@ -108,6 +112,9 @@ bun run typecheck
 
 # Run examples (requires TMDB_TOKEN in .env or --env-file)
 bun --env-file=.env run examples/movie.ts
+
+# Generate API documentation
+bun run docs
 ```
 
 ## Project Structure
@@ -118,18 +125,22 @@ src/
 ├── index.ts             # Barrel exports
 ├── client/              # One directory per namespace
 │   ├── account/
+│   ├── account-v4/
+│   ├── auth-v4/
 │   ├── authentication/
 │   ├── certification/
 │   ├── changes/
 │   ├── collection/
 │   ├── company/
 │   ├── configuration/
+│   ├── credit/
 │   ├── discover/
 │   ├── find/
 │   ├── genre/
 │   ├── guest-session/
 │   ├── keyword/
 │   ├── list/
+│   ├── list-v4/
 │   ├── movie/
 │   ├── network/
 │   ├── person/
