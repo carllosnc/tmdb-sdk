@@ -415,18 +415,17 @@ export class TvClient {
   }
 
   /**
-   * Get the recent changes for a TV season.
-   * @see https://developer.themoviedb.org/reference/tv-season-changes
+   * Get the recent changes for a TV season by season ID.
+   * @see https://developer.themoviedb.org/reference/tv-season-changes-by-id
    */
-  async getSeasonChanges(
-    seriesId: number,
-    seasonNumber: number,
+  async getSeasonChangesById(
+    seasonId: number,
     params?: TvSeriesChangesParams
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
-      `tv/${seriesId}/season/${seasonNumber}/changes`,
+      `tv/season/${seasonId}/changes`,
       { params: queryParams }
     );
     return response.data;
@@ -568,19 +567,17 @@ export class TvClient {
   }
 
   /**
-   * Get the recent changes for a TV episode.
-   * @see https://developer.themoviedb.org/reference/tv-episode-changes
+   * Get the recent changes for a TV episode by episode ID.
+   * @see https://developer.themoviedb.org/reference/tv-episode-changes-by-id
    */
-  async getEpisodeChanges(
-    seriesId: number,
-    seasonNumber: number,
-    episodeNumber: number,
+  async getEpisodeChangesById(
+    episodeId: number,
     params?: TvSeriesChangesParams
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
     const response = await this.axiosInstance.get(
-      `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/changes`,
+      `tv/episode/${episodeId}/changes`,
       { params: queryParams }
     );
     return response.data;

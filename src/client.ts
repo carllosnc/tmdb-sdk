@@ -8,6 +8,7 @@ import { AuthenticationClient } from "./client/authentication/index.js";
 import { CertificationClient } from "./client/certification/index.js";
 import { ChangesClient } from "./client/changes/index.js";
 import { CollectionClient } from "./client/collection/index.js";
+import { CreditClient } from "./client/credit/index.js";
 import { CompanyClient } from "./client/company/index.js";
 import { ConfigurationClient } from "./client/configuration/index.js";
 import { DiscoverClient } from "./client/discover/index.js";
@@ -42,6 +43,7 @@ export class TMDBClient {
   public certification: CertificationClient;
   public changes: ChangesClient;
   public collection: CollectionClient;
+  public credit: CreditClient;
   public company: CompanyClient;
   public configuration: ConfigurationClient;
   public discover: DiscoverClient;
@@ -95,6 +97,7 @@ export class TMDBClient {
     this.certification = new CertificationClient(this.http);
     this.changes = new ChangesClient(this.http);
     this.collection = new CollectionClient(this.http);
+    this.credit = new CreditClient(this.http);
     this.company = new CompanyClient(this.http);
     this.configuration = new ConfigurationClient(this.http);
     this.discover = new DiscoverClient(this.http);
