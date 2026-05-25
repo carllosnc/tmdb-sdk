@@ -2,6 +2,8 @@ import axios, { type AxiosInstance } from "axios";
 import { createErrorInterceptor } from "./errors.js";
 import { setupRetry, type RetryConfig } from "./utils/retry.js";
 import { AccountClient } from "./client/account/index.js";
+import { AccountV4Client } from "./client/account-v4/index.js";
+import { AuthV4Client } from "./client/auth-v4/index.js";
 import { AuthenticationClient } from "./client/authentication/index.js";
 import { CertificationClient } from "./client/certification/index.js";
 import { ChangesClient } from "./client/changes/index.js";
@@ -14,6 +16,7 @@ import { GenreClient } from "./client/genre/index.js";
 import { GuestSessionClient } from "./client/guest-session/index.js";
 import { KeywordClient } from "./client/keyword/index.js";
 import { ListClient } from "./client/list/index.js";
+import { ListV4Client } from "./client/list-v4/index.js";
 import { MovieClient } from "./client/movie/index.js";
 import { NetworkClient } from "./client/network/index.js";
 import { PersonClient } from "./client/person/index.js";
@@ -32,6 +35,8 @@ export interface TMDBClientConfig {
 export class TMDBClient {
   private client: AxiosInstance;
   public account: AccountClient;
+  public accountV4: AccountV4Client;
+  public authV4: AuthV4Client;
   public authentication: AuthenticationClient;
   public certification: CertificationClient;
   public changes: ChangesClient;
@@ -44,6 +49,7 @@ export class TMDBClient {
   public guestSession: GuestSessionClient;
   public keyword: KeywordClient;
   public list: ListClient;
+  public listV4: ListV4Client;
   public movie: MovieClient;
   public network: NetworkClient;
   public person: PersonClient;
@@ -78,6 +84,8 @@ export class TMDBClient {
     }
 
     this.account = new AccountClient(this.client);
+    this.accountV4 = new AccountV4Client(this.client);
+    this.authV4 = new AuthV4Client(this.client);
     this.authentication = new AuthenticationClient(this.client);
     this.certification = new CertificationClient(this.client);
     this.changes = new ChangesClient(this.client);
@@ -90,6 +98,7 @@ export class TMDBClient {
     this.guestSession = new GuestSessionClient(this.client);
     this.keyword = new KeywordClient(this.client);
     this.list = new ListClient(this.client);
+    this.listV4 = new ListV4Client(this.client);
     this.movie = new MovieClient(this.client);
     this.network = new NetworkClient(this.client);
     this.person = new PersonClient(this.client);

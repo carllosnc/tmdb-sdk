@@ -11,6 +11,8 @@ export {
   type TMDBErrorBody,
 } from "./errors.js";
 export { AccountClient } from "./client/account/index.js";
+export { AccountV4Client } from "./client/account-v4/index.js";
+export { AuthV4Client } from "./client/auth-v4/index.js";
 export { AuthenticationClient } from "./client/authentication/index.js";
 export { CertificationClient } from "./client/certification/index.js";
 export { ChangesClient } from "./client/changes/index.js";
@@ -23,6 +25,7 @@ export { GenreClient } from "./client/genre/index.js";
 export { GuestSessionClient } from "./client/guest-session/index.js";
 export { KeywordClient } from "./client/keyword/index.js";
 export { ListClient } from "./client/list/index.js";
+export { ListV4Client } from "./client/list-v4/index.js";
 export { MovieClient } from "./client/movie/index.js";
 export { NetworkClient } from "./client/network/index.js";
 export { PersonClient } from "./client/person/index.js";
@@ -42,6 +45,8 @@ export {
   type StillSize,
 } from "./utils/image.js";
 export * from "./types/account.js";
+export * from "./types/account-v4.js";
+export * from "./types/auth-v4.js";
 export * from "./types/authentication.js";
 export * from "./types/certification.js";
 export * from "./types/changes.js";
@@ -54,6 +59,7 @@ export * from "./types/genre.js";
 export * from "./types/guest-session.js";
 export * from "./types/keyword.js";
 export * from "./types/list.js";
+export * from "./types/list-v4.js";
 export * from "./types/movie.js";
 export * from "./types/network.js";
 export * from "./types/person.js";
