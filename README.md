@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) [![Docs](https://github.com/carllosnc/tmdb-sdk/actions/workflows/docs.yml/badge.svg)](https://carllosnc.github.io/tmdb-sdk/) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun) [![npm](https://img.shields.io/npm/dm/@carlosnc/tmdb-sdk?logo=npm&label=downloads)](https://www.npmjs.com/package/@carlosnc/tmdb-sdk)
 
-A lightweight, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). 25 namespaces, 306 tests, zero runtime dependencies beyond `axios`.
+A complete, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). All 25 namespaces, zero runtime dependencies beyond `axios`.
 
 ```bash
 bun add @carlosnc/tmdb-sdk
