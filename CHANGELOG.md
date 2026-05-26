@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.0] - 2026-05-25
+
+### Added
+- `paginateAll` async generator utility — auto-fetch all pages from any paginated endpoint without manual loops
+- Pagination example (`examples/pagination.ts`) demonstrating both `paginateAll` and manual page iteration
+- Test suite for `paginateAll` (5 tests)
+
+### Changed
+- README: added npm downloads badge, updated description (removed test count, "lightweight" → "complete")
+
 ## [0.7.0] - 2026-05-25
 
 ### Added
