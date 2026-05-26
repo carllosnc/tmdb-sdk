@@ -25,6 +25,9 @@ import { ReviewClient } from "./client/review/index.js";
 import { SearchClient } from "./client/search/index.js";
 import { TrendingClient } from "./client/trending/index.js";
 import { TvClient } from "./client/tv/index.js";
+import { TvEpisodeClient } from "./client/tv-episode/index.js";
+import { TvEpisodeGroupClient } from "./client/tv-episode-group/index.js";
+import { TvSeasonClient } from "./client/tv-season/index.js";
 import { WatchProvidersClient } from "./client/watch-providers/index.js";
 
 export interface TMDBClientConfig {
@@ -60,6 +63,9 @@ export class TMDBClient {
   public search: SearchClient;
   public trending: TrendingClient;
   public tv: TvClient;
+  public tvEpisode: TvEpisodeClient;
+  public tvEpisodeGroup: TvEpisodeGroupClient;
+  public tvSeason: TvSeasonClient;
   public watchProviders: WatchProvidersClient;
 
   constructor(config: TMDBClientConfig) {
@@ -114,6 +120,9 @@ export class TMDBClient {
     this.search = new SearchClient(this.http);
     this.trending = new TrendingClient(this.http);
     this.tv = new TvClient(this.http);
+    this.tvEpisode = new TvEpisodeClient(this.http);
+    this.tvEpisodeGroup = new TvEpisodeGroupClient(this.http);
+    this.tvSeason = new TvSeasonClient(this.http);
     this.watchProviders = new WatchProvidersClient(this.http);
   }
 }
