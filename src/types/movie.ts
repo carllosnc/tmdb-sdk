@@ -130,7 +130,7 @@ export interface MovieAppendToResponseMap {
   "watch/providers": MovieWatchProvidersResponse;
 }
 
-export type WithMovieAppendToResponse<T extends MovieAppendToResponseValue[]> =
+export type WithMovieAppendToResponse<T extends readonly MovieAppendToResponseValue[]> =
   MovieDetails & {
     [K in T[number]]: MovieAppendToResponseMap[K];
   };
@@ -139,6 +139,11 @@ export interface MovieDetailsParams {
   append_to_response?: MovieAppendToResponseValue[];
   language?: string;
 }
+
+export type MovieAppendToResponseResult<T> =
+  [T] extends [readonly MovieAppendToResponseValue[]]
+    ? MovieDetails & { [K in T[number]]: MovieAppendToResponseMap[K] }
+    : MovieDetails;
 
 export interface MovieAccountStates {
   id: number;
