@@ -48,6 +48,7 @@ export {
   type ProfileSize,
   type StillSize,
 } from "./utils/image.js";
+export { paginateAll } from "./utils/paginate.js";
 export * from "./types/account.js";
 export * from "./types/account-v4.js";
 export * from "./types/auth-v4.js";
