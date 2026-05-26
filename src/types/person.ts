@@ -79,10 +79,15 @@ export interface PersonAppendToResponseMap {
   tv_credits: PersonTvCreditsResponse;
 }
 
-export type WithPersonAppendToResponse<T extends PersonAppendToResponseValue[]> =
+export type WithPersonAppendToResponse<T extends readonly PersonAppendToResponseValue[]> =
   PersonDetails & {
     [K in T[number]]: PersonAppendToResponseMap[K];
   };
+
+export type PersonAppendToResponseResult<T> =
+  [T] extends [readonly PersonAppendToResponseValue[]]
+    ? PersonDetails & { [K in T[number]]: PersonAppendToResponseMap[K] }
+    : PersonDetails;
 
 export interface PersonDetailsParams {
   append_to_response?: PersonAppendToResponseValue[];
