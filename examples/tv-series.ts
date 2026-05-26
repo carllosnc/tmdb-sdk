@@ -1,31 +1,56 @@
+/**
+ * Dive into TV series data: series metadata, append_to_response for
+ * embedded videos and credits, and season-level detail.
+ *
+ * This example uses Game of Thrones (id: 1399) as its subject.
+ *
+ * Endpoints:
+ *   - client.tv.getDetails()        — series-level info
+ *   - client.tv.getDetails() with append_to_response
+ *   - client.tvSeason.getDetails()  — single season breakdown
+ *
+ * Note: tvSeason, tvEpisode, and tvEpisodeGroup are separate client
+ * properties on the TMDBClient facade, organised by domain.
+ */
 import { TMDBClient } from "../src/index.js";
+import { header, field, sub, list } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// TV series details (return type: TvSeriesDetails)
-const series = await client.tv.getDetails(1399);
+const SERIES_ID = 1399; // Game of Thrones
 
-console.log("=== TV Series: Game of Thrones ===");
-console.log("Name:", series.name);
-console.log("Status:", series.status);
-console.log("Seasons:", series.number_of_seasons);
-console.log("Episodes:", series.number_of_episodes);
-console.log("Genres:", series.genres?.map((g) => g.name).join(", "));
+// --- Series details --------------------------------------------------------
+const series = await client.tv.getDetails(SERIES_ID);
 
-// TV series with append_to_response — use `as const` for precise inference
-// Return type auto-resolves to: TvSeriesDetails & { videos: TvSeriesVideosResponse; credits: TvCreditsResponse }
-const full = await client.tv.getDetails(1399, {
+let output = header(`TV Series: ${series.name}`);
+output += `\n${field("Status", series.status)}`;
+output += `\n${field("Seasons", series.number_of_seasons)}`;
+output += `\n${field("Episodes", series.number_of_episodes)}`;
+output += `\n${field("Genres", series.genres?.map((g) => g.name).join(", "))}`;
+
+// --- Append-to-response: videos + credits ----------------------------------
+const full = await client.tv.getDetails(SERIES_ID, {
   append_to_response: ["videos", "credits"] as const,
 });
 
-console.log("\nTrailers:", full.videos.results.length);
-console.log("Cast size:", full.credits.cast.length);
+output += header("Appended data");
+output += `\n${field("Trailers", full.videos.results.length)}`;
+output += `\n${field("Cast size", full.credits.cast.length)}`;
 
-// Season details (return type: TvSeasonDetails)
-const season = await client.tvSeason.getDetails(1399, 1);
+output += sub("Top cast");
+output += `\n${list(full.credits.cast.slice(0, 5), (c) => `${c.character} \u2014 ${c.name}`)}`;
 
-console.log(`\n=== Season ${season.season_number}: ${season.name} ===`);
-console.log("Episodes:", season.episodes.length);
-console.log("First episode:", season.episodes[0]?.name);
+// --- Season detail ---------------------------------------------------------
+const season = await client.tvSeason.getDetails(SERIES_ID, 1);
+
+output += header(`Season ${season.season_number}: ${season.name}`);
+output += `\n${field("Episodes", season.episodes.length)}`;
+
+const first = season.episodes[0];
+if (first) {
+  output += `\n${field("First episode", `${first.episode_number}. ${first.name}`)}`;
+}
+
+console.log(output);

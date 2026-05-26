@@ -1,10 +1,21 @@
+/**
+ * Use TMDB's discover engine to find movies and TV shows by filters.
+ *
+ * The discover endpoints are the most flexible way to surface content:
+ * sort by vote average, release year, genre, language, etc.
+ *
+ * Endpoints:
+ *   - getMovies()   — filter and sort movies
+ *   - getTvShows()  — filter and sort TV shows
+ */
 import { TMDBClient } from "../src/index.js";
+import { header, field, sub, list } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// Discover top-rated action/adventure movies from 2024
+// --- Top-rated action / adventure movies of 2024 ---------------------------
 const movies = await client.discover.getMovies({
   primaryReleaseYear: 2024,
   sortBy: "vote_average.desc",
@@ -14,13 +25,12 @@ const movies = await client.discover.getMovies({
   page: 1,
 });
 
-console.log("=== Discover Movies (2024, Action + Adventure) ===");
-console.log("Total results:", movies.total_results);
-for (const movie of movies.results.slice(0, 5)) {
-  console.log(`  ${movie.title} — ${movie.release_date} ⭐ ${movie.vote_average}`);
-}
+let output = header("Discover: Top Action/Adventure (2024)");
+output += `\n${field("Total results", movies.total_results)}`;
+output += sub("Top 5");
+output += `\n${list(movies.results, (m) => `${m.title} — ${m.release_date} \u2b50 ${m.vote_average}`, 5)}`;
 
-// Discover popular scripted TV shows
+// --- Popular scripted TV shows ---------------------------------------------
 const tv = await client.discover.getTvShows({
   sortBy: "popularity.desc",
   withType: "Scripted",
@@ -28,8 +38,9 @@ const tv = await client.discover.getTvShows({
   page: 1,
 });
 
-console.log("\n=== Discover TV (Popular Scripted) ===");
-console.log("Total results:", tv.total_results);
-for (const show of tv.results.slice(0, 5)) {
-  console.log(`  ${show.name} — ${show.first_air_date} ⭐ ${show.vote_average}`);
-}
+output += header("Discover: Popular Scripted TV");
+output += `\n${field("Total results", tv.total_results)}`;
+output += sub("Top 5");
+output += `\n${list(tv.results, (s) => `${s.name} — ${s.first_air_date} \u2b50 ${s.vote_average}`, 5)}`;
+
+console.log(output);

@@ -1,35 +1,38 @@
+/**
+ * See what's trending on TMDB across movies, TV, and people.
+ *
+ * The `timeWindow` parameter accepts "day" or "week".
+ * Trending is a great way to surface currently popular content without
+ * needing search queries or discovery filters.
+ *
+ * Endpoints:
+ *   - getMovies()   — trending movies
+ *   - getTvShows()  — trending TV shows
+ *   - getPeople()   — trending people
+ */
 import { TMDBClient } from "../src/index.js";
+import { header, sub, list } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// Trending movies this week
-const movies = await client.trending.getMovies({
-  timeWindow: "week",
-});
+// --- Trending movies (this week) -------------------------------------------
+const movies = await client.trending.getMovies({ timeWindow: "week" });
 
-console.log("=== Trending Movies (this week) ===");
-for (const movie of movies.results.slice(0, 5)) {
-  console.log(`  ${movie.title} ⭐ ${movie.vote_average}`);
-}
+let output = header("Trending Movies (this week)");
+output += `\n${list(movies.results, (m) => `${m.title} \u2b50 ${m.vote_average}`, 5)}`;
 
-// Trending TV today
-const tv = await client.trending.getTvShows({
-  timeWindow: "day",
-});
+// --- Trending TV (today) ---------------------------------------------------
+const tv = await client.trending.getTvShows({ timeWindow: "day" });
 
-console.log("\n=== Trending TV (today) ===");
-for (const show of tv.results.slice(0, 5)) {
-  console.log(`  ${show.name} ⭐ ${show.vote_average}`);
-}
+output += header("Trending TV (today)");
+output += `\n${list(tv.results, (s) => `${s.name} \u2b50 ${s.vote_average}`, 5)}`;
 
-// Trending people
-const people = await client.trending.getPeople({
-  timeWindow: "week",
-});
+// --- Trending people (this week) -------------------------------------------
+const people = await client.trending.getPeople({ timeWindow: "week" });
 
-console.log("\n=== Trending People (this week) ===");
-for (const person of people.results.slice(0, 5)) {
-  console.log(`  ${person.name} — known for ${person.known_for_department}`);
-}
+output += header("Trending People (this week)");
+output += `\n${list(people.results, (p) => `${p.name} \u2014 ${p.known_for_department}`, 5)}`;
+
+console.log(output);

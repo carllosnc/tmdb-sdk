@@ -1,27 +1,39 @@
+/**
+ * List content certifications by country for movies and TV.
+ *
+ * Useful for building filters or displaying age ratings in a UI.
+ *
+ * Endpoints:
+ *   - getMovieCertifications() — MPAA / national rating systems
+ *   - getTVCertifications()    — TV rating systems
+ */
 import { TMDBClient } from "../src/index.js";
+import { header, sub } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// Movie certifications by country
+// --- Movie certifications --------------------------------------------------
 const movies = await client.certification.getMovieCertifications();
 
-console.log("=== Movie Certifications ===");
-for (const [country, certs] of Object.entries(movies.certifications).slice(0, 5)) {
-  console.log(`\n${country}:`);
+let output = header("Movie Certifications");
+for (const [country, certs] of Object.entries(movies.certifications).slice(0, 4)) {
+  output += sub(country);
   for (const c of certs) {
-    console.log(`  ${c.certification} — ${c.meaning}`);
+    output += `\n  ${c.certification} — ${c.meaning}`;
   }
 }
 
-// TV certifications
+// --- TV certifications -----------------------------------------------------
 const tv = await client.certification.getTVCertifications();
 
-console.log("\n\n=== TV Certifications ===");
-for (const [country, certs] of Object.entries(tv.certifications).slice(0, 5)) {
-  console.log(`\n${country}:`);
+output += header("TV Certifications");
+for (const [country, certs] of Object.entries(tv.certifications).slice(0, 4)) {
+  output += sub(country);
   for (const c of certs) {
-    console.log(`  ${c.certification} — ${c.meaning}`);
+    output += `\n  ${c.certification} — ${c.meaning}`;
   }
 }
+
+console.log(output);

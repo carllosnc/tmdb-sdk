@@ -1,11 +1,21 @@
+/**
+ * Demonstrate the two pagination strategies available:
+ *
+ * 1. Auto-pagination with paginateAll() — collects items from every page
+ *    using an async generator.  Handles rate limits gracefully.
+ * 2. Manual page-by-page — gives fine-grained control over each page.
+ *
+ * paginateAll() accepts a callback that receives `{ page }` and must return
+ * a paginated response with `.results` and `.total_pages`.
+ */
 import { TMDBClient, paginateAll } from "../src/index.js";
+import { header, field, sub, list } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// Collect items from all pages using paginateAll
-console.log("=== All pages: search 'inception' ===");
+// --- Auto-pagination: all results for "inception" ---------------------------
 const allResults: { title: string; release_date: string }[] = [];
 for await (const movie of paginateAll(
   (params) => client.search.searchMovies({ query: "inception", ...params }),
@@ -13,26 +23,28 @@ for await (const movie of paginateAll(
 )) {
   allResults.push(movie);
 }
-console.log("Total items across all pages:", allResults.length);
-for (const movie of allResults.slice(0, 6)) {
-  console.log(`  ${movie.title} (${movie.release_date})`);
-}
+
+let output = header('Auto-pagination: search "inception"');
+output += `\n${field("Total across pages", allResults.length)}`;
+output += sub("First 6");
+output += `\n${list(allResults, (m) => `${m.title} (${m.release_date})`, 6)}`;
 if (allResults.length > 6) {
-  console.log(`  ... and ${allResults.length - 6} more`);
+  output += `\n  … and ${allResults.length - 6} more`;
 }
 
-// Manual page-by-page pagination (without helper)
-console.log("\n=== Manual pagination: popular movies ===");
+// --- Manual pagination: popular movies page by page -------------------------
+output += header("Manual: popular movies");
+
 const page1 = await client.movie.getPopular({ page: 1 });
-console.log(`Page 1: ${page1.results.length} movies (total: ${page1.total_results})`);
-for (const movie of page1.results.slice(0, 3)) {
-  console.log(`  ${movie.title}`);
-}
+output += sub("Page 1");
+output += `\n${field("Movies on page", page1.results.length)}`;
+output += `\n${field("Total available", page1.total_results)}`;
+output += `\n${list(page1.results, (m) => m.title, 3)}`;
 
 if (page1.total_pages > 1) {
   const page2 = await client.movie.getPopular({ page: 2 });
-  console.log(`\nPage 2: ${page2.results.length} movies`);
-  for (const movie of page2.results.slice(0, 3)) {
-    console.log(`  ${movie.title}`);
-  }
+  output += sub("Page 2");
+  output += `\n${list(page2.results, (m) => m.title, 3)}`;
 }
+
+console.log(output);

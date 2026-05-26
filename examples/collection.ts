@@ -1,32 +1,47 @@
+/**
+ * Explore a movie collection — the set of films that belong to the same
+ * franchise (e.g. The Lord of the Rings, Star Wars).
+ *
+ * Endpoints:
+ *   - getDetails()      — description + list of parts
+ *   - getImages()       — backdrops and posters for the collection
+ *   - getTranslations() — available language localisations
+ */
 import { TMDBClient } from "../src/index.js";
+import { header, field, sub, list } from "./helpers.js";
 
 const client = new TMDBClient({
   accessToken: process.env.TMDB_TOKEN!,
 });
 
-// The Lord of The Rings collection
-const collection = await client.collection.getDetails(119);
+const COLLECTION_ID = 119; // The Lord of the Rings
 
-console.log("=== Collection: The Lord of the Rings ===");
-console.log("Overview:", collection.overview);
-console.log("Parts:", collection.parts.length);
-for (const part of collection.parts) {
-  console.log(`  ${part.name} (${part.release_date}) ⭐ ${part.vote_average}`);
-}
+// --- Collection details ----------------------------------------------------
+const collection = await client.collection.getDetails(COLLECTION_ID);
 
-// Collection images
-const images = await client.collection.getImages(119, { language: "en" });
+let output = header(`Collection: ${collection.name}`);
+output += `\n${field("Overview", collection.overview)}`;
+output += `\n${field("Parts", collection.parts.length)}`;
 
-console.log(`\nBackdrops: ${images.backdrops.length}, Posters: ${images.posters.length}`);
+output += sub("Movies");
+output += `\n${list(collection.parts, (p) => `${p.name} (${p.release_date})`)}`;
+
+// --- Images -----------------------------------------------------------------
+const images = await client.collection.getImages(COLLECTION_ID, { language: "en" });
+
+output += header("Images");
+output += `\n${field("Backdrops", images.backdrops.length)}`;
+output += `\n${field("Posters", images.posters.length)}`;
+
 const img = images.backdrops[0];
 if (img) {
-  console.log(`Sample backdrop: ${img.file_path} (${img.width}x${img.height})`);
+  output += `\n${field("Sample backdrop", `${img.file_path} (${img.width}\u00d7${img.height})`)}`;
 }
 
-// Available translations
-const translations = await client.collection.getTranslations(119);
+// --- Translations -----------------------------------------------------------
+const translations = await client.collection.getTranslations(COLLECTION_ID);
 
-console.log(`\nTranslations: ${translations.translations.length} languages`);
-for (const t of translations.translations.slice(0, 5)) {
-  console.log(`  ${t.english_name} (${t.iso_639_1})`);
-}
+output += header(`Translations (${translations.translations.length})`);
+output += `\n${list(translations.translations, (t) => `${t.english_name} (${t.iso_639_1})`, 5)}`;
+
+console.log(output);
