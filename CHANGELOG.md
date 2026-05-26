@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0] - 2026-05-26
+
+### Added
+- `HttpClient` interface — swap the HTTP backend by implementing `get`/`post`/`put`/`delete`
+- `FetchAdapter` — built-in adapter using native `fetch()` (no axios dependency)
+- `TMDBClientConfig.httpClient` option — inject a custom adapter (auth/retry on you)
+- Custom HTTP adapters documentation in README
+
+### Changed
+- Removed `axios` dependency — SDK is now zero-dependency at runtime
+- All namespace clients accept `HttpClient` instead of `AxiosInstance`
+
 ## [0.8.0] - 2026-05-25
 
 ### Added
