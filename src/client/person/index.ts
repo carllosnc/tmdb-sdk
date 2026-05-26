@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type PopularPersonResponse,
   type PopularPersonParams,
@@ -22,14 +22,14 @@ import {
 } from "../../types/person.js";
 
 export class PersonClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get a list of people ordered by popularity.
    * @see https://developer.themoviedb.org/reference/person-popular-list
    */
   async getPopular(params?: PopularPersonParams): Promise<PopularPersonResponse> {
-    const response = await this.axiosInstance.get("person/popular", { params });
+    const response = await this.httpClient.get("person/popular", { params });
     return response.data;
   }
 
@@ -45,7 +45,7 @@ export class PersonClient {
     if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(`person/${personId}`, {
+    const response = await this.httpClient.get(`person/${personId}`, {
       params: Object.keys(queryParams).length > 0 ? queryParams : undefined,
     });
     return response.data;
@@ -56,7 +56,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-changes
    */
   async getChanges(personId: number, params?: PersonChangesParams): Promise<PersonChangesResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/changes`, { params });
+    const response = await this.httpClient.get(`person/${personId}/changes`, { params });
     return response.data;
   }
 
@@ -65,7 +65,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-combined-credits
    */
   async getCombinedCredits(personId: number, params?: CombinedCreditsParams): Promise<CombinedCreditsResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/combined_credits`, { params });
+    const response = await this.httpClient.get(`person/${personId}/combined_credits`, { params });
     return response.data;
   }
 
@@ -74,7 +74,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-external-ids
    */
   async getExternalIds(personId: number): Promise<PersonExternalIds> {
-    const response = await this.axiosInstance.get(`person/${personId}/external_ids`);
+    const response = await this.httpClient.get(`person/${personId}/external_ids`);
     return response.data;
   }
 
@@ -83,7 +83,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-images
    */
   async getImages(personId: number): Promise<PersonImagesResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/images`);
+    const response = await this.httpClient.get(`person/${personId}/images`);
     return response.data;
   }
 
@@ -92,7 +92,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-latest-id
    */
   async getLatest(): Promise<PersonDetails> {
-    const response = await this.axiosInstance.get("person/latest");
+    const response = await this.httpClient.get("person/latest");
     return response.data;
   }
 
@@ -101,7 +101,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-movie-credits
    */
   async getMovieCredits(personId: number, params?: PersonMovieCreditsParams): Promise<PersonMovieCreditsResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/movie_credits`, { params });
+    const response = await this.httpClient.get(`person/${personId}/movie_credits`, { params });
     return response.data;
   }
 
@@ -110,7 +110,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-tv-credits
    */
   async getTvCredits(personId: number, params?: PersonTvCreditsParams): Promise<PersonTvCreditsResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/tv_credits`, { params });
+    const response = await this.httpClient.get(`person/${personId}/tv_credits`, { params });
     return response.data;
   }
 
@@ -119,7 +119,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-tagged-images
    */
   async getTaggedImages(personId: number, params?: PersonTaggedImagesParams): Promise<PersonTaggedImagesResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/tagged_images`, { params });
+    const response = await this.httpClient.get(`person/${personId}/tagged_images`, { params });
     return response.data;
   }
 
@@ -128,7 +128,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/translations
    */
   async getTranslations(personId: number): Promise<PersonTranslationsResponse> {
-    const response = await this.axiosInstance.get(`person/${personId}/translations`);
+    const response = await this.httpClient.get(`person/${personId}/translations`);
     return response.data;
   }
 }

@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type CreateSessionFromV4TokenRequest,
   type CreateSessionRequest,
@@ -12,14 +12,14 @@ import {
 } from "../../types/authentication.js";
 
 export class AuthenticationClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Validate the API key or access token.
    * @see https://developer.themoviedb.org/reference/authentication-validate-key
    */
   async validateKey(): Promise<ValidateKeyResponse> {
-    const response = await this.axiosInstance.get("authentication");
+    const response = await this.httpClient.get("authentication");
     return response.data;
   }
 
@@ -29,7 +29,7 @@ export class AuthenticationClient {
    * @see https://developer.themoviedb.org/reference/authentication-create-guest-session
    */
   async createGuestSession(): Promise<GuestSession> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       "authentication/guest_session/new"
     );
     return response.data;
@@ -41,7 +41,7 @@ export class AuthenticationClient {
    * @see https://developer.themoviedb.org/reference/authentication-create-request-token
    */
   async createRequestToken(): Promise<RequestToken> {
-    const response = await this.axiosInstance.get("authentication/token/new");
+    const response = await this.httpClient.get("authentication/token/new");
     return response.data;
   }
 
@@ -53,7 +53,7 @@ export class AuthenticationClient {
   async validateRequestTokenWithLogin(
     request: ValidateRequestTokenWithLoginRequest
   ): Promise<RequestToken> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "authentication/token/validate_with_login",
       request
     );
@@ -66,7 +66,7 @@ export class AuthenticationClient {
    * @see https://developer.themoviedb.org/reference/authentication-create-session
    */
   async createSession(request: CreateSessionRequest): Promise<Session> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "authentication/session/new",
       request
     );
@@ -81,7 +81,7 @@ export class AuthenticationClient {
   async createSessionFromV4Token(
     request: CreateSessionFromV4TokenRequest
   ): Promise<Session> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "authentication/session/convert/4",
       request
     );
@@ -93,7 +93,7 @@ export class AuthenticationClient {
    * @see https://developer.themoviedb.org/reference/authentication-delete-session
    */
   async deleteSession(request: DeleteSessionRequest): Promise<SuccessResponse> {
-    const response = await this.axiosInstance.delete("authentication/session", {
+    const response = await this.httpClient.delete("authentication/session", {
       data: request,
     });
     return response.data;

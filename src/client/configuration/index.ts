@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type ConfigurationDetails,
   type CountryInfo,
@@ -10,14 +10,14 @@ import {
 import { ImageUrlBuilder } from "../../utils/image.js";
 
 export class ConfigurationClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Query the API configuration details.
    * @see https://developer.themoviedb.org/reference/configuration-details
    */
   async getDetails(): Promise<ConfigurationDetails> {
-    const response = await this.axiosInstance.get("configuration");
+    const response = await this.httpClient.get("configuration");
     return response.data;
   }
 
@@ -40,7 +40,7 @@ export class ConfigurationClient {
     const queryParams: Record<string, any> = {};
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       "configuration/countries",
       { params: queryParams }
     );
@@ -52,7 +52,7 @@ export class ConfigurationClient {
    * @see https://developer.themoviedb.org/reference/configuration-jobs
    */
   async getJobs(): Promise<JobDepartment[]> {
-    const response = await this.axiosInstance.get("configuration/jobs");
+    const response = await this.httpClient.get("configuration/jobs");
     return response.data;
   }
 
@@ -61,7 +61,7 @@ export class ConfigurationClient {
    * @see https://developer.themoviedb.org/reference/configuration-languages
    */
   async getLanguages(): Promise<LanguageInfo[]> {
-    const response = await this.axiosInstance.get("configuration/languages");
+    const response = await this.httpClient.get("configuration/languages");
     return response.data;
   }
 
@@ -70,7 +70,7 @@ export class ConfigurationClient {
    * @see https://developer.themoviedb.org/reference/configuration-primary-translations
    */
   async getPrimaryTranslations(): Promise<string[]> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       "configuration/primary_translations"
     );
     return response.data;
@@ -81,7 +81,7 @@ export class ConfigurationClient {
    * @see https://developer.themoviedb.org/reference/configuration-timezones
    */
   async getTimezones(): Promise<TimezoneInfo[]> {
-    const response = await this.axiosInstance.get("configuration/timezones");
+    const response = await this.httpClient.get("configuration/timezones");
     return response.data;
   }
 }

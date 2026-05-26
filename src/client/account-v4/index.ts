@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type V4AccountFavoriteMoviesResponse,
   type V4AccountFavoriteTvShowsResponse,
@@ -13,7 +13,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class AccountV4Client {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   private basePath(accountObjectId: string): string {
     return `/4/account/${accountObjectId}`;
@@ -27,7 +27,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountListsParams
   ): Promise<V4AccountListsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/lists`,
       { params: buildQueryParams(params) }
     );
@@ -42,7 +42,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountFavoriteMoviesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/movie/favorites`,
       { params: buildQueryParams(params) }
     );
@@ -57,7 +57,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountFavoriteTvShowsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/tv/favorites`,
       { params: buildQueryParams(params) }
     );
@@ -72,7 +72,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountRatedMoviesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/movie/rated`,
       { params: buildQueryParams(params) }
     );
@@ -87,7 +87,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountRatedTvShowsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/tv/rated`,
       { params: buildQueryParams(params) }
     );
@@ -102,7 +102,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountWatchlistMoviesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/movie/watchlist`,
       { params: buildQueryParams(params) }
     );
@@ -117,7 +117,7 @@ export class AccountV4Client {
     accountObjectId: string,
     params?: V4AccountMediaParams
   ): Promise<V4AccountWatchlistTvShowsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `${this.basePath(accountObjectId)}/tv/watchlist`,
       { params: buildQueryParams(params) }
     );

@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import type {
   TvSeasonAccountStates,
   TvSeasonAccountStatesParams,
@@ -23,7 +23,7 @@ import type {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class TvSeasonClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the details of a TV season by season number.
@@ -39,7 +39,7 @@ export class TvSeasonClient {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
     }
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}`,
       { params: queryParams }
     );
@@ -57,7 +57,7 @@ export class TvSeasonClient {
   ): Promise<TvSeasonAccountStates> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/account_states`,
       { params: queryParams }
     );
@@ -73,7 +73,7 @@ export class TvSeasonClient {
     seasonNumber: number,
     params?: TvAggregateCreditsParams
   ): Promise<TvAggregateCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/aggregate_credits`,
       { params: buildQueryParams(params) }
     );
@@ -90,7 +90,7 @@ export class TvSeasonClient {
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/season/${seasonId}/changes`,
       { params: queryParams }
     );
@@ -106,7 +106,7 @@ export class TvSeasonClient {
     seasonNumber: number,
     params?: TvCreditsParams
   ): Promise<TvCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/credits`,
       { params: buildQueryParams(params) }
     );
@@ -121,7 +121,7 @@ export class TvSeasonClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeasonExternalIdsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/external_ids`
     );
     return response.data;
@@ -138,7 +138,7 @@ export class TvSeasonClient {
   ): Promise<TvSeasonImagesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/images`,
       { params: queryParams }
     );
@@ -153,7 +153,7 @@ export class TvSeasonClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeriesTranslationsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/translations`
     );
     return response.data;
@@ -170,7 +170,7 @@ export class TvSeasonClient {
   ): Promise<TvSeriesVideosResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/videos`,
       { params: queryParams }
     );
@@ -185,7 +185,7 @@ export class TvSeasonClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeriesWatchProvidersResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/watch/providers`
     );
     return response.data;

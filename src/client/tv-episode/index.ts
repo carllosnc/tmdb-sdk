@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import type {
   TvEpisodeAccountStates,
   TvEpisodeAccountStatesParams,
@@ -26,7 +26,7 @@ import { type TMDBResponse } from "../../types/account.js";
 import { buildQueryParams } from "../../utils/query.js";
 
 export class TvEpisodeClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the details of a TV episode by episode number.
@@ -43,7 +43,7 @@ export class TvEpisodeClient {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
     }
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
       { params: queryParams }
     );
@@ -62,7 +62,7 @@ export class TvEpisodeClient {
   ): Promise<TvEpisodeAccountStates> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/account_states`,
       { params: queryParams }
     );
@@ -79,7 +79,7 @@ export class TvEpisodeClient {
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/episode/${episodeId}/changes`,
       { params: queryParams }
     );
@@ -96,7 +96,7 @@ export class TvEpisodeClient {
     episodeNumber: number,
     params?: TvEpisodeCreditsParams
   ): Promise<TvEpisodeCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits`,
       { params: buildQueryParams(params) }
     );
@@ -112,7 +112,7 @@ export class TvEpisodeClient {
     seasonNumber: number,
     episodeNumber: number
   ): Promise<TvEpisodeExternalIdsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/external_ids`
     );
     return response.data;
@@ -130,7 +130,7 @@ export class TvEpisodeClient {
   ): Promise<TvEpisodeImagesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images`,
       { params: queryParams }
     );
@@ -146,7 +146,7 @@ export class TvEpisodeClient {
     seasonNumber: number,
     episodeNumber: number
   ): Promise<TvSeriesTranslationsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/translations`
     );
     return response.data;
@@ -164,7 +164,7 @@ export class TvEpisodeClient {
   ): Promise<TvSeriesVideosResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/videos`,
       { params: queryParams }
     );
@@ -182,7 +182,7 @@ export class TvEpisodeClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
       request,
       { params: buildQueryParams(params) }
@@ -200,7 +200,7 @@ export class TvEpisodeClient {
     episodeNumber: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
       { params: buildQueryParams(params) }
     );

@@ -1,11 +1,11 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type GenreListResponse,
   type GetGenreListParams,
 } from "../../types/genre.js";
 
 export class GenreClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the list of official genres for movies.
@@ -15,7 +15,7 @@ export class GenreClient {
     const queryParams: Record<string, any> = {};
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get("genre/movie/list", {
+    const response = await this.httpClient.get("genre/movie/list", {
       params: queryParams,
     });
     return response.data;
@@ -29,7 +29,7 @@ export class GenreClient {
     const queryParams: Record<string, any> = {};
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get("genre/tv/list", {
+    const response = await this.httpClient.get("genre/tv/list", {
       params: queryParams,
     });
     return response.data;

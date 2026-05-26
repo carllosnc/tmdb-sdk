@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type CompanyAlternativeNamesResponse,
   type CompanyDetails,
@@ -6,14 +6,14 @@ import {
 } from "../../types/company.js";
 
 export class CompanyClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the company details by ID.
    * @see https://developer.themoviedb.org/reference/company-details
    */
   async getDetails(companyId: number): Promise<CompanyDetails> {
-    const response = await this.axiosInstance.get(`company/${companyId}`);
+    const response = await this.httpClient.get(`company/${companyId}`);
     return response.data;
   }
 
@@ -24,7 +24,7 @@ export class CompanyClient {
   async getAlternativeNames(
     companyId: number
   ): Promise<CompanyAlternativeNamesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `company/${companyId}/alternative_names`
     );
     return response.data;
@@ -35,7 +35,7 @@ export class CompanyClient {
    * @see https://developer.themoviedb.org/reference/company-images
    */
   async getImages(companyId: number): Promise<CompanyImagesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `company/${companyId}/images`
     );
     return response.data;

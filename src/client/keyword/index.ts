@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type KeywordDetails,
   type KeywordMoviesParams,
@@ -6,14 +6,14 @@ import {
 } from "../../types/keyword.js";
 
 export class KeywordClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get keyword details by ID.
    * @see https://developer.themoviedb.org/reference/keyword-details
    */
   async getDetails(keywordId: number): Promise<KeywordDetails> {
-    const response = await this.axiosInstance.get(`keyword/${keywordId}`);
+    const response = await this.httpClient.get(`keyword/${keywordId}`);
     return response.data;
   }
 
@@ -31,7 +31,7 @@ export class KeywordClient {
     if (params?.language) queryParams["language"] = params.language;
     if (params?.page) queryParams["page"] = params.page;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `keyword/${keywordId}/movies`,
       { params: queryParams }
     );

@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type TvAiringTodayParams,
   type TvAppendToResponseResult,
@@ -67,7 +67,7 @@ import { type TMDBResponse } from "../../types/account.js";
 import { buildQueryParams } from "../../utils/query.js";
 
 export class TvClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get a list of TV shows airing today.
@@ -76,7 +76,7 @@ export class TvClient {
   async getAiringToday(params?: TvAiringTodayParams): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("tv/airing_today", { params: queryParams });
+    const response = await this.httpClient.get("tv/airing_today", { params: queryParams });
     return response.data;
   }
 
@@ -87,7 +87,7 @@ export class TvClient {
   async getOnTheAir(params?: TvOnTheAirParams): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("tv/on_the_air", { params: queryParams });
+    const response = await this.httpClient.get("tv/on_the_air", { params: queryParams });
     return response.data;
   }
 
@@ -98,7 +98,7 @@ export class TvClient {
   async getPopular(params?: TvPopularParams): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("tv/popular", { params: queryParams });
+    const response = await this.httpClient.get("tv/popular", { params: queryParams });
     return response.data;
   }
 
@@ -109,7 +109,7 @@ export class TvClient {
   async getTopRated(params?: TvTopRatedParams): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("tv/top_rated", { params: queryParams });
+    const response = await this.httpClient.get("tv/top_rated", { params: queryParams });
     return response.data;
   }
 
@@ -126,7 +126,7 @@ export class TvClient {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
     }
 
-    const response = await this.axiosInstance.get(`tv/${id}`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}`, { params: queryParams });
     return response.data;
   }
 
@@ -140,7 +140,7 @@ export class TvClient {
   ): Promise<TvSeriesAccountStates> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/account_states`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/account_states`, { params: queryParams });
     return response.data;
   }
 
@@ -152,7 +152,7 @@ export class TvClient {
     id: number,
     params?: TvAggregateCreditsParams
   ): Promise<TvAggregateCreditsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/aggregate_credits`, { params: buildQueryParams(params) });
+    const response = await this.httpClient.get(`tv/${id}/aggregate_credits`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -164,7 +164,7 @@ export class TvClient {
     id: number,
     params?: TvSeriesAlternativeTitlesParams
   ): Promise<TvSeriesAlternativeTitlesResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/alternative_titles`, { params: buildQueryParams(params) });
+    const response = await this.httpClient.get(`tv/${id}/alternative_titles`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -175,7 +175,7 @@ export class TvClient {
   async getChanges(id: number, params?: TvSeriesChangesParams): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/changes`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/changes`, { params: queryParams });
     return response.data;
   }
 
@@ -184,7 +184,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-content-ratings
    */
   async getContentRatings(id: number): Promise<TvContentRatingsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/content_ratings`);
+    const response = await this.httpClient.get(`tv/${id}/content_ratings`);
     return response.data;
   }
 
@@ -193,7 +193,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-credits
    */
   async getCredits(id: number, params?: TvCreditsParams): Promise<TvCreditsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/credits`, { params: buildQueryParams(params) });
+    const response = await this.httpClient.get(`tv/${id}/credits`, { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -202,7 +202,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-episode-groups
    */
   async getEpisodeGroups(id: number): Promise<TvEpisodeGroupsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/episode_groups`);
+    const response = await this.httpClient.get(`tv/${id}/episode_groups`);
     return response.data;
   }
 
@@ -211,7 +211,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-external-ids
    */
   async getExternalIds(id: number): Promise<TvSeriesExternalIdsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/external_ids`);
+    const response = await this.httpClient.get(`tv/${id}/external_ids`);
     return response.data;
   }
 
@@ -222,7 +222,7 @@ export class TvClient {
   async getImages(id: number, params?: TvSeriesImagesParams): Promise<TvSeriesImagesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/images`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/images`, { params: queryParams });
     return response.data;
   }
 
@@ -231,7 +231,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-keywords
    */
   async getKeywords(id: number): Promise<TvSeriesKeywordsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/keywords`);
+    const response = await this.httpClient.get(`tv/${id}/keywords`);
     return response.data;
   }
 
@@ -240,7 +240,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-latest
    */
   async getLatest(): Promise<TvSeriesDetails> {
-    const response = await this.axiosInstance.get("tv/latest");
+    const response = await this.httpClient.get("tv/latest");
     return response.data;
   }
 
@@ -251,7 +251,7 @@ export class TvClient {
   async getLists(id: number, params?: TvSeriesListsParams): Promise<TvSeriesListsResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/lists`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/lists`, { params: queryParams });
     return response.data;
   }
 
@@ -265,7 +265,7 @@ export class TvClient {
   ): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/recommendations`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/recommendations`, { params: queryParams });
     return response.data;
   }
 
@@ -276,7 +276,7 @@ export class TvClient {
   async getReviews(id: number, params?: TvSeriesReviewsParams): Promise<TvSeriesReviewsResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/reviews`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/reviews`, { params: queryParams });
     return response.data;
   }
 
@@ -285,7 +285,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-screened-theatrically
    */
   async getScreenedTheatrically(id: number): Promise<TvScreenedTheatricallyResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/screened_theatrically`);
+    const response = await this.httpClient.get(`tv/${id}/screened_theatrically`);
     return response.data;
   }
 
@@ -299,7 +299,7 @@ export class TvClient {
   ): Promise<TvListResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/similar`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/similar`, { params: queryParams });
     return response.data;
   }
 
@@ -308,7 +308,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-translations
    */
   async getTranslations(id: number): Promise<TvSeriesTranslationsResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/translations`);
+    const response = await this.httpClient.get(`tv/${id}/translations`);
     return response.data;
   }
 
@@ -319,7 +319,7 @@ export class TvClient {
   async getVideos(id: number, params?: TvSeriesVideosParams): Promise<TvSeriesVideosResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(`tv/${id}/videos`, { params: queryParams });
+    const response = await this.httpClient.get(`tv/${id}/videos`, { params: queryParams });
     return response.data;
   }
 
@@ -328,7 +328,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-series-watch-providers
    */
   async getWatchProviders(id: number): Promise<TvSeriesWatchProvidersResponse> {
-    const response = await this.axiosInstance.get(`tv/${id}/watch/providers`);
+    const response = await this.httpClient.get(`tv/${id}/watch/providers`);
     return response.data;
   }
 
@@ -341,7 +341,7 @@ export class TvClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `tv/${id}/rating`,
       request,
       { params: buildQueryParams(params) }
@@ -357,7 +357,7 @@ export class TvClient {
     id: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `tv/${id}/rating`,
       { params: buildQueryParams(params) }
     );
@@ -378,7 +378,7 @@ export class TvClient {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
     }
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}`,
       { params: queryParams }
     );
@@ -396,7 +396,7 @@ export class TvClient {
   ): Promise<TvSeasonAccountStates> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/account_states`,
       { params: queryParams }
     );
@@ -412,7 +412,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvAggregateCreditsParams
   ): Promise<TvAggregateCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/aggregate_credits`,
       { params: buildQueryParams(params) }
     );
@@ -429,7 +429,7 @@ export class TvClient {
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/season/${seasonId}/changes`,
       { params: queryParams }
     );
@@ -445,7 +445,7 @@ export class TvClient {
     seasonNumber: number,
     params?: TvCreditsParams
   ): Promise<TvCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/credits`,
       { params: buildQueryParams(params) }
     );
@@ -460,7 +460,7 @@ export class TvClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeasonExternalIdsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/external_ids`
     );
     return response.data;
@@ -477,7 +477,7 @@ export class TvClient {
   ): Promise<TvSeasonImagesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/images`,
       { params: queryParams }
     );
@@ -492,7 +492,7 @@ export class TvClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeriesTranslationsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/translations`
     );
     return response.data;
@@ -509,7 +509,7 @@ export class TvClient {
   ): Promise<TvSeriesVideosResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/videos`,
       { params: queryParams }
     );
@@ -524,7 +524,7 @@ export class TvClient {
     seriesId: number,
     seasonNumber: number
   ): Promise<TvSeriesWatchProvidersResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/watch/providers`
     );
     return response.data;
@@ -545,7 +545,7 @@ export class TvClient {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
     }
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`,
       { params: queryParams }
     );
@@ -564,7 +564,7 @@ export class TvClient {
   ): Promise<TvEpisodeAccountStates> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/account_states`,
       { params: queryParams }
     );
@@ -581,7 +581,7 @@ export class TvClient {
   ): Promise<TvSeriesChangesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/episode/${episodeId}/changes`,
       { params: queryParams }
     );
@@ -598,7 +598,7 @@ export class TvClient {
     episodeNumber: number,
     params?: TvEpisodeCreditsParams
   ): Promise<TvEpisodeCreditsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits`,
       { params: buildQueryParams(params) }
     );
@@ -614,7 +614,7 @@ export class TvClient {
     seasonNumber: number,
     episodeNumber: number
   ): Promise<TvEpisodeExternalIdsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/external_ids`
     );
     return response.data;
@@ -632,7 +632,7 @@ export class TvClient {
   ): Promise<TvEpisodeImagesResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images`,
       { params: queryParams }
     );
@@ -648,7 +648,7 @@ export class TvClient {
     seasonNumber: number,
     episodeNumber: number
   ): Promise<TvSeriesTranslationsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/translations`
     );
     return response.data;
@@ -666,7 +666,7 @@ export class TvClient {
   ): Promise<TvSeriesVideosResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/videos`,
       { params: queryParams }
     );
@@ -684,7 +684,7 @@ export class TvClient {
     params: AddRatingParams,
     request: AddRatingRequest
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
       request,
       { params: buildQueryParams(params) }
@@ -702,7 +702,7 @@ export class TvClient {
     episodeNumber: number,
     params: DeleteRatingParams
   ): Promise<TMDBResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/rating`,
       { params: buildQueryParams(params) }
     );
@@ -714,7 +714,7 @@ export class TvClient {
    * @see https://developer.themoviedb.org/reference/tv-episode-group-details
    */
   async getEpisodeGroupDetails(id: string): Promise<TvEpisodeGroupDetails> {
-    const response = await this.axiosInstance.get(`tv/episode_group/${id}`);
+    const response = await this.httpClient.get(`tv/episode_group/${id}`);
     return response.data;
   }
 }

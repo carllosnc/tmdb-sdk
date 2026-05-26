@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type DiscoverMovieResponse,
   type DiscoverMoviesParams,
@@ -8,7 +8,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class DiscoverClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Find movies using over 30 filters and sort options.
@@ -19,7 +19,7 @@ export class DiscoverClient {
   ): Promise<DiscoverMovieResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("discover/movie", {
+    const response = await this.httpClient.get("discover/movie", {
       params: queryParams,
     });
     return response.data;
@@ -34,7 +34,7 @@ export class DiscoverClient {
   ): Promise<DiscoverTvResponse> {
     const queryParams = buildQueryParams(params);
 
-    const response = await this.axiosInstance.get("discover/tv", {
+    const response = await this.httpClient.get("discover/tv", {
       params: queryParams,
     });
     return response.data;

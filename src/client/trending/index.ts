@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type TrendingAllResponse,
   type TrendingMoviesResponse,
@@ -8,7 +8,7 @@ import {
 } from "../../types/trending.js";
 
 export class TrendingClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the trending movies, TV shows and people.
@@ -19,7 +19,7 @@ export class TrendingClient {
     const timeWindow = params?.timeWindow ?? "day";
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(`trending/all/${timeWindow}`, {
+    const response = await this.httpClient.get(`trending/all/${timeWindow}`, {
       params: queryParams,
     });
     return response.data;
@@ -34,7 +34,7 @@ export class TrendingClient {
     const timeWindow = params?.timeWindow ?? "day";
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(`trending/movie/${timeWindow}`, {
+    const response = await this.httpClient.get(`trending/movie/${timeWindow}`, {
       params: queryParams,
     });
     return response.data;
@@ -49,7 +49,7 @@ export class TrendingClient {
     const timeWindow = params?.timeWindow ?? "day";
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(`trending/person/${timeWindow}`, {
+    const response = await this.httpClient.get(`trending/person/${timeWindow}`, {
       params: queryParams,
     });
     return response.data;
@@ -64,7 +64,7 @@ export class TrendingClient {
     const timeWindow = params?.timeWindow ?? "day";
     if (params?.language) queryParams["language"] = params.language;
 
-    const response = await this.axiosInstance.get(`trending/tv/${timeWindow}`, {
+    const response = await this.httpClient.get(`trending/tv/${timeWindow}`, {
       params: queryParams,
     });
     return response.data;

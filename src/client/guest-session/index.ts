@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type GuestSessionRatedMoviesParams,
   type GuestSessionRatedMoviesResponse,
@@ -9,7 +9,7 @@ import {
 } from "../../types/guest-session.js";
 
 export class GuestSessionClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the rated movies for a guest session.
@@ -24,7 +24,7 @@ export class GuestSessionClient {
     if (params?.page) queryParams["page"] = params.page;
     if (params?.sortBy) queryParams["sort_by"] = params.sortBy;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `guest_session/${guestSessionId}/rated/movies`,
       { params: queryParams }
     );
@@ -44,7 +44,7 @@ export class GuestSessionClient {
     if (params?.page) queryParams["page"] = params.page;
     if (params?.sortBy) queryParams["sort_by"] = params.sortBy;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `guest_session/${guestSessionId}/rated/tv`,
       { params: queryParams }
     );
@@ -64,7 +64,7 @@ export class GuestSessionClient {
     if (params?.page) queryParams["page"] = params.page;
     if (params?.sortBy) queryParams["sort_by"] = params.sortBy;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `guest_session/${guestSessionId}/rated/tv/episodes`,
       { params: queryParams }
     );

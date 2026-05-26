@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type GetMovieChangesParams,
   type GetPersonChangesParams,
@@ -9,7 +9,7 @@ import {
 } from "../../types/changes.js";
 
 export class ChangesClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get a list of all movie IDs that have been changed in the past 24 hours.
@@ -24,7 +24,7 @@ export class ChangesClient {
     if (params?.endDate) queryParams["end_date"] = params.endDate;
     if (params?.page) queryParams["page"] = params.page;
 
-    const response = await this.axiosInstance.get("movie/changes", {
+    const response = await this.httpClient.get("movie/changes", {
       params: queryParams,
     });
     return response.data;
@@ -43,7 +43,7 @@ export class ChangesClient {
     if (params?.endDate) queryParams["end_date"] = params.endDate;
     if (params?.page) queryParams["page"] = params.page;
 
-    const response = await this.axiosInstance.get("person/changes", {
+    const response = await this.httpClient.get("person/changes", {
       params: queryParams,
     });
     return response.data;
@@ -62,7 +62,7 @@ export class ChangesClient {
     if (params?.endDate) queryParams["end_date"] = params.endDate;
     if (params?.page) queryParams["page"] = params.page;
 
-    const response = await this.axiosInstance.get("tv/changes", {
+    const response = await this.httpClient.get("tv/changes", {
       params: queryParams,
     });
     return response.data;

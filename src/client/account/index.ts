@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type AccountDetails,
   type AddFavoriteParams,
@@ -22,7 +22,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class AccountClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get account details.
@@ -32,7 +32,7 @@ export class AccountClient {
   async getDetails(params?: GetAccountDetailsParams): Promise<AccountDetails> {
     const { accountId, ...query } = params ?? {};
     const path = accountId ? `account/${accountId}` : "account";
-    const response = await this.axiosInstance.get(path, { params: buildQueryParams(query) });
+    const response = await this.httpClient.get(path, { params: buildQueryParams(query) });
     return response.data;
   }
 
@@ -45,7 +45,7 @@ export class AccountClient {
     request: AddFavoriteRequest
   ): Promise<TMDBResponse> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `account/${accountId}/favorite`,
       request,
       { params: buildQueryParams(query) }
@@ -62,7 +62,7 @@ export class AccountClient {
     request: AddWatchlistRequest
   ): Promise<TMDBResponse> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `account/${accountId}/watchlist`,
       request,
       { params: buildQueryParams(query) }
@@ -78,7 +78,7 @@ export class AccountClient {
     params: GetFavoritesParams
   ): Promise<PaginatedResponse<FavoriteMovie>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/favorite/movies`,
       { params: buildQueryParams(query) }
     );
@@ -93,7 +93,7 @@ export class AccountClient {
     params: GetFavoritesParams
   ): Promise<PaginatedResponse<FavoriteTV>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/favorite/tv`,
       { params: buildQueryParams(query) }
     );
@@ -108,7 +108,7 @@ export class AccountClient {
     params: GetListsParams
   ): Promise<PaginatedResponse<AccountList>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/lists`,
       { params: buildQueryParams(query) }
     );
@@ -123,7 +123,7 @@ export class AccountClient {
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedMovie>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/rated/movies`,
       { params: buildQueryParams(query) }
     );
@@ -138,7 +138,7 @@ export class AccountClient {
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedTV>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/rated/tv`,
       { params: buildQueryParams(query) }
     );
@@ -153,7 +153,7 @@ export class AccountClient {
     params: GetRatedParams
   ): Promise<PaginatedResponse<RatedEpisode>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/rated/tv/episodes`,
       { params: buildQueryParams(query) }
     );
@@ -168,7 +168,7 @@ export class AccountClient {
     params: GetWatchlistParams
   ): Promise<PaginatedResponse<FavoriteMovie>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/watchlist/movies`,
       { params: buildQueryParams(query) }
     );
@@ -183,7 +183,7 @@ export class AccountClient {
     params: GetWatchlistParams
   ): Promise<PaginatedResponse<FavoriteTV>> {
     const { accountId, ...query } = params;
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `account/${accountId}/watchlist/tv`,
       { params: buildQueryParams(query) }
     );

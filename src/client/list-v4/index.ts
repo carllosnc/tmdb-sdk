@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type V4AddItemsRequest,
   type V4ClearListResponse,
@@ -17,7 +17,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class ListV4Client {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Retrieve a list by id.
@@ -27,7 +27,7 @@ export class ListV4Client {
     listId: number,
     params?: V4ListDetailsParams
   ): Promise<V4ListDetails> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `/4/list/${listId}`,
       { params: buildQueryParams(params) }
     );
@@ -41,7 +41,7 @@ export class ListV4Client {
   async create(
     request: V4CreateListRequest
   ): Promise<V4CreateListResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "/4/list",
       request
     );
@@ -56,7 +56,7 @@ export class ListV4Client {
     listId: number,
     request: V4UpdateListRequest
   ): Promise<V4CreateListResponse> {
-    const response = await this.axiosInstance.put(
+    const response = await this.httpClient.put(
       `/4/list/${listId}`,
       request
     );
@@ -70,7 +70,7 @@ export class ListV4Client {
   async delete(
     listId: number
   ): Promise<V4DeleteListResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `/4/list/${listId}`
     );
     return response.data;
@@ -84,7 +84,7 @@ export class ListV4Client {
     listId: number,
     request: V4AddItemsRequest
   ): Promise<V4ListActionResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `/4/list/${listId}/items`,
       request
     );
@@ -99,7 +99,7 @@ export class ListV4Client {
     listId: number,
     request: V4UpdateItemsRequest
   ): Promise<V4ListActionResponse> {
-    const response = await this.axiosInstance.put(
+    const response = await this.httpClient.put(
       `/4/list/${listId}/items`,
       request
     );
@@ -114,7 +114,7 @@ export class ListV4Client {
     listId: number,
     request: V4RemoveItemsRequest
   ): Promise<V4ListActionResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `/4/list/${listId}/items`,
       { data: request }
     );
@@ -128,7 +128,7 @@ export class ListV4Client {
   async clear(
     listId: number
   ): Promise<V4ClearListResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `/4/list/${listId}/clear`
     );
     return response.data;
@@ -142,7 +142,7 @@ export class ListV4Client {
     listId: number,
     params: V4ItemStatusParams
   ): Promise<V4ItemStatusResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `/4/list/${listId}/item_status`,
       { params: buildQueryParams(params) }
     );

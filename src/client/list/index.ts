@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type ListDetails,
   type ListDetailsParams,
@@ -17,7 +17,7 @@ import {
 } from "../../types/list.js";
 
 export class ListClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get list details by ID.
@@ -28,7 +28,7 @@ export class ListClient {
     if (params.language) queryParams["language"] = params.language;
     if (params.page) queryParams["page"] = params.page;
 
-    const response = await this.axiosInstance.get(`list/${params.listId}`, { params: queryParams });
+    const response = await this.httpClient.get(`list/${params.listId}`, { params: queryParams });
     return response.data;
   }
 
@@ -40,7 +40,7 @@ export class ListClient {
     params: CreateListParams,
     request: CreateListRequest
   ): Promise<CreateListResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "list",
       request,
       { params: { session_id: params.sessionId } }
@@ -56,7 +56,7 @@ export class ListClient {
     params: AddMovieParams,
     request: AddMovieRequest
   ): Promise<ListStatusResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `list/${params.listId}/add_item`,
       request,
       { params: { session_id: params.sessionId } }
@@ -72,7 +72,7 @@ export class ListClient {
     params: RemoveMovieParams,
     request: RemoveMovieRequest
   ): Promise<ListStatusResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `list/${params.listId}/remove_item`,
       request,
       { params: { session_id: params.sessionId } }
@@ -89,7 +89,7 @@ export class ListClient {
     if (params.language) queryParams["language"] = params.language;
     if (params.movieId) queryParams["movie_id"] = params.movieId;
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `list/${params.listId}/item_status`,
       { params: queryParams }
     );
@@ -101,7 +101,7 @@ export class ListClient {
    * @see https://developer.themoviedb.org/reference/list-clear
    */
   async clear(params: ClearListParams): Promise<ListStatusResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       `list/${params.listId}/clear`,
       null,
       {
@@ -119,7 +119,7 @@ export class ListClient {
    * @see https://developer.themoviedb.org/reference/list-delete
    */
   async delete(params: DeleteListParams): Promise<ListStatusResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       `list/${params.listId}`,
       { params: { session_id: params.sessionId } }
     );

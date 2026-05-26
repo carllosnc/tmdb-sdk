@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type SearchCollectionParams,
   type SearchCollectionResponse,
@@ -18,7 +18,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class SearchClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Search for collections by their original, translated and alternative names.
@@ -27,7 +27,7 @@ export class SearchClient {
   async searchCollections(
     params: SearchCollectionParams
   ): Promise<SearchCollectionResponse> {
-    const response = await this.axiosInstance.get("search/collection", {
+    const response = await this.httpClient.get("search/collection", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -40,7 +40,7 @@ export class SearchClient {
   async searchCompanies(
     params: SearchCompanyParams
   ): Promise<SearchCompanyResponse> {
-    const response = await this.axiosInstance.get("search/company", {
+    const response = await this.httpClient.get("search/company", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -53,7 +53,7 @@ export class SearchClient {
   async searchKeywords(
     params: SearchKeywordParams
   ): Promise<SearchKeywordResponse> {
-    const response = await this.axiosInstance.get("search/keyword", {
+    const response = await this.httpClient.get("search/keyword", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -66,7 +66,7 @@ export class SearchClient {
   async searchMovies(
     params: SearchMovieParams
   ): Promise<SearchMovieResponse> {
-    const response = await this.axiosInstance.get("search/movie", {
+    const response = await this.httpClient.get("search/movie", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -79,7 +79,7 @@ export class SearchClient {
   async searchMulti(
     params: SearchMultiParams
   ): Promise<SearchMultiResponse> {
-    const response = await this.axiosInstance.get("search/multi", {
+    const response = await this.httpClient.get("search/multi", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -92,7 +92,7 @@ export class SearchClient {
   async searchPeople(
     params: SearchPersonParams
   ): Promise<SearchPersonResponse> {
-    const response = await this.axiosInstance.get("search/person", {
+    const response = await this.httpClient.get("search/person", {
       params: buildQueryParams(params),
     });
     return response.data;
@@ -105,7 +105,7 @@ export class SearchClient {
   async searchTvShows(
     params: SearchTvParams
   ): Promise<SearchTvResponse> {
-    const response = await this.axiosInstance.get("search/tv", {
+    const response = await this.httpClient.get("search/tv", {
       params: buildQueryParams(params),
     });
     return response.data;

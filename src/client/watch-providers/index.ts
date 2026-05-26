@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type WatchProvidersRegionsParams,
   type WatchProviderRegionResponse,
@@ -8,14 +8,14 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class WatchProvidersClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get the list of the countries we have watch provider (OTT/streaming) data for.
    * @see https://developer.themoviedb.org/reference/watch-providers-available-regions
    */
   async getAvailableRegions(params?: WatchProvidersRegionsParams): Promise<WatchProviderRegionResponse> {
-    const response = await this.axiosInstance.get("watch/providers/regions", { params: buildQueryParams(params) });
+    const response = await this.httpClient.get("watch/providers/regions", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -24,7 +24,7 @@ export class WatchProvidersClient {
    * @see https://developer.themoviedb.org/reference/watch-providers-movie-list
    */
   async getMovieProviders(params?: WatchProvidersListParams): Promise<WatchProvidersResponse> {
-    const response = await this.axiosInstance.get("watch/providers/movie", { params: buildQueryParams(params) });
+    const response = await this.httpClient.get("watch/providers/movie", { params: buildQueryParams(params) });
     return response.data;
   }
 
@@ -33,7 +33,7 @@ export class WatchProvidersClient {
    * @see https://developer.themoviedb.org/reference/watch-providers-tv-list
    */
   async getTvProviders(params?: WatchProvidersListParams): Promise<WatchProvidersResponse> {
-    const response = await this.axiosInstance.get("watch/providers/tv", { params: buildQueryParams(params) });
+    const response = await this.httpClient.get("watch/providers/tv", { params: buildQueryParams(params) });
     return response.data;
   }
 }

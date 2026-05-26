@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type CollectionDetails,
   type CollectionImagesResponse,
@@ -9,7 +9,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class CollectionClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get collection details by ID.
@@ -24,7 +24,7 @@ export class CollectionClient {
       queryParams.append_to_response = [...new Set(params!.append_to_response!)].join(",");
     }
 
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `collection/${collectionId}`,
       { params: queryParams }
     );
@@ -39,7 +39,7 @@ export class CollectionClient {
     collectionId: number,
     params?: GetCollectionImagesParams
   ): Promise<CollectionImagesResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `collection/${collectionId}/images`,
       { params: buildQueryParams(params) }
     );
@@ -53,7 +53,7 @@ export class CollectionClient {
   async getTranslations(
     collectionId: number
   ): Promise<CollectionTranslationsResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `collection/${collectionId}/translations`
     );
     return response.data;

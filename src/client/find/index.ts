@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type FindByIdParams,
   type FindByIdResponse,
@@ -6,7 +6,7 @@ import {
 import { buildQueryParams } from "../../utils/query.js";
 
 export class FindClient {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Find data by external ID's.
@@ -16,7 +16,7 @@ export class FindClient {
     externalId: string,
     params: FindByIdParams
   ): Promise<FindByIdResponse> {
-    const response = await this.axiosInstance.get(
+    const response = await this.httpClient.get(
       `find/${externalId}`,
       { params: buildQueryParams(params) }
     );

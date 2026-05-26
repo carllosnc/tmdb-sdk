@@ -1,4 +1,4 @@
-import { type AxiosInstance } from "axios";
+import { type HttpClient } from "../../http/types.js";
 import {
   type V4CreateAccessTokenRequest,
   type V4CreateAccessTokenResponse,
@@ -9,7 +9,7 @@ import {
 } from "../../types/auth-v4.js";
 
 export class AuthV4Client {
-  constructor(private axiosInstance: AxiosInstance) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Generate a new request token to ask a user to approve.
@@ -18,7 +18,7 @@ export class AuthV4Client {
   async createRequestToken(
     params?: V4CreateRequestTokenParams
   ): Promise<V4CreateRequestTokenResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "/4/auth/request_token",
       params?.redirect_to ? { redirect_to: params.redirect_to } : undefined
     );
@@ -32,7 +32,7 @@ export class AuthV4Client {
   async createAccessToken(
     request: V4CreateAccessTokenRequest
   ): Promise<V4CreateAccessTokenResponse> {
-    const response = await this.axiosInstance.post(
+    const response = await this.httpClient.post(
       "/4/auth/access_token",
       request
     );
@@ -46,7 +46,7 @@ export class AuthV4Client {
   async logout(
     request: V4LogoutRequest
   ): Promise<V4LogoutResponse> {
-    const response = await this.axiosInstance.delete(
+    const response = await this.httpClient.delete(
       "/4/auth/access_token",
       { data: request }
     );
