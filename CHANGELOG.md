@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.7.0] - 2026-05-25
+
+### Added
+- `tvSeason` namespace — `TvSeasonClient` for TV season endpoints (details, account states, aggregate credits, changes, credits, external IDs, images, translations, videos, watch providers)
+- `tvEpisode` namespace — `TvEpisodeClient` for TV episode endpoints (details, account states, changes, credits, external IDs, images, translations, videos, add/delete rating)
+- `tvEpisodeGroup` namespace — `TvEpisodeGroupClient.getDetails()` for `/3/tv/episode_group/{id}`
+- `*AppendToResponseResult<T>` conditional types — `getDetails()` now auto-resolves return type to include only the requested append fields when `as const` is used
+- Test suites for all 3 new namespace clients (387 tests across 30 files)
+
+### Changed
+- `With*AppendToResponse` types now accept `readonly` arrays to support `as const` tuple inference
+
+### Fixed
+- `getDetails()` return type no longer requires manual `as` casting with `append_to_response`
+
 ## [0.6.1] - 2026-05-25
 
 ### Fixed
