@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.9.1] - 2026-05-26
+
+### Fixed
+- Added `bun.lock` that was missing from previous commit
+
 ## [0.9.0] - 2026-05-26
 
 ### Added
