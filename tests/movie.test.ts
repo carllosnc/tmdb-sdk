@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { MovieClient } from "../src/client/movie/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -34,7 +34,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { ...mockResponse, dates: { maximum: "2024-02-01", minimum: "2024-01-01" } },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getNowPlaying({ language: "en-US", page: 2, region: "US" });
 
@@ -49,7 +49,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch now playing with no params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getNowPlaying();
 
@@ -58,7 +58,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch popular movies with query params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getPopular({ language: "en-US", page: 1 });
 
@@ -72,7 +72,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch popular with no params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getPopular();
 
@@ -81,7 +81,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch top rated movies with query params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getTopRated({ language: "en-US", page: 1 });
 
@@ -94,7 +94,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch top rated with no params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getTopRated();
 
@@ -107,7 +107,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { ...mockResponse, dates: { maximum: "2024-03-01", minimum: "2024-02-15" } },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getUpcoming({ language: "en-US", page: 1, region: "US" });
 
@@ -121,7 +121,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch upcoming with no params", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getUpcoming();
 
@@ -130,7 +130,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch details with params", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, title: "Fight Club" } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(550, { language: "en-US" });
 
@@ -143,7 +143,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getDetails(550, { append_to_response: ["videos", "images"] });
 
@@ -154,7 +154,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should deduplicate append_to_response values", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getDetails(550, { append_to_response: ["credits", "videos", "credits"] });
 
@@ -165,7 +165,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch details without params", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getDetails(550);
 
@@ -178,7 +178,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { id: 550, favorite: true, rated: { value: 9 }, watchlist: false },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getAccountStates(550, { session_id: "test-session" });
 
@@ -191,7 +191,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch account states with guest session", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, favorite: false, rated: null, watchlist: false } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getAccountStates(550, { guest_session_id: "guest-123" });
 
@@ -206,7 +206,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { id: 550, titles: [{ iso_3166_1: "RS", title: "Borilački klub", type: "" }] },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getAlternativeTitles(550, { country: "RS" });
 
@@ -218,7 +218,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch alternative titles without params", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, titles: [] } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getAlternativeTitles(550);
 
@@ -231,7 +231,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { changes: [{ key: "images", items: [] }] },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getChanges(550, { page: 1 });
 
@@ -243,7 +243,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch changes with date range", async () => {
     const get = mock(() => Promise.resolve({ data: { changes: [] } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getChanges(550, { start_date: "2024-01-01", end_date: "2024-01-31" });
 
@@ -262,7 +262,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getCredits(550, { language: "en-US" });
 
@@ -280,7 +280,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { id: 550, imdb_id: "tt0137523", facebook_id: "FightClub" },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getExternalIds(550);
 
@@ -299,7 +299,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getImages(550, { language: "en" });
 
@@ -311,7 +311,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch images with include_image_language", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, backdrops: [], logos: [], posters: [] } }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     await client.getImages(550, { include_image_language: "en-US,null" });
 
@@ -326,7 +326,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { id: 550, keywords: [{ id: 818, name: "based on novel or book" }] },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getKeywords(550);
 
@@ -340,7 +340,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { id: 1119232, title: "König Charles III", adult: false },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getLatest();
 
@@ -360,7 +360,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getLists(550, { language: "en-US", page: 1 });
 
@@ -372,7 +372,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch recommendations", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getRecommendations(550, { page: 1 });
 
@@ -396,7 +396,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getReleaseDates(550);
 
@@ -417,7 +417,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getReviews(550, { language: "en-US" });
 
@@ -429,7 +429,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should fetch similar movies", async () => {
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getSimilar(550, { language: "en-US" });
 
@@ -456,7 +456,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getTranslations(550);
 
@@ -473,7 +473,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getVideos(550, { language: "en-US" });
 
@@ -497,7 +497,7 @@ describe("TMDBClient - Movie Namespace", () => {
         },
       })
     );
-    const client = new MovieClient({ get } as unknown as AxiosInstance);
+    const client = new MovieClient({ get } as unknown as HttpClient);
 
     const response = await client.getWatchProviders(550);
 
@@ -512,7 +512,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { status_code: 1, status_message: "Success." },
       })
     );
-    const client = new MovieClient({ post } as unknown as AxiosInstance);
+    const client = new MovieClient({ post } as unknown as HttpClient);
 
     const response = await client.addRating(550, { session_id: "test-session" }, { value: 8.5 });
 
@@ -526,7 +526,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should add rating with guest session", async () => {
     const post = mock(() => Promise.resolve({ data: { status_code: 1, status_message: "Success." } }));
-    const client = new MovieClient({ post } as unknown as AxiosInstance);
+    const client = new MovieClient({ post } as unknown as HttpClient);
 
     await client.addRating(550, { guest_session_id: "guest-123" }, { value: 7.0 });
 
@@ -543,7 +543,7 @@ describe("TMDBClient - Movie Namespace", () => {
         data: { status_code: 13, status_message: "The item/record was deleted successfully." },
       })
     );
-    const client = new MovieClient({ delete: del } as unknown as AxiosInstance);
+    const client = new MovieClient({ delete: del } as unknown as HttpClient);
 
     const response = await client.deleteRating(550, { session_id: "test-session" });
 
@@ -555,7 +555,7 @@ describe("TMDBClient - Movie Namespace", () => {
 
   test("should delete rating with guest session", async () => {
     const del = mock(() => Promise.resolve({ data: { status_code: 13, status_message: "Success." } }));
-    const client = new MovieClient({ delete: del } as unknown as AxiosInstance);
+    const client = new MovieClient({ delete: del } as unknown as HttpClient);
 
     await client.deleteRating(550, { guest_session_id: "guest-123" });
 

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { FindClient } from "../src/client/find/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -32,7 +32,7 @@ describe("TMDBClient - Find Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new FindClient({ get } as unknown as AxiosInstance);
+    const client = new FindClient({ get } as unknown as HttpClient);
 
     const response = await client.findById("tt1234567", {
       externalSource: "imdb_id",
@@ -55,7 +55,7 @@ describe("TMDBClient - Find Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new FindClient({ get } as unknown as AxiosInstance);
+    const client = new FindClient({ get } as unknown as HttpClient);
 
     await client.findById("tt1234567", {
       externalSource: "imdb_id",

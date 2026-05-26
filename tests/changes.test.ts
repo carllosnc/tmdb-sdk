@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { ChangesClient } from "../src/client/changes/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -16,7 +16,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovieList();
 
@@ -34,7 +34,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovieList({
       startDate: "2026-05-01",
@@ -61,7 +61,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getPersonList();
 
@@ -79,7 +79,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getPersonList({
       startDate: "2026-05-01",
@@ -190,7 +190,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getTVList();
 
@@ -208,7 +208,7 @@ describe("TMDBClient - Changes Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ChangesClient({ get } as unknown as AxiosInstance);
+    const client = new ChangesClient({ get } as unknown as HttpClient);
 
     const response = await client.getTVList({
       startDate: "2026-05-01",

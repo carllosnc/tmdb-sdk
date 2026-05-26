@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { CreditClient } from "../src/client/credit/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -43,7 +43,7 @@ describe("TMDBClient - Credit Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CreditClient({ get } as unknown as AxiosInstance);
+    const client = new CreditClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails("6024a814c0ae36003d59cc3c");
 

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { CollectionClient } from "../src/client/collection/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -35,7 +35,7 @@ describe("TMDBClient - Collection Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CollectionClient({ get } as unknown as AxiosInstance);
+    const client = new CollectionClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(10);
 
@@ -57,7 +57,7 @@ describe("TMDBClient - Collection Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CollectionClient({ get } as unknown as AxiosInstance);
+    const client = new CollectionClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(10, { language: "fr-FR" });
 
@@ -96,7 +96,7 @@ describe("TMDBClient - Collection Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CollectionClient({ get } as unknown as AxiosInstance);
+    const client = new CollectionClient({ get } as unknown as HttpClient);
 
     const response = await client.getImages(10);
 
@@ -109,7 +109,7 @@ describe("TMDBClient - Collection Namespace", () => {
     const mockData = { id: 10, backdrops: [], posters: [] };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CollectionClient({ get } as unknown as AxiosInstance);
+    const client = new CollectionClient({ get } as unknown as HttpClient);
 
     const response = await client.getImages(10, {
       language: "en-US",
@@ -138,7 +138,7 @@ describe("TMDBClient - Collection Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CollectionClient({ get } as unknown as AxiosInstance);
+    const client = new CollectionClient({ get } as unknown as HttpClient);
 
     const response = await client.getTranslations(10);
 

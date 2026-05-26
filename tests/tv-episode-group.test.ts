@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { TvEpisodeGroupClient } from "../src/client/tv-episode-group/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -46,7 +46,7 @@ const mockGroupData = {
 describe("TvEpisodeGroupClient", () => {
   test("should fetch episode group details", async () => {
     const get = mock(() => Promise.resolve({ data: mockGroupData }));
-    const client = new TvEpisodeGroupClient({ get } as unknown as AxiosInstance);
+    const client = new TvEpisodeGroupClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails("some-group-id");
 

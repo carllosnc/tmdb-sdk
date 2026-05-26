@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { KeywordClient } from "../src/client/keyword/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -8,7 +8,7 @@ describe("TMDBClient - Keyword Namespace", () => {
     const mockData = { id: 1701, name: "hero" };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new KeywordClient({ get } as unknown as AxiosInstance);
+    const client = new KeywordClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(1701);
 
@@ -44,7 +44,7 @@ describe("TMDBClient - Keyword Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new KeywordClient({ get } as unknown as AxiosInstance);
+    const client = new KeywordClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovies(1701);
 
@@ -63,7 +63,7 @@ describe("TMDBClient - Keyword Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new KeywordClient({ get } as unknown as AxiosInstance);
+    const client = new KeywordClient({ get } as unknown as HttpClient);
 
     await client.getMovies(1701, {
       includeAdult: true,

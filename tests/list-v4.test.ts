@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { ListV4Client } from "../src/client/list-v4/index.js";
 
 describe("TMDBClient - ListV4 Namespace", () => {
@@ -31,7 +31,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
 
   test("should get list details", async () => {
     const get = mock(() => Promise.resolve({ data: mockListDetails }));
-    const client = new ListV4Client({ get } as unknown as AxiosInstance);
+    const client = new ListV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(123);
 
@@ -42,7 +42,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
 
   test("should pass params to list details", async () => {
     const get = mock(() => Promise.resolve({ data: mockListDetails }));
-    const client = new ListV4Client({ get } as unknown as AxiosInstance);
+    const client = new ListV4Client({ get } as unknown as HttpClient);
 
     await client.getDetails(123, { language: "en-US", page: 2 });
 
@@ -54,7 +54,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
   test("should create a list", async () => {
     const mockResponse = { id: 456, status_code: 1, status_message: "Created.", success: true };
     const post = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new ListV4Client({ post } as unknown as AxiosInstance);
+    const client = new ListV4Client({ post } as unknown as HttpClient);
 
     const response = await client.create({
       name: "My List",
@@ -75,7 +75,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
   test("should update a list", async () => {
     const mockResponse = { id: 456, status_code: 1, status_message: "Updated.", success: true };
     const put = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new ListV4Client({ put } as unknown as AxiosInstance);
+    const client = new ListV4Client({ put } as unknown as HttpClient);
 
     const response = await client.update(456, { name: "Renamed List", public: false });
 
@@ -89,7 +89,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
   test("should delete a list", async () => {
     const mockResponse = { status_code: 1, status_message: "Deleted." };
     const del = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new ListV4Client({ delete: del } as unknown as AxiosInstance);
+    const client = new ListV4Client({ delete: del } as unknown as HttpClient);
 
     const response = await client.delete(456);
 
@@ -99,7 +99,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
 
   test("should add items to a list", async () => {
     const post = mock(() => Promise.resolve({ data: mockActionResponse }));
-    const client = new ListV4Client({ post } as unknown as AxiosInstance);
+    const client = new ListV4Client({ post } as unknown as HttpClient);
 
     const response = await client.addItems(123, {
       items: [{ media_type: "movie", media_id: 42 }],
@@ -113,7 +113,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
 
   test("should update items on a list", async () => {
     const put = mock(() => Promise.resolve({ data: mockActionResponse }));
-    const client = new ListV4Client({ put } as unknown as AxiosInstance);
+    const client = new ListV4Client({ put } as unknown as HttpClient);
 
     const response = await client.updateItems(123, {
       items: [{ media_type: "movie", media_id: 42, comment: "Great movie" }],
@@ -127,7 +127,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
 
   test("should remove items from a list", async () => {
     const del = mock(() => Promise.resolve({ data: mockActionResponse }));
-    const client = new ListV4Client({ delete: del } as unknown as AxiosInstance);
+    const client = new ListV4Client({ delete: del } as unknown as HttpClient);
 
     const response = await client.removeItems(123, {
       items: [{ media_type: "tv", media_id: 99 }],
@@ -142,7 +142,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
   test("should clear a list", async () => {
     const mockResponse = { status_code: 1, status_message: "Cleared." };
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new ListV4Client({ get } as unknown as AxiosInstance);
+    const client = new ListV4Client({ get } as unknown as HttpClient);
 
     const response = await client.clear(123);
 
@@ -153,7 +153,7 @@ describe("TMDBClient - ListV4 Namespace", () => {
   test("should check item status", async () => {
     const mockResponse = { id: 123, item_present: true, status_code: 1, status_message: "Found." };
     const get = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new ListV4Client({ get } as unknown as AxiosInstance);
+    const client = new ListV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getItemStatus(123, { media_id: 42, media_type: "movie" });
 

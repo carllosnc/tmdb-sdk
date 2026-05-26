@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { CertificationClient } from "../src/client/certification/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -18,7 +18,7 @@ describe("TMDBClient - Certification Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CertificationClient({ get } as unknown as AxiosInstance);
+    const client = new CertificationClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovieCertifications();
 
@@ -41,7 +41,7 @@ describe("TMDBClient - Certification Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CertificationClient({ get } as unknown as AxiosInstance);
+    const client = new CertificationClient({ get } as unknown as HttpClient);
 
     const response = await client.getTVCertifications();
 

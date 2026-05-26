@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { GenreClient } from "../src/client/genre/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -14,7 +14,7 @@ describe("TMDBClient - Genre Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GenreClient({ get } as unknown as AxiosInstance);
+    const client = new GenreClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovies();
 
@@ -27,7 +27,7 @@ describe("TMDBClient - Genre Namespace", () => {
     const mockData = { genres: [] };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GenreClient({ get } as unknown as AxiosInstance);
+    const client = new GenreClient({ get } as unknown as HttpClient);
 
     await client.getMovies({ language: "de-DE" });
 
@@ -45,7 +45,7 @@ describe("TMDBClient - Genre Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GenreClient({ get } as unknown as AxiosInstance);
+    const client = new GenreClient({ get } as unknown as HttpClient);
 
     const response = await client.getTvShows();
 
@@ -58,7 +58,7 @@ describe("TMDBClient - Genre Namespace", () => {
     const mockData = { genres: [] };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GenreClient({ get } as unknown as AxiosInstance);
+    const client = new GenreClient({ get } as unknown as HttpClient);
 
     await client.getTvShows({ language: "fr-FR" });
 

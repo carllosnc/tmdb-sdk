@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { GuestSessionClient } from "../src/client/guest-session/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -33,7 +33,7 @@ describe("TMDBClient - GuestSession Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GuestSessionClient({ get } as unknown as AxiosInstance);
+    const client = new GuestSessionClient({ get } as unknown as HttpClient);
 
     const response = await client.getRatedMovies(guestSessionId);
 
@@ -49,7 +49,7 @@ describe("TMDBClient - GuestSession Namespace", () => {
     const mockData = { page: 1, results: [], total_pages: 0, total_results: 0 };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GuestSessionClient({ get } as unknown as AxiosInstance);
+    const client = new GuestSessionClient({ get } as unknown as HttpClient);
 
     await client.getRatedMovies(guestSessionId, {
       language: "fr-FR",
@@ -92,7 +92,7 @@ describe("TMDBClient - GuestSession Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GuestSessionClient({ get } as unknown as AxiosInstance);
+    const client = new GuestSessionClient({ get } as unknown as HttpClient);
 
     const response = await client.getRatedTvShows(guestSessionId);
 
@@ -129,7 +129,7 @@ describe("TMDBClient - GuestSession Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GuestSessionClient({ get } as unknown as AxiosInstance);
+    const client = new GuestSessionClient({ get } as unknown as HttpClient);
 
     const response = await client.getRatedTvEpisodes(guestSessionId);
 
@@ -145,7 +145,7 @@ describe("TMDBClient - GuestSession Namespace", () => {
     const mockData = { page: 1, results: [], total_pages: 0, total_results: 0 };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new GuestSessionClient({ get } as unknown as AxiosInstance);
+    const client = new GuestSessionClient({ get } as unknown as HttpClient);
 
     await client.getRatedTvEpisodes(guestSessionId, {
       sortBy: "created_at.asc",

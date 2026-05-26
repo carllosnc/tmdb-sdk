@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { ListClient } from "../src/client/list/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -20,7 +20,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ get } as unknown as AxiosInstance);
+    const client = new ListClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails({
       listId: 1,
@@ -52,7 +52,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ get } as unknown as AxiosInstance);
+    const client = new ListClient({ get } as unknown as HttpClient);
 
     await client.getDetails({ listId: 1 });
 
@@ -70,7 +70,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ post } as unknown as AxiosInstance);
+    const client = new ListClient({ post } as unknown as HttpClient);
 
     const response = await client.create(
       { sessionId: "test-session" },
@@ -96,7 +96,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ post } as unknown as AxiosInstance);
+    const client = new ListClient({ post } as unknown as HttpClient);
 
     const response = await client.addMovie(
       { listId: 1, sessionId: "test-session" },
@@ -121,7 +121,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ post } as unknown as AxiosInstance);
+    const client = new ListClient({ post } as unknown as HttpClient);
 
     const response = await client.removeMovie(
       { listId: 1, sessionId: "test-session" },
@@ -143,7 +143,7 @@ describe("TMDBClient - List Namespace", () => {
         data: { id: 1, item_present: true },
       })
     );
-    const client = new ListClient({ get } as unknown as AxiosInstance);
+    const client = new ListClient({ get } as unknown as HttpClient);
 
     const response = await client.checkItemStatus({
       listId: 1,
@@ -166,7 +166,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ post } as unknown as AxiosInstance);
+    const client = new ListClient({ post } as unknown as HttpClient);
 
     const response = await client.clear({
       listId: 1,
@@ -197,7 +197,7 @@ describe("TMDBClient - List Namespace", () => {
         },
       })
     );
-    const client = new ListClient({ delete: mockDelete } as unknown as AxiosInstance);
+    const client = new ListClient({ delete: mockDelete } as unknown as HttpClient);
 
     const response = await client.delete({
       listId: 1,
@@ -217,7 +217,7 @@ describe("TMDBClient - List Namespace", () => {
         data: { id: 1, item_present: false },
       })
     );
-    const client = new ListClient({ get } as unknown as AxiosInstance);
+    const client = new ListClient({ get } as unknown as HttpClient);
 
     const response = await client.checkItemStatus({
       listId: 1,

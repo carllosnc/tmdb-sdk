@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { AuthenticationClient } from "../src/client/authentication/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -11,7 +11,7 @@ describe("TMDBClient - Authentication Namespace", () => {
       status_message: "Success.",
     };
     const get = mock(() => Promise.resolve({ data: validateKeyResponse }));
-    const client = new AuthenticationClient({ get } as unknown as AxiosInstance);
+    const client = new AuthenticationClient({ get } as unknown as HttpClient);
 
     const response = await client.validateKey();
 
@@ -30,7 +30,7 @@ describe("TMDBClient - Authentication Namespace", () => {
       expires_at: "2016-08-27 16:26:40 UTC",
     };
     const get = mock(() => Promise.resolve({ data: guestSession }));
-    const client = new AuthenticationClient({ get } as unknown as AxiosInstance);
+    const client = new AuthenticationClient({ get } as unknown as HttpClient);
 
     const response = await client.createGuestSession();
 
@@ -49,7 +49,7 @@ describe("TMDBClient - Authentication Namespace", () => {
       request_token: "ff5c7eeb5a8870efe3cd7fc5c282cffd26800ecd",
     };
     const get = mock(() => Promise.resolve({ data: requestToken }));
-    const client = new AuthenticationClient({ get } as unknown as AxiosInstance);
+    const client = new AuthenticationClient({ get } as unknown as HttpClient);
 
     const response = await client.createRequestToken();
 
@@ -70,7 +70,7 @@ describe("TMDBClient - Authentication Namespace", () => {
     const post = mock(() => Promise.resolve({ data: session }));
     const client = new AuthenticationClient({
       post,
-    } as unknown as AxiosInstance);
+    } as unknown as HttpClient);
 
     const response = await client.createSession(request);
 
@@ -93,7 +93,7 @@ describe("TMDBClient - Authentication Namespace", () => {
     const post = mock(() => Promise.resolve({ data: session }));
     const client = new AuthenticationClient({
       post,
-    } as unknown as AxiosInstance);
+    } as unknown as HttpClient);
 
     const response = await client.createSessionFromV4Token(request);
 
@@ -121,7 +121,7 @@ describe("TMDBClient - Authentication Namespace", () => {
     const post = mock(() => Promise.resolve({ data: validatedToken }));
     const client = new AuthenticationClient({
       post,
-    } as unknown as AxiosInstance);
+    } as unknown as HttpClient);
 
     const response = await client.validateRequestTokenWithLogin(request);
 
@@ -142,7 +142,7 @@ describe("TMDBClient - Authentication Namespace", () => {
     const del = mock(() => Promise.resolve({ data: result }));
     const client = new AuthenticationClient({
       delete: del,
-    } as unknown as AxiosInstance);
+    } as unknown as HttpClient);
 
     const response = await client.deleteSession(request);
 

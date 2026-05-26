@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { TvClient } from "../src/client/tv/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -12,7 +12,7 @@ const emptyResponse = {
 
 function createClient() {
   const get = mock(() => Promise.resolve({ data: emptyResponse }));
-  return { get, client: new TvClient({ get } as unknown as AxiosInstance) };
+  return { get, client: new TvClient({ get } as unknown as HttpClient) };
 }
 
 describe("TMDBClient - TV Namespace", () => {
@@ -82,7 +82,7 @@ describe("TMDBClient - TV Namespace", () => {
 
   test("should fetch series details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
-    const client = new TvClient({ get } as unknown as AxiosInstance);
+    const client = new TvClient({ get } as unknown as HttpClient);
 
     await client.getDetails(1399, { append_to_response: ["credits", "videos"] });
 
@@ -93,7 +93,7 @@ describe("TMDBClient - TV Namespace", () => {
 
   test("should fetch season details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
-    const client = new TvClient({ get } as unknown as AxiosInstance);
+    const client = new TvClient({ get } as unknown as HttpClient);
 
     await client.getSeasonDetails(1399, 1, { append_to_response: ["credits", "videos"] });
 
@@ -104,7 +104,7 @@ describe("TMDBClient - TV Namespace", () => {
 
   test("should fetch episode details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
-    const client = new TvClient({ get } as unknown as AxiosInstance);
+    const client = new TvClient({ get } as unknown as HttpClient);
 
     await client.getEpisodeDetails(1399, 1, 1, { append_to_response: ["credits", "videos"] });
 

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { AuthV4Client } from "../src/client/auth-v4/index.js";
 
 describe("TMDBClient - AuthV4 Namespace", () => {
@@ -11,7 +11,7 @@ describe("TMDBClient - AuthV4 Namespace", () => {
       status_message: "Success.",
     };
     const post = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new AuthV4Client({ post } as unknown as AxiosInstance);
+    const client = new AuthV4Client({ post } as unknown as HttpClient);
 
     const response = await client.createRequestToken();
 
@@ -28,7 +28,7 @@ describe("TMDBClient - AuthV4 Namespace", () => {
       status_message: "Success.",
     };
     const post = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new AuthV4Client({ post } as unknown as AxiosInstance);
+    const client = new AuthV4Client({ post } as unknown as HttpClient);
 
     const response = await client.createRequestToken({ redirect_to: "https://example.com/callback" });
 
@@ -46,7 +46,7 @@ describe("TMDBClient - AuthV4 Namespace", () => {
       status_message: "Success.",
     };
     const post = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new AuthV4Client({ post } as unknown as AxiosInstance);
+    const client = new AuthV4Client({ post } as unknown as HttpClient);
 
     const response = await client.createAccessToken({ request_token: "req-token-456" });
 
@@ -62,7 +62,7 @@ describe("TMDBClient - AuthV4 Namespace", () => {
       status_message: "Success.",
     };
     const del = mock(() => Promise.resolve({ data: mockResponse }));
-    const client = new AuthV4Client({ delete: del } as unknown as AxiosInstance);
+    const client = new AuthV4Client({ delete: del } as unknown as HttpClient);
 
     const response = await client.logout({ access_token: "token-to-invalidate" });
 

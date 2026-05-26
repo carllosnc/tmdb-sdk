@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { PersonClient } from "../src/client/person/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -41,7 +41,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getPopular();
 
@@ -52,7 +52,7 @@ describe("TMDBClient - Person Namespace", () => {
 
   test("should fetch popular people with params", async () => {
     const get = mock(() => Promise.resolve({ data: {} }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     await client.getPopular({ language: "fr-FR", page: 2 });
 
@@ -80,7 +80,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(31);
 
@@ -91,7 +91,7 @@ describe("TMDBClient - Person Namespace", () => {
 
   test("should fetch person details with params", async () => {
     const get = mock(() => Promise.resolve({ data: {} }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     await client.getDetails(31, { language: "fr-FR", append_to_response: ["combined_credits"] });
 
@@ -120,7 +120,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getChanges(31);
 
@@ -131,7 +131,7 @@ describe("TMDBClient - Person Namespace", () => {
 
   test("should fetch person changes with params", async () => {
     const get = mock(() => Promise.resolve({ data: { changes: [] } }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     await client.getChanges(31, { start_date: "2023-01-01", end_date: "2023-01-07", page: 1 });
 
@@ -169,7 +169,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getCombinedCredits(31);
 
@@ -194,7 +194,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getExternalIds(31);
 
@@ -220,7 +220,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getImages(287);
 
@@ -248,7 +248,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getLatest();
 
@@ -285,7 +285,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovieCredits(31);
 
@@ -322,7 +322,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getTvCredits(31);
 
@@ -371,7 +371,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getTaggedImages(31);
 
@@ -398,7 +398,7 @@ describe("TMDBClient - Person Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new PersonClient({ get } as unknown as AxiosInstance);
+    const client = new PersonClient({ get } as unknown as HttpClient);
 
     const response = await client.getTranslations(31);
 

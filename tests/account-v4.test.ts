@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { AccountV4Client } from "../src/client/account-v4/index.js";
 
 describe("TMDBClient - AccountV4 Namespace", () => {
@@ -7,7 +7,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch lists", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getLists("abc123");
 
@@ -18,7 +18,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass page to lists endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getLists("abc123", { page: 2 });
 
@@ -27,7 +27,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch favorite movies", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getFavoriteMovies("abc123");
 
@@ -38,7 +38,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass params to favorite movies endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getFavoriteMovies("abc123", { language: "en-US", page: 1, sortBy: "created_at.desc" });
 
@@ -49,7 +49,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch favorite TV shows", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getFavoriteTvShows("abc123");
 
@@ -60,7 +60,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass params to favorite TV shows endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getFavoriteTvShows("abc123", { language: "fr-FR", page: 2, sortBy: "created_at.asc" });
 
@@ -71,7 +71,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch rated movies", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getRatedMovies("abc123");
 
@@ -82,7 +82,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass params to rated movies endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getRatedMovies("abc123", { page: 3 });
 
@@ -93,7 +93,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch rated TV shows", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getRatedTvShows("abc123");
 
@@ -104,7 +104,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass params to rated TV shows endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getRatedTvShows("abc123", { language: "de-DE" });
 
@@ -115,7 +115,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch watchlist movies", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getWatchlistMovies("abc123");
 
@@ -126,7 +126,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass params to watchlist movies endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getWatchlistMovies("abc123", { sortBy: "created_at.desc" });
 
@@ -137,7 +137,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should fetch watchlist TV shows", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     const response = await client.getWatchlistTvShows("abc123");
 
@@ -148,7 +148,7 @@ describe("TMDBClient - AccountV4 Namespace", () => {
 
   test("should pass all params to watchlist TV shows endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: mockPaginated }));
-    const client = new AccountV4Client({ get } as unknown as AxiosInstance);
+    const client = new AccountV4Client({ get } as unknown as HttpClient);
 
     await client.getWatchlistTvShows("abc123", { language: "en-US", page: 1, sortBy: "created_at.asc" });
 

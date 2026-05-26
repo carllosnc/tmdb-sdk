@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { DiscoverClient } from "../src/client/discover/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -30,7 +30,7 @@ describe("TMDBClient - Discover Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new DiscoverClient({ get } as unknown as AxiosInstance);
+    const client = new DiscoverClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovies();
 
@@ -43,7 +43,7 @@ describe("TMDBClient - Discover Namespace", () => {
     const mockData = { page: 1, results: [], total_pages: 0, total_results: 0 };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new DiscoverClient({ get } as unknown as AxiosInstance);
+    const client = new DiscoverClient({ get } as unknown as HttpClient);
 
     await client.getMovies({
       language: "fr-FR",
@@ -87,7 +87,7 @@ describe("TMDBClient - Discover Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new DiscoverClient({ get } as unknown as AxiosInstance);
+    const client = new DiscoverClient({ get } as unknown as HttpClient);
 
     const response = await client.getTvShows();
 
@@ -100,7 +100,7 @@ describe("TMDBClient - Discover Namespace", () => {
     const mockData = { page: 1, results: [], total_pages: 0, total_results: 0 };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new DiscoverClient({ get } as unknown as AxiosInstance);
+    const client = new DiscoverClient({ get } as unknown as HttpClient);
 
     await client.getTvShows({
       language: "en-US",

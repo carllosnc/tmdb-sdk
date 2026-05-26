@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { CompanyClient } from "../src/client/company/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -17,7 +17,7 @@ describe("TMDBClient - Company Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CompanyClient({ get } as unknown as AxiosInstance);
+    const client = new CompanyClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails(1);
 
@@ -36,7 +36,7 @@ describe("TMDBClient - Company Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CompanyClient({ get } as unknown as AxiosInstance);
+    const client = new CompanyClient({ get } as unknown as HttpClient);
 
     const response = await client.getAlternativeNames(1);
 
@@ -63,7 +63,7 @@ describe("TMDBClient - Company Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new CompanyClient({ get } as unknown as AxiosInstance);
+    const client = new CompanyClient({ get } as unknown as HttpClient);
 
     const response = await client.getImages(1);
 

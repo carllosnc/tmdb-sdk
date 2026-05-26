@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { WatchProvidersClient } from "../src/client/watch-providers/index.js";
 
 describe("TMDBClient - WatchProviders Namespace", () => {
@@ -12,7 +12,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     const response = await client.getAvailableRegions();
 
@@ -23,7 +23,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
 
   test("should pass language to available regions endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: { results: [] } }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     await client.getAvailableRegions({ language: "fr-FR" });
 
@@ -40,7 +40,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     const response = await client.getMovieProviders();
 
@@ -51,7 +51,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
 
   test("should pass params to movie providers endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: { results: [] } }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     await client.getMovieProviders({ language: "en-US", watchRegion: "US" });
 
@@ -68,7 +68,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     const response = await client.getTvProviders();
 
@@ -79,7 +79,7 @@ describe("TMDBClient - WatchProviders Namespace", () => {
 
   test("should pass params to TV providers endpoint", async () => {
     const get = mock(() => Promise.resolve({ data: { results: [] } }));
-    const client = new WatchProvidersClient({ get } as unknown as AxiosInstance);
+    const client = new WatchProvidersClient({ get } as unknown as HttpClient);
 
     await client.getTvProviders({ language: "en-US", watchRegion: "US" });
 

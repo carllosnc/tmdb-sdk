@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { TvSeasonClient } from "../src/client/tv-season/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -35,7 +35,7 @@ const mockSeasonData = {
 
 function createClient() {
   const get = mock(() => Promise.resolve({ data: mockSeasonData }));
-  return { get, client: new TvSeasonClient({ get } as unknown as AxiosInstance) };
+  return { get, client: new TvSeasonClient({ get } as unknown as HttpClient) };
 }
 
 describe("TvSeasonClient", () => {
@@ -48,7 +48,7 @@ describe("TvSeasonClient", () => {
 
   test("should fetch season details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: mockSeasonData }));
-    const client = new TvSeasonClient({ get } as unknown as AxiosInstance);
+    const client = new TvSeasonClient({ get } as unknown as HttpClient);
 
     await client.getDetails(1399, 1, { append_to_response: ["credits", "videos"] });
 

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { AccountClient } from "../src/client/account/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -10,7 +10,7 @@ describe("TMDBClient - Account Namespace", () => {
         data: { page: 1, results: [], total_pages: 0, total_results: 0 },
       })
     );
-    const client = new AccountClient({ get } as unknown as AxiosInstance);
+    const client = new AccountClient({ get } as unknown as HttpClient);
 
     const response = await client.getWatchlistMovies({
       accountId: 42,
@@ -39,7 +39,7 @@ describe("TMDBClient - Account Namespace", () => {
         data: { page: 1, results: [], total_pages: 0, total_results: 0 },
       })
     );
-    const client = new AccountClient({ get } as unknown as AxiosInstance);
+    const client = new AccountClient({ get } as unknown as HttpClient);
 
     await client.getWatchlistMovies({ accountId: 7 });
 
@@ -52,7 +52,7 @@ describe("TMDBClient - Account Namespace", () => {
         data: { page: 1, results: [], total_pages: 0, total_results: 0 },
       })
     );
-    const client = new AccountClient({ get } as unknown as AxiosInstance);
+    const client = new AccountClient({ get } as unknown as HttpClient);
 
     const response = await client.getWatchlistTV({
       accountId: 42,
@@ -81,7 +81,7 @@ describe("TMDBClient - Account Namespace", () => {
         data: { page: 1, results: [], total_pages: 0, total_results: 0 },
       })
     );
-    const client = new AccountClient({ get } as unknown as AxiosInstance);
+    const client = new AccountClient({ get } as unknown as HttpClient);
 
     await client.getWatchlistTV({ accountId: 7 });
 

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { TrendingClient } from "../src/client/trending/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -11,7 +11,7 @@ const emptyResponse = {
 };
 
 function createClient(get: ReturnType<typeof mock>) {
-  return new TrendingClient({ get } as unknown as AxiosInstance);
+  return new TrendingClient({ get } as unknown as HttpClient);
 }
 
 describe("TMDBClient - Trending Namespace", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { TvEpisodeClient } from "../src/client/tv-episode/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -21,7 +21,7 @@ const mockEpisodeData = {
 
 function createClient() {
   const get = mock(() => Promise.resolve({ data: mockEpisodeData }));
-  return { get, client: new TvEpisodeClient({ get } as unknown as AxiosInstance) };
+  return { get, client: new TvEpisodeClient({ get } as unknown as HttpClient) };
 }
 
 describe("TvEpisodeClient", () => {
@@ -34,7 +34,7 @@ describe("TvEpisodeClient", () => {
 
   test("should fetch episode details with append_to_response", async () => {
     const get = mock(() => Promise.resolve({ data: mockEpisodeData }));
-    const client = new TvEpisodeClient({ get } as unknown as AxiosInstance);
+    const client = new TvEpisodeClient({ get } as unknown as HttpClient);
 
     await client.getDetails(1399, 1, 1, { append_to_response: ["credits", "videos"] });
 
@@ -100,7 +100,7 @@ describe("TvEpisodeClient", () => {
 
   test("should add episode rating", async () => {
     const post = mock(() => Promise.resolve({ data: { status_code: 1, status_message: "Success" } }));
-    const client = new TvEpisodeClient({ post } as unknown as AxiosInstance);
+    const client = new TvEpisodeClient({ post } as unknown as HttpClient);
 
     await client.addRating(1399, 1, 1, { session_id: "s" }, { value: 8 });
 
@@ -113,7 +113,7 @@ describe("TvEpisodeClient", () => {
 
   test("should delete episode rating", async () => {
     const del = mock(() => Promise.resolve({ data: { status_code: 13, status_message: "Deleted" } }));
-    const client = new TvEpisodeClient({ delete: del } as unknown as AxiosInstance);
+    const client = new TvEpisodeClient({ delete: del } as unknown as HttpClient);
 
     await client.deleteRating(1399, 1, 1, { session_id: "s" });
 

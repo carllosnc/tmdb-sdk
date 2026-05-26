@@ -1,5 +1,5 @@
 import { describe, expect, mock, test } from "bun:test";
-import type { AxiosInstance } from "axios";
+import { type HttpClient } from "../src/http/types.js";
 import { ConfigurationClient } from "../src/client/configuration/index.js";
 import { TMDBClient } from "../src/index.js";
 
@@ -19,7 +19,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     };
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getDetails();
 
@@ -35,7 +35,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     ];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getCountries();
 
@@ -48,7 +48,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     const mockData: Array<Record<string, string>> = [];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     await client.getCountries({ language: "fr-FR" });
 
@@ -64,7 +64,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     ];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getJobs();
 
@@ -80,7 +80,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     ];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getLanguages();
 
@@ -93,7 +93,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     const mockData = ["en-US", "fr-FR", "de-DE"];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getPrimaryTranslations();
 
@@ -109,7 +109,7 @@ describe("TMDBClient - Configuration Namespace", () => {
     ];
 
     const get = mock(() => Promise.resolve({ data: mockData }));
-    const client = new ConfigurationClient({ get } as unknown as AxiosInstance);
+    const client = new ConfigurationClient({ get } as unknown as HttpClient);
 
     const response = await client.getTimezones();
 
