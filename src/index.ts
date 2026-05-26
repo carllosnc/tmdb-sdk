@@ -1,4 +1,6 @@
 export { TMDBClient, type TMDBClientConfig } from "./client.js";
+export { type HttpClient, type HttpRequestConfig, type HttpResponse, FetchAdapter, type FetchAdapterConfig } from "./http/index.js";
+export { withRetry } from "./utils/retry.js";
 export {
   TMDBError,
   TMDBClientError,

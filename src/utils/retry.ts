@@ -1,4 +1,4 @@
-import { type AxiosError, type AxiosInstance } from "axios";
+import { type HttpClient, type HttpRequestConfig, type HttpResponse } from "../http/types.js";
 
 export interface RetryConfig {
   maxRetries?: number;
@@ -18,36 +18,44 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function isRetryable(error: AxiosError, statusCodes: number[]): boolean {
-  return (
-    error.response !== undefined &&
-    statusCodes.includes(error.response.status)
-  );
-}
-
-export function setupRetry(instance: AxiosInstance, config?: RetryConfig): void {
+export function withRetry(client: HttpClient, config?: RetryConfig): HttpClient {
   const { maxRetries, baseDelay, maxDelay, retryOnStatus } = {
     ...DEFAULT_CONFIG,
     ...config,
   };
 
-  instance.interceptors.response.use(
-    undefined,
-    async (error: AxiosError) => {
-      if (!isRetryable(error, retryOnStatus)) throw error;
+  async function executeWithRetry<T>(
+    fn: () => Promise<HttpResponse<T>>,
+  ): Promise<HttpResponse<T>> {
+    let lastError: any;
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        return await fn();
+      } catch (error: any) {
+        lastError = error;
+        const status = error.status ?? error.statusCode;
+        if (attempt < maxRetries && typeof status === "number" && retryOnStatus.includes(status)) {
+          const delay = Math.min(
+            baseDelay * Math.pow(2, attempt) + Math.random() * 500,
+            maxDelay,
+          );
+          await sleep(delay);
+        } else {
+          throw error;
+        }
+      }
+    }
+    throw lastError;
+  }
 
-      const retryCount = (error.config as any)?._retryCount ?? 0;
-      if (retryCount >= maxRetries) throw error;
-
-      const delay = Math.min(
-        baseDelay * Math.pow(2, retryCount) + Math.random() * 500,
-        maxDelay,
-      );
-
-      (error.config as any)._retryCount = retryCount + 1;
-
-      await sleep(delay);
-      return instance.request(error.config!);
-    },
-  );
+  return {
+    get: <T>(url: string, config?: HttpRequestConfig) =>
+      executeWithRetry(() => client.get<T>(url, config)),
+    post: <T>(url: string, data?: any, config?: HttpRequestConfig) =>
+      executeWithRetry(() => client.post<T>(url, data, config)),
+    put: <T>(url: string, data?: any, config?: HttpRequestConfig) =>
+      executeWithRetry(() => client.put<T>(url, data, config)),
+    delete: <T>(url: string, config?: HttpRequestConfig) =>
+      executeWithRetry(() => client.delete<T>(url, config)),
+  };
 }

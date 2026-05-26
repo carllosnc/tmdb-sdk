@@ -1,5 +1,3 @@
-import { AxiosError } from "axios";
-
 export interface TMDBErrorBody {
   success?: boolean;
   status_code: number;
@@ -110,8 +108,14 @@ export class TMDBServerError extends TMDBError {
   }
 }
 
-function parseTMDBErrorBody(error: AxiosError): TMDBErrorBody | null {
-  const data = error.response?.data;
+export interface TMDBErrorInfo {
+  status: number;
+  body: TMDBErrorBody | null;
+  url: string | null;
+  message: string;
+}
+
+export function parseTMDBErrorBody(data: unknown): TMDBErrorBody | null {
   if (
     data &&
     typeof data === "object" &&
@@ -123,45 +127,36 @@ function parseTMDBErrorBody(error: AxiosError): TMDBErrorBody | null {
   return null;
 }
 
-function createTMDBError(error: AxiosError): TMDBError {
-  const status = error.response?.status ?? 0;
-  const url = error.config?.url ?? null;
-  const body = parseTMDBErrorBody(error);
+export function createTMDBError(info: TMDBErrorInfo): TMDBError {
+  const { status, body, url, message } = info;
   const tmdbStatusCode = body?.status_code ?? null;
   const tmdbStatusMessage = body?.status_message ?? null;
 
-  const message = tmdbStatusMessage
+  const errorMessage = tmdbStatusMessage
     ? `TMDB API error (${status}): ${tmdbStatusMessage}`
-    : error.message;
+    : message;
 
   switch (status) {
     case 400:
     case 422:
-      return new TMDBValidationError(message, status, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBValidationError(errorMessage, status, tmdbStatusCode, tmdbStatusMessage, url);
     case 401:
-      return new TMDBUnauthorizedError(message, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBUnauthorizedError(errorMessage, tmdbStatusCode, tmdbStatusMessage, url);
     case 403:
-      return new TMDBForbiddenError(message, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBForbiddenError(errorMessage, tmdbStatusCode, tmdbStatusMessage, url);
     case 404:
-      return new TMDBNotFoundError(message, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBNotFoundError(errorMessage, tmdbStatusCode, tmdbStatusMessage, url);
     case 429:
-      return new TMDBRateLimitError(message, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBRateLimitError(errorMessage, tmdbStatusCode, tmdbStatusMessage, url);
     default:
       if (status >= 400 && status < 500) {
-        return new TMDBClientError(message, status, tmdbStatusCode, tmdbStatusMessage, url);
+        return new TMDBClientError(errorMessage, status, tmdbStatusCode, tmdbStatusMessage, url);
       }
       if (status >= 500) {
-        return new TMDBServerError(message, status, tmdbStatusCode, tmdbStatusMessage, url);
+        return new TMDBServerError(errorMessage, status, tmdbStatusCode, tmdbStatusMessage, url);
       }
-      return new TMDBError(message, status, tmdbStatusCode, tmdbStatusMessage, url);
+      return new TMDBError(errorMessage, status, tmdbStatusCode, tmdbStatusMessage, url);
   }
 }
 
-export function createErrorInterceptor() {
-  return (error: Error): never => {
-    if (error instanceof AxiosError && error.response) {
-      throw createTMDBError(error);
-    }
-    throw error;
-  };
-}
+

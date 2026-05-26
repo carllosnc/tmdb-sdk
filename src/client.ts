@@ -1,6 +1,5 @@
-import axios, { type AxiosInstance } from "axios";
-import { createErrorInterceptor } from "./errors.js";
-import { setupRetry, type RetryConfig } from "./utils/retry.js";
+import { withRetry, type RetryConfig } from "./utils/retry.js";
+import { FetchAdapter, type HttpClient } from "./http/index.js";
 import { AccountClient } from "./client/account/index.js";
 import { AccountV4Client } from "./client/account-v4/index.js";
 import { AuthV4Client } from "./client/auth-v4/index.js";
@@ -34,11 +33,11 @@ export interface TMDBClientConfig {
   accessToken?: string;
   apiKey?: string;
   retry?: boolean | RetryConfig;
-  axiosInstance?: AxiosInstance;
+  httpClient?: HttpClient;
 }
 
 export class TMDBClient {
-  public http: AxiosInstance;
+  public http: HttpClient;
   public account: AccountClient;
   public accountV4: AccountV4Client;
   public authV4: AuthV4Client;
@@ -69,8 +68,8 @@ export class TMDBClient {
   public watchProviders: WatchProvidersClient;
 
   constructor(config: TMDBClientConfig) {
-    if (config.axiosInstance) {
-      this.http = config.axiosInstance;
+    if (config.httpClient) {
+      this.http = config.httpClient;
     } else {
       const headers: Record<string, string> = {};
       const params: Record<string, string> = {};
@@ -83,17 +82,17 @@ export class TMDBClient {
         throw new Error("Either accessToken or apiKey must be provided to TMDBClient.");
       }
 
-      this.http = axios.create({
+      let client: HttpClient = new FetchAdapter({
         baseURL: "https://api.themoviedb.org/3/",
         headers,
         params,
       });
-    }
 
-    this.http.interceptors.response.use(undefined, createErrorInterceptor());
+      if (config.retry) {
+        client = withRetry(client, config.retry === true ? undefined : config.retry);
+      }
 
-    if (config.retry) {
-      setupRetry(this.http, config.retry === true ? undefined : config.retry);
+      this.http = client;
     }
 
     this.account = new AccountClient(this.http);
