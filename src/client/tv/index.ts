@@ -1,6 +1,8 @@
 import { type AxiosInstance } from "axios";
 import {
   type TvAiringTodayParams,
+  type TvAppendToResponseResult,
+  type TvAppendToResponseValue,
   type TvListResponse,
   type TvOnTheAirParams,
   type TvPopularParams,
@@ -115,7 +117,10 @@ export class TvClient {
    * Get the details of a TV show by ID.
    * @see https://developer.themoviedb.org/reference/tv-series-details
    */
-  async getDetails(id: number, params?: TvSeriesDetailsParams): Promise<TvSeriesDetails> {
+  async getDetails<T extends readonly TvAppendToResponseValue[] = never>(
+    id: number,
+    params?: TvSeriesDetailsParams & { append_to_response?: T }
+  ): Promise<TvAppendToResponseResult<T>> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
