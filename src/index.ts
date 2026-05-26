@@ -34,6 +34,9 @@ export { ReviewClient } from "./client/review/index.js";
 export { SearchClient } from "./client/search/index.js";
 export { TrendingClient } from "./client/trending/index.js";
 export { TvClient } from "./client/tv/index.js";
+export { TvEpisodeClient } from "./client/tv-episode/index.js";
+export { TvEpisodeGroupClient } from "./client/tv-episode-group/index.js";
+export { TvSeasonClient } from "./client/tv-season/index.js";
 export { WatchProvidersClient } from "./client/watch-providers/index.js";
 export {
   ImageUrlBuilder,
