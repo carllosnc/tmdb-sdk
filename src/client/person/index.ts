@@ -2,6 +2,8 @@ import { type AxiosInstance } from "axios";
 import {
   type PopularPersonResponse,
   type PopularPersonParams,
+  type PersonAppendToResponseResult,
+  type PersonAppendToResponseValue,
   type PersonDetails,
   type PersonDetailsParams,
   type PersonChangesResponse,
@@ -35,7 +37,10 @@ export class PersonClient {
    * Query the top level details of a person.
    * @see https://developer.themoviedb.org/reference/person-details
    */
-  async getDetails(personId: number, params?: PersonDetailsParams): Promise<PersonDetails> {
+  async getDetails<T extends readonly PersonAppendToResponseValue[] = never>(
+    personId: number,
+    params?: PersonDetailsParams & { append_to_response?: T }
+  ): Promise<PersonAppendToResponseResult<T>> {
     const queryParams: Record<string, any> = {};
     if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
     if (params?.language) queryParams["language"] = params.language;
