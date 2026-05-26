@@ -68,6 +68,36 @@ console.log("Genres:", movie.genres?.map((g) => g.name).join(", "));
 console.log("Overview:", movie.overview);
 ```
 
+## Examples
+
+Browse runnable examples in the [`examples/`](./examples) directory:
+
+| File | Demonstrates |
+|------|-------------|
+| [`account.ts`](./examples/account.ts) | Account details, favorites, watchlist |
+| [`authentication.ts`](./examples/authentication.ts) | API key validation, request tokens, guest sessions |
+| [`certification.ts`](./examples/certification.ts) | Movie and TV certifications by country |
+| [`collection.ts`](./examples/collection.ts) | Collection details, images, translations |
+| [`company.ts`](./examples/company.ts) | Production company details, logos, alternative names |
+| [`configuration.ts`](./examples/configuration.ts) | API config, image URL builder, countries, languages |
+| [`credit.ts`](./examples/credit.ts) | Credit lookup by credit ID |
+| [`discover.ts`](./examples/discover.ts) | Movie and TV discovery with filters |
+| [`find.ts`](./examples/find.ts) | External ID lookup (IMDb, TVDB, etc.) |
+| [`genre.ts`](./examples/genre.ts) | Movie and TV genre lists |
+| [`keyword.ts`](./examples/keyword.ts) | Keyword details and associated movies |
+| [`movie.ts`](./examples/movie.ts) | Movie details with append_to_response |
+| [`pagination.ts`](./examples/pagination.ts) | Page-by-page and auto-pagination |
+| [`person.ts`](./examples/person.ts) | Popular people, details, combined credits |
+| [`review.ts`](./examples/review.ts) | Review details by review ID |
+| [`search.ts`](./examples/search.ts) | Movie, multi, and person search |
+| [`trending.ts`](./examples/trending.ts) | Trending movies, TV, and people |
+| [`tv-series.ts`](./examples/tv-series.ts) | TV series and season details |
+| [`watch-providers.ts`](./examples/watch-providers.ts) | Available regions, streaming providers |
+
+```bash
+bun --env-file=.env run examples/movie.ts
+```
+
 ## Namespaces
 
 | Client | Key Methods |
