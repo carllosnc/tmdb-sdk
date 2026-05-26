@@ -5,6 +5,8 @@ import {
   type PopularParams,
   type TopRatedParams,
   type UpcomingParams,
+  type MovieAppendToResponseResult,
+  type MovieAppendToResponseValue,
   type MovieDetails,
   type MovieDetailsParams,
   type MovieAccountStates,
@@ -80,7 +82,10 @@ export class MovieClient {
    * Get the top level details of a movie by ID.
    * @see https://developer.themoviedb.org/reference/movie-details
    */
-  async getDetails(id: number, params?: MovieDetailsParams): Promise<MovieDetails> {
+  async getDetails<T extends readonly MovieAppendToResponseValue[] = never>(
+    id: number,
+    params?: MovieDetailsParams & { append_to_response?: T }
+  ): Promise<MovieAppendToResponseResult<T>> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
       queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
