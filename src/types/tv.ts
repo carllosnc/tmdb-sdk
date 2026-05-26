@@ -166,10 +166,15 @@ export interface TvAppendToResponseMap {
   "watch/providers": TvSeriesWatchProvidersResponse;
 }
 
-export type WithTvAppendToResponse<T extends TvAppendToResponseValue[]> =
+export type WithTvAppendToResponse<T extends readonly TvAppendToResponseValue[]> =
   TvSeriesDetails & {
     [K in T[number]]: TvAppendToResponseMap[K];
   };
+
+export type TvAppendToResponseResult<T> =
+  [T] extends [readonly TvAppendToResponseValue[]]
+    ? TvSeriesDetails & { [K in T[number]]: TvAppendToResponseMap[K] }
+    : TvSeriesDetails;
 
 export interface TvSeriesDetailsParams {
   append_to_response?: TvAppendToResponseValue[];
@@ -500,10 +505,15 @@ export interface TvSeasonAppendToResponseMap {
   "watch/providers": TvSeriesWatchProvidersResponse;
 }
 
-export type WithTvSeasonAppendToResponse<T extends TvSeasonAppendToResponseValue[]> =
+export type WithTvSeasonAppendToResponse<T extends readonly TvSeasonAppendToResponseValue[]> =
   TvSeasonDetails & {
     [K in T[number]]: TvSeasonAppendToResponseMap[K];
   };
+
+export type TvSeasonAppendToResponseResult<T> =
+  [T] extends [readonly TvSeasonAppendToResponseValue[]]
+    ? TvSeasonDetails & { [K in T[number]]: TvSeasonAppendToResponseMap[K] }
+    : TvSeasonDetails;
 
 export interface TvSeasonDetailsParams {
   append_to_response?: TvSeasonAppendToResponseValue[];
@@ -576,10 +586,15 @@ export interface TvEpisodeAppendToResponseMap {
   videos: TvSeriesVideosResponse;
 }
 
-export type WithTvEpisodeAppendToResponse<T extends TvEpisodeAppendToResponseValue[]> =
+export type WithTvEpisodeAppendToResponse<T extends readonly TvEpisodeAppendToResponseValue[]> =
   TvEpisodeDetails & {
     [K in T[number]]: TvEpisodeAppendToResponseMap[K];
   };
+
+export type TvEpisodeAppendToResponseResult<T> =
+  [T] extends [readonly TvEpisodeAppendToResponseValue[]]
+    ? TvEpisodeDetails & { [K in T[number]]: TvEpisodeAppendToResponseMap[K] }
+    : TvEpisodeDetails;
 
 export interface TvEpisodeDetailsParams {
   append_to_response?: TvEpisodeAppendToResponseValue[];
