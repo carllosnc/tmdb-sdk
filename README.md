@@ -29,6 +29,29 @@ const client2 = new TMDBClient({
 
 Get credentials from your [TMDB API settings](https://www.themoviedb.org/settings/api).
 
+## Custom HTTP Adapters
+
+The SDK uses an `HttpClient` interface for all requests. The default `FetchAdapter` uses native `fetch()`. Swap it out by implementing the interface:
+
+```typescript
+import { type HttpClient, TMDBClient } from "@carlosnc/tmdb-sdk";
+
+class AxiosAdapter implements HttpClient {
+  async get<T>(url: string, config?: HttpRequestConfig) {
+    const res = await axios.get<T>(url, { params: config?.params, headers: config?.headers, signal: config?.signal });
+    return { data: res.data, status: res.status, statusText: res.statusText, headers: res.headers as Record<string, string> };
+  }
+  // post, put, delete similarly...
+}
+
+const client = new TMDBClient({
+  accessToken: process.env.TMDB_TOKEN,
+  httpClient: new AxiosAdapter(),
+});
+```
+
+> When passing a custom `httpClient`, auth headers/params and retry are **not** injected automatically — your adapter handles those itself.
+
 ## Quick Start
 
 ```typescript
