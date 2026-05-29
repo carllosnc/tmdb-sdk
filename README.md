@@ -27,6 +27,9 @@ const client2 = new TMDBClient({
 });
 ```
 
+> [!WARNING]
+> **Security Recommendation:** It is highly recommended to use `accessToken` (Bearer token) instead of `apiKey`. Passing your credentials via `apiKey` puts them in the URL query string, which may be inadvertently logged by proxies, servers, or error tracking services. Using `accessToken` sends your credentials securely via HTTP headers.
+
 Get credentials from your [TMDB API settings](https://www.themoviedb.org/settings/api).
 
 ## Custom HTTP Adapters

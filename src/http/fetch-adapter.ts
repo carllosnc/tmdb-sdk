@@ -72,7 +72,7 @@ export class FetchAdapter implements HttpClient {
       throw createTMDBError({
         status: response.status,
         body: parseTMDBErrorBody(data),
-        url: fullUrl,
+        url: this.redactURL(fullUrl),
         message: response.statusText,
       });
     }
@@ -83,6 +83,22 @@ export class FetchAdapter implements HttpClient {
       statusText: response.statusText,
       headers: responseHeaders,
     };
+  }
+
+  private redactURL(urlString: string): string {
+    try {
+      const url = new URL(urlString);
+      const sensitiveParams = ["api_key", "session_id", "guest_session_id"];
+      
+      for (const param of sensitiveParams) {
+        if (url.searchParams.has(param)) {
+          url.searchParams.set(param, "***");
+        }
+      }
+      return url.toString();
+    } catch {
+      return urlString;
+    }
   }
 
   private buildURL(path: string, params?: Record<string, any>): string {
