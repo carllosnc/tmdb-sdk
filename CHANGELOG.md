@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.2] - 2026-05-29
+
+### Added
+- `SECURITY.md` policy file detailing vulnerability reporting process
+- Tests for URL redaction in error objects
+
+### Changed
+- `FetchAdapter` now redacts `api_key`, `session_id`, and `guest_session_id` from the URL string attached to `TMDBError` objects to prevent accidental secret leakage in logs.
+- `README.md` now recommends using `accessToken` over `apiKey` for enhanced security.
 ## [0.9.1] - 2026-05-26
 
 ### Fixed
