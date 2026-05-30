@@ -6,6 +6,7 @@ import {
   type TrendingParams,
   type TrendingTvResponse,
 } from "../../types/trending.js";
+import { buildQueryParams } from "../../utils/query.js";
 
 export class TrendingClient {
   constructor(private httpClient: HttpClient) {}
@@ -15,9 +16,8 @@ export class TrendingClient {
    * @see https://developer.themoviedb.org/reference/trending-all
    */
   async getAll(params?: TrendingParams): Promise<TrendingAllResponse> {
-    const queryParams: Record<string, any> = {};
-    const timeWindow = params?.timeWindow ?? "day";
-    if (params?.language) queryParams["language"] = params.language;
+    const { timeWindow = "day", ...rest } = params ?? {};
+    const queryParams = buildQueryParams(rest);
 
     const response = await this.httpClient.get(`trending/all/${timeWindow}`, {
       params: queryParams,
@@ -30,9 +30,8 @@ export class TrendingClient {
    * @see https://developer.themoviedb.org/reference/trending-movies
    */
   async getMovies(params?: TrendingParams): Promise<TrendingMoviesResponse> {
-    const queryParams: Record<string, any> = {};
-    const timeWindow = params?.timeWindow ?? "day";
-    if (params?.language) queryParams["language"] = params.language;
+    const { timeWindow = "day", ...rest } = params ?? {};
+    const queryParams = buildQueryParams(rest);
 
     const response = await this.httpClient.get(`trending/movie/${timeWindow}`, {
       params: queryParams,
@@ -45,9 +44,8 @@ export class TrendingClient {
    * @see https://developer.themoviedb.org/reference/trending-people
    */
   async getPeople(params?: TrendingParams): Promise<TrendingPeopleResponse> {
-    const queryParams: Record<string, any> = {};
-    const timeWindow = params?.timeWindow ?? "day";
-    if (params?.language) queryParams["language"] = params.language;
+    const { timeWindow = "day", ...rest } = params ?? {};
+    const queryParams = buildQueryParams(rest);
 
     const response = await this.httpClient.get(`trending/person/${timeWindow}`, {
       params: queryParams,
@@ -60,9 +58,8 @@ export class TrendingClient {
    * @see https://developer.themoviedb.org/reference/trending-tv
    */
   async getTvShows(params?: TrendingParams): Promise<TrendingTvResponse> {
-    const queryParams: Record<string, any> = {};
-    const timeWindow = params?.timeWindow ?? "day";
-    if (params?.language) queryParams["language"] = params.language;
+    const { timeWindow = "day", ...rest } = params ?? {};
+    const queryParams = buildQueryParams(rest);
 
     const response = await this.httpClient.get(`trending/tv/${timeWindow}`, {
       params: queryParams,
