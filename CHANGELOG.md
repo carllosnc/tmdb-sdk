@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.3] - 2026-05-30
+
+### Fixed
+- `TrendingClient` methods (`getAll`, `getMovies`, `getPeople`, `getTvShows`) now pass `page` and `includeAdult` params to the API instead of always returning page 1
+- Refactored to use shared `buildQueryParams` utility for consistent param serialization
+
 ## [0.9.2] - 2026-05-29
 
 ### Added
