@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.1] - 2026-05-31
+
+### Fixed
+- Examples (`movie.ts`, `person.ts`, `tv-series.ts`) now use `appendToResponse` (camelCase) instead of `append_to_response` (snake_case), fixing typecheck errors introduced by v0.10.0 param standardization
+- Removed stale `includeAdult` test cases from `trending.test.ts` that referenced a param removed from `TrendingParams` in v0.10.0
+
 ## [0.10.0] - 2026-05-31
 
 ### Fixed

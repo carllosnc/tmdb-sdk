@@ -31,7 +31,7 @@ output += `\n${field("IMDb", movie.imdb_id)}`;
 // Merge videos, images, and credits into one call for efficiency.
 // The return type automatically widens to include those nested responses.
 const full = await client.movie.getDetails(550, {
-  append_to_response: ["videos", "images", "credits"] as const,
+  appendToResponse: ["videos", "images", "credits"] as const,
 });
 
 output += header("Movie + append_to_response (id: 550, Fight Club)");

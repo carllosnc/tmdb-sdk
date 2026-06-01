@@ -28,7 +28,7 @@ output += `\n${list(popular.results, (p) => `${p.name} — ${p.known_for_departm
 // --- Person details + combined credits via append_to_response --------------
 const PERSON_ID = 6193; // Keanu Reeves
 const person = await client.person.getDetails(PERSON_ID, {
-  append_to_response: ["combined_credits", "external_ids"] as const,
+  appendToResponse: ["combined_credits", "external_ids"] as const,
 });
 
 output += header(`Person: ${person.name}`);

@@ -142,44 +142,6 @@ describe("TMDBClient - Trending Namespace", () => {
     });
   });
 
-  test("should get trending movies with includeAdult param", async () => {
-    const get = mock(() => Promise.resolve({ data: emptyResponse }));
-    const client = createClient(get);
-
-    await client.getMovies({ includeAdult: true });
-
-    expect(get).toHaveBeenCalledWith("trending/movie/day", {
-      params: { include_adult: true },
-    });
-  });
-
-  test("should get trending people with page and includeAdult", async () => {
-    const get = mock(() => Promise.resolve({ data: emptyResponse }));
-    const client = createClient(get);
-
-    await client.getPeople({ page: 3, includeAdult: true });
-
-    expect(get).toHaveBeenCalledWith("trending/person/day", {
-      params: { page: 3, include_adult: true },
-    });
-  });
-
-  test("should get trending TV with all params", async () => {
-    const get = mock(() => Promise.resolve({ data: emptyResponse }));
-    const client = createClient(get);
-
-    await client.getTvShows({
-      timeWindow: "week",
-      language: "ja-JP",
-      page: 5,
-      includeAdult: false,
-    });
-
-    expect(get).toHaveBeenCalledWith("trending/tv/week", {
-      params: { language: "ja-JP", page: 5, include_adult: false },
-    });
-  });
-
   const token = process.env.TMDB_TOKEN;
 
   if (token) {

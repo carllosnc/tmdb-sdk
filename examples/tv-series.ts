@@ -32,7 +32,7 @@ output += `\n${field("Genres", series.genres?.map((g) => g.name).join(", "))}`;
 
 // --- Append-to-response: videos + credits ----------------------------------
 const full = await client.tv.getDetails(SERIES_ID, {
-  append_to_response: ["videos", "credits"] as const,
+  appendToResponse: ["videos", "credits"] as const,
 });
 
 output += header("Appended data");
