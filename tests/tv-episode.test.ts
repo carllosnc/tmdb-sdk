@@ -36,7 +36,7 @@ describe("TvEpisodeClient", () => {
     const get = mock(() => Promise.resolve({ data: mockEpisodeData }));
     const client = new TvEpisodeClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(1399, 1, 1, { append_to_response: ["credits", "videos"] });
+    await client.getDetails(1399, 1, 1, { appendToResponse: ["credits", "videos"] });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1/episode/1", {
       params: { append_to_response: "credits,videos" },
@@ -45,7 +45,7 @@ describe("TvEpisodeClient", () => {
 
   test("should fetch episode account states", async () => {
     const { get, client } = createClient();
-    await client.getAccountStates(1399, 1, 1, { session_id: "test" });
+    await client.getAccountStates(1399, 1, 1, { sessionId: "test" });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1/episode/1/account_states", {
       params: { session_id: "test" },
@@ -102,7 +102,7 @@ describe("TvEpisodeClient", () => {
     const post = mock(() => Promise.resolve({ data: { status_code: 1, status_message: "Success" } }));
     const client = new TvEpisodeClient({ post } as unknown as HttpClient);
 
-    await client.addRating(1399, 1, 1, { session_id: "s" }, { value: 8 });
+    await client.addRating(1399, 1, 1, { sessionId: "s" }, { value: 8 });
 
     expect(post).toHaveBeenCalledWith(
       "tv/1399/season/1/episode/1/rating",
@@ -115,7 +115,7 @@ describe("TvEpisodeClient", () => {
     const del = mock(() => Promise.resolve({ data: { status_code: 13, status_message: "Deleted" } }));
     const client = new TvEpisodeClient({ delete: del } as unknown as HttpClient);
 
-    await client.deleteRating(1399, 1, 1, { session_id: "s" });
+    await client.deleteRating(1399, 1, 1, { sessionId: "s" });
 
     expect(del).toHaveBeenCalledWith(
       "tv/1399/season/1/episode/1/rating",

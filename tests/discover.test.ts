@@ -114,7 +114,7 @@ describe("TMDBClient - Discover Namespace", () => {
         language: "en-US",
         sort_by: "popularity.desc",
         with_genres: "18,35",
-        first_air_date_gte: "2023-01-01",
+        "first_air_date.gte": "2023-01-01",
       },
     });
   });

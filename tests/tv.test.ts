@@ -84,7 +84,7 @@ describe("TMDBClient - TV Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
     const client = new TvClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(1399, { append_to_response: ["credits", "videos"] });
+    await client.getDetails(1399, { appendToResponse: ["credits", "videos"] });
 
     expect(get).toHaveBeenCalledWith("tv/1399", {
       params: { append_to_response: "credits,videos" },
@@ -95,7 +95,7 @@ describe("TMDBClient - TV Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
     const client = new TvClient({ get } as unknown as HttpClient);
 
-    await client.getSeasonDetails(1399, 1, { append_to_response: ["credits", "videos"] });
+    await client.getSeasonDetails(1399, 1, { appendToResponse: ["credits", "videos"] });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1", {
       params: { append_to_response: "credits,videos" },
@@ -106,7 +106,7 @@ describe("TMDBClient - TV Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 1399 } }));
     const client = new TvClient({ get } as unknown as HttpClient);
 
-    await client.getEpisodeDetails(1399, 1, 1, { append_to_response: ["credits", "videos"] });
+    await client.getEpisodeDetails(1399, 1, 1, { appendToResponse: ["credits", "videos"] });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1/episode/1", {
       params: { append_to_response: "credits,videos" },

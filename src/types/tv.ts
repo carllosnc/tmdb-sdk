@@ -177,7 +177,7 @@ export type TvAppendToResponseResult<T> =
     : TvSeriesDetails;
 
 export interface TvSeriesDetailsParams {
-  append_to_response?: TvAppendToResponseValue[];
+  appendToResponse?: TvAppendToResponseValue[];
   language?: string;
 }
 
@@ -189,8 +189,8 @@ export interface TvSeriesAccountStates {
 }
 
 export interface TvSeriesAccountStatesParams {
-  session_id?: string;
-  guest_session_id?: string;
+  sessionId?: string;
+  guestSessionId?: string;
 }
 
 export interface AggregateRole {
@@ -277,9 +277,9 @@ export interface TvSeriesChangesResponse {
 }
 
 export interface TvSeriesChangesParams {
-  end_date?: string;
+  endDate?: string;
   page?: number;
-  start_date?: string;
+  startDate?: string;
 }
 
 export interface ContentRating {
@@ -339,7 +339,7 @@ export interface TvSeriesImagesResponse {
 }
 
 export interface TvSeriesImagesParams {
-  include_image_language?: string;
+  includeImageLanguage?: string;
   language?: string;
 }
 
@@ -429,7 +429,7 @@ export interface TvSeriesVideosResponse {
 }
 
 export interface TvSeriesVideosParams {
-  include_video_language?: string;
+  includeVideoLanguage?: string;
   language?: string;
 }
 
@@ -516,7 +516,7 @@ export type TvSeasonAppendToResponseResult<T> =
     : TvSeasonDetails;
 
 export interface TvSeasonDetailsParams {
-  append_to_response?: TvSeasonAppendToResponseValue[];
+  appendToResponse?: TvSeasonAppendToResponseValue[];
   language?: string;
 }
 
@@ -597,7 +597,7 @@ export type TvEpisodeAppendToResponseResult<T> =
     : TvEpisodeDetails;
 
 export interface TvEpisodeDetailsParams {
-  append_to_response?: TvEpisodeAppendToResponseValue[];
+  appendToResponse?: TvEpisodeAppendToResponseValue[];
   language?: string;
 }
 

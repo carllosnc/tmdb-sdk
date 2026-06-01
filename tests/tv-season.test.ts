@@ -50,7 +50,7 @@ describe("TvSeasonClient", () => {
     const get = mock(() => Promise.resolve({ data: mockSeasonData }));
     const client = new TvSeasonClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(1399, 1, { append_to_response: ["credits", "videos"] });
+    await client.getDetails(1399, 1, { appendToResponse: ["credits", "videos"] });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1", {
       params: { append_to_response: "credits,videos" },
@@ -59,7 +59,7 @@ describe("TvSeasonClient", () => {
 
   test("should fetch season account states", async () => {
     const { get, client } = createClient();
-    await client.getAccountStates(1399, 1, { session_id: "test-session" });
+    await client.getAccountStates(1399, 1, { sessionId: "test-session" });
 
     expect(get).toHaveBeenCalledWith("tv/1399/season/1/account_states", {
       params: { session_id: "test-session" },
@@ -75,7 +75,7 @@ describe("TvSeasonClient", () => {
 
   test("should fetch season changes by id", async () => {
     const { get, client } = createClient();
-    await client.getChangesById(3627, { start_date: "2024-01-01" });
+    await client.getChangesById(3627, { startDate: "2024-01-01" });
 
     expect(get).toHaveBeenCalledWith("tv/season/3627/changes", {
       params: { start_date: "2024-01-01" },

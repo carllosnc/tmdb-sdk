@@ -84,11 +84,11 @@ export class MovieClient {
    */
   async getDetails<T extends readonly MovieAppendToResponseValue[] = never>(
     id: number,
-    params?: MovieDetailsParams & { append_to_response?: T }
+    params?: MovieDetailsParams & { appendToResponse?: T }
   ): Promise<MovieAppendToResponseResult<T>> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
     }
 
     const response = await this.httpClient.get(`movie/${id}`, { params: queryParams });

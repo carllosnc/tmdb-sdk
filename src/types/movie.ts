@@ -136,7 +136,7 @@ export type WithMovieAppendToResponse<T extends readonly MovieAppendToResponseVa
   };
 
 export interface MovieDetailsParams {
-  append_to_response?: MovieAppendToResponseValue[];
+  appendToResponse?: MovieAppendToResponseValue[];
   language?: string;
 }
 
@@ -153,8 +153,8 @@ export interface MovieAccountStates {
 }
 
 export interface MovieAccountStatesParams {
-  session_id?: string;
-  guest_session_id?: string;
+  sessionId?: string;
+  guestSessionId?: string;
 }
 
 export interface AlternativeTitle {
@@ -191,9 +191,9 @@ export interface MovieChangesResponse {
 }
 
 export interface MovieChangesParams {
-  end_date?: string;
+  endDate?: string;
   page?: number;
-  start_date?: string;
+  startDate?: string;
 }
 
 export interface CastMember {
@@ -262,7 +262,7 @@ export interface MovieImagesResponse {
 }
 
 export interface MovieImagesParams {
-  include_image_language?: string;
+  includeImageLanguage?: string;
   language?: string;
 }
 
@@ -428,11 +428,11 @@ export interface AddRatingRequest {
 }
 
 export interface AddRatingParams {
-  session_id?: string;
-  guest_session_id?: string;
+  sessionId?: string;
+  guestSessionId?: string;
 }
 
 export interface DeleteRatingParams {
-  session_id?: string;
-  guest_session_id?: string;
+  sessionId?: string;
+  guestSessionId?: string;
 }

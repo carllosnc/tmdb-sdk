@@ -21,7 +21,7 @@ export class CollectionClient {
   ): Promise<CollectionDetails> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params!.append_to_response!)].join(",");
+      queryParams.append_to_response = [...new Set(params!.appendToResponse!)].join(",");
     }
 
     const response = await this.httpClient.get(

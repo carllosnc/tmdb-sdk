@@ -142,7 +142,6 @@ export interface SearchMultiParams {
   includeAdult?: boolean;
   language?: string;
   page?: number;
-  region?: string;
 }
 
 export type SearchPersonResponse = {
@@ -157,7 +156,6 @@ export interface SearchPersonParams {
   includeAdult?: boolean;
   language?: string;
   page?: number;
-  region?: string;
 }
 
 export interface SearchTvResult {
@@ -190,6 +188,5 @@ export interface SearchTvParams {
   language?: string;
   page?: number;
   query: string;
-  region?: string;
   year?: number;
 }

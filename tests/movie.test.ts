@@ -145,7 +145,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(550, { append_to_response: ["videos", "images"] });
+    await client.getDetails(550, { appendToResponse: ["videos", "images"] });
 
     expect(get).toHaveBeenCalledWith("movie/550", {
       params: { append_to_response: "videos,images" },
@@ -156,7 +156,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 550 } }));
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(550, { append_to_response: ["credits", "videos", "credits"] });
+    await client.getDetails(550, { appendToResponse: ["credits", "videos", "credits"] });
 
     expect(get).toHaveBeenCalledWith("movie/550", {
       params: { append_to_response: "credits,videos" },
@@ -180,7 +180,7 @@ describe("TMDBClient - Movie Namespace", () => {
     );
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    const response = await client.getAccountStates(550, { session_id: "test-session" });
+    const response = await client.getAccountStates(550, { sessionId: "test-session" });
 
     expect(get).toHaveBeenCalledWith("movie/550/account_states", {
       params: { session_id: "test-session" },
@@ -193,7 +193,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, favorite: false, rated: null, watchlist: false } }));
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    await client.getAccountStates(550, { guest_session_id: "guest-123" });
+    await client.getAccountStates(550, { guestSessionId: "guest-123" });
 
     expect(get).toHaveBeenCalledWith("movie/550/account_states", {
       params: { guest_session_id: "guest-123" },
@@ -245,7 +245,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { changes: [] } }));
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    await client.getChanges(550, { start_date: "2024-01-01", end_date: "2024-01-31" });
+    await client.getChanges(550, { startDate: "2024-01-01", endDate: "2024-01-31" });
 
     expect(get).toHaveBeenCalledWith("movie/550/changes", {
       params: { start_date: "2024-01-01", end_date: "2024-01-31" },
@@ -313,7 +313,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { id: 550, backdrops: [], logos: [], posters: [] } }));
     const client = new MovieClient({ get } as unknown as HttpClient);
 
-    await client.getImages(550, { include_image_language: "en-US,null" });
+    await client.getImages(550, { includeImageLanguage: "en-US,null" });
 
     expect(get).toHaveBeenCalledWith("movie/550/images", {
       params: { include_image_language: "en-US,null" },
@@ -514,7 +514,7 @@ describe("TMDBClient - Movie Namespace", () => {
     );
     const client = new MovieClient({ post } as unknown as HttpClient);
 
-    const response = await client.addRating(550, { session_id: "test-session" }, { value: 8.5 });
+    const response = await client.addRating(550, { sessionId: "test-session" }, { value: 8.5 });
 
     expect(post).toHaveBeenCalledWith(
       "movie/550/rating",
@@ -528,7 +528,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const post = mock(() => Promise.resolve({ data: { status_code: 1, status_message: "Success." } }));
     const client = new MovieClient({ post } as unknown as HttpClient);
 
-    await client.addRating(550, { guest_session_id: "guest-123" }, { value: 7.0 });
+    await client.addRating(550, { guestSessionId: "guest-123" }, { value: 7.0 });
 
     expect(post).toHaveBeenCalledWith(
       "movie/550/rating",
@@ -545,7 +545,7 @@ describe("TMDBClient - Movie Namespace", () => {
     );
     const client = new MovieClient({ delete: del } as unknown as HttpClient);
 
-    const response = await client.deleteRating(550, { session_id: "test-session" });
+    const response = await client.deleteRating(550, { sessionId: "test-session" });
 
     expect(del).toHaveBeenCalledWith("movie/550/rating", {
       params: { session_id: "test-session" },
@@ -557,7 +557,7 @@ describe("TMDBClient - Movie Namespace", () => {
     const del = mock(() => Promise.resolve({ data: { status_code: 13, status_message: "Success." } }));
     const client = new MovieClient({ delete: del } as unknown as HttpClient);
 
-    await client.deleteRating(550, { guest_session_id: "guest-123" });
+    await client.deleteRating(550, { guestSessionId: "guest-123" });
 
     expect(del).toHaveBeenCalledWith("movie/550/rating", {
       params: { guest_session_id: "guest-123" },

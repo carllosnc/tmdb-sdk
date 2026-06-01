@@ -93,7 +93,7 @@ describe("TMDBClient - Person Namespace", () => {
     const get = mock(() => Promise.resolve({ data: {} }));
     const client = new PersonClient({ get } as unknown as HttpClient);
 
-    await client.getDetails(31, { language: "fr-FR", append_to_response: ["combined_credits"] });
+    await client.getDetails(31, { language: "fr-FR", appendToResponse: ["combined_credits"] });
 
     expect(get).toHaveBeenCalledWith("person/31", {
       params: { language: "fr-FR", append_to_response: "combined_credits" },
@@ -125,7 +125,7 @@ describe("TMDBClient - Person Namespace", () => {
     const response = await client.getChanges(31);
 
     expect(get).toHaveBeenCalledTimes(1);
-    expect(get).toHaveBeenCalledWith("person/31/changes", { params: undefined });
+    expect(get).toHaveBeenCalledWith("person/31/changes", { params: {} });
     expect(response).toEqual(mockData);
   });
 
@@ -133,7 +133,7 @@ describe("TMDBClient - Person Namespace", () => {
     const get = mock(() => Promise.resolve({ data: { changes: [] } }));
     const client = new PersonClient({ get } as unknown as HttpClient);
 
-    await client.getChanges(31, { start_date: "2023-01-01", end_date: "2023-01-07", page: 1 });
+    await client.getChanges(31, { startDate: "2023-01-01", endDate: "2023-01-07", page: 1 });
 
     expect(get).toHaveBeenCalledWith("person/31/changes", {
       params: { start_date: "2023-01-01", end_date: "2023-01-07", page: 1 },

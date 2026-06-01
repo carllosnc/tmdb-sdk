@@ -119,11 +119,11 @@ export class TvClient {
    */
   async getDetails<T extends readonly TvAppendToResponseValue[] = never>(
     id: number,
-    params?: TvSeriesDetailsParams & { append_to_response?: T }
+    params?: TvSeriesDetailsParams & { appendToResponse?: T }
   ): Promise<TvAppendToResponseResult<T>> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
     }
 
     const response = await this.httpClient.get(`tv/${id}`, { params: queryParams });
@@ -375,7 +375,7 @@ export class TvClient {
   ): Promise<TvSeasonDetails> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
     }
 
     const response = await this.httpClient.get(
@@ -542,7 +542,7 @@ export class TvClient {
   ): Promise<TvEpisodeDetails> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
     }
 
     const response = await this.httpClient.get(

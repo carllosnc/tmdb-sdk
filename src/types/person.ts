@@ -90,7 +90,7 @@ export type PersonAppendToResponseResult<T> =
     : PersonDetails;
 
 export interface PersonDetailsParams {
-  append_to_response?: PersonAppendToResponseValue[];
+  appendToResponse?: PersonAppendToResponseValue[];
   language?: string;
 }
 
@@ -113,9 +113,9 @@ export interface PersonChangesResponse {
 }
 
 export interface PersonChangesParams {
-  end_date?: string;
+  endDate?: string;
   page?: number;
-  start_date?: string;
+  startDate?: string;
 }
 
 export interface MovieCastCredit {

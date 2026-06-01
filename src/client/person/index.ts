@@ -1,13 +1,14 @@
+import { buildQueryParams } from "../../utils/query.js";
 import { type HttpClient } from "../../http/types.js";
 import {
-  type PopularPersonResponse,
   type PopularPersonParams,
+  type PopularPersonResponse,
   type PersonAppendToResponseResult,
   type PersonAppendToResponseValue,
   type PersonDetails,
   type PersonDetailsParams,
-  type PersonChangesResponse,
   type PersonChangesParams,
+  type PersonChangesResponse,
   type CombinedCreditsResponse,
   type CombinedCreditsParams,
   type PersonExternalIds,
@@ -39,10 +40,10 @@ export class PersonClient {
    */
   async getDetails<T extends readonly PersonAppendToResponseValue[] = never>(
     personId: number,
-    params?: PersonDetailsParams & { append_to_response?: T }
+    params?: PersonDetailsParams & { appendToResponse?: T }
   ): Promise<PersonAppendToResponseResult<T>> {
     const queryParams: Record<string, any> = {};
-    if (params?.append_to_response) queryParams["append_to_response"] = [...new Set(params.append_to_response)].join(",");
+    if (params?.appendToResponse) queryParams["append_to_response"] = [...new Set(params.appendToResponse)].join(",");
     if (params?.language) queryParams["language"] = params.language;
 
     const response = await this.httpClient.get(`person/${personId}`, {
@@ -56,7 +57,7 @@ export class PersonClient {
    * @see https://developer.themoviedb.org/reference/person-changes
    */
   async getChanges(personId: number, params?: PersonChangesParams): Promise<PersonChangesResponse> {
-    const response = await this.httpClient.get(`person/${personId}/changes`, { params });
+    const response = await this.httpClient.get(`person/${personId}/changes`, { params: buildQueryParams(params) });
     return response.data;
   }
 

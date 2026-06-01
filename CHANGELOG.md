@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.10.0] - 2026-05-31
+
+### Fixed
+- Discover method date-range params (`primaryReleaseDateGte`, `firstAirDateLte`, etc.) now correctly serialize with dot notation (`.gte`/`.lte`) instead of underscore, fixing TMDB API silently ignoring them
+
+### Changed
+- All param interface fields standardized to camelCase: `sessionId`, `guestSessionId`, `appendToResponse`, `includeImageLanguage`, `includeVideoLanguage`, `startDate`, `endDate` — users no longer need to mix snake_case keys in some param objects
+
+### Removed
+- `includeAdult` from `TrendingParams` — TMDB trending endpoints don't accept it
+- `includeAdult` and `page` from `FindByIdParams` — TMDB find endpoint doesn't accept them
+- `region` from `SearchTvParams`, `SearchPersonParams`, `SearchMultiParams` — TMDB search endpoints don't accept these
+
 ## [0.9.3] - 2026-05-30
 
 ### Fixed

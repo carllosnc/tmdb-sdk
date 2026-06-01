@@ -1,5 +1,7 @@
 export function toSnakeCase(key: string): string {
-  return key.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
+  return key
+    .replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`)
+    .replace(/_(gte|lte)$/, '.$1');
 }
 
 export interface BuildQueryParamsOptions {

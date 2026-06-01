@@ -103,7 +103,6 @@ export interface TrendingTvResponse {
 }
 
 export interface TrendingParams {
-  includeAdult?: boolean;
   language?: string;
   page?: number;
   timeWindow?: TimeWindow;

@@ -32,11 +32,11 @@ export class TvSeasonClient {
   async getDetails<T extends readonly TvSeasonAppendToResponseValue[] = never>(
     seriesId: number,
     seasonNumber: number,
-    params?: TvSeasonDetailsParams & { append_to_response?: T }
+    params?: TvSeasonDetailsParams & { appendToResponse?: T }
   ): Promise<TvSeasonAppendToResponseResult<T>> {
     const queryParams = buildQueryParams(params);
     if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.append_to_response ?? [])].join(",");
+      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
     }
 
     const response = await this.httpClient.get(
