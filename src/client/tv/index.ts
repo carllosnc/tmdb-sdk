@@ -9,6 +9,7 @@ import {
   type TvTopRatedParams,
   type TvSeriesDetails,
   type TvSeriesDetailsParams,
+  type TvSeriesDetailsWithAwards,
   type TvSeriesAccountStates,
   type TvSeriesAccountStatesParams,
   type TvAggregateCreditsResponse,
@@ -63,11 +64,19 @@ import {
   type AddRatingParams,
   type DeleteRatingParams,
 } from "../../types/movie.js";
+import type { AwardsInfo } from "../../types/awards.js";
+import { AwardsClient } from "../awards/index.js";
 import { type TMDBResponse } from "../../types/account.js";
 import { buildQueryParams } from "../../utils/query.js";
 
 export class TvClient {
-  constructor(private httpClient: HttpClient) {}
+  private awardsClient: AwardsClient | null = null;
+
+  constructor(private httpClient: HttpClient, omdbApiKey?: string) {
+    if (omdbApiKey) {
+      this.awardsClient = new AwardsClient(omdbApiKey);
+    }
+  }
 
   /**
    * Get a list of TV shows airing today.
@@ -115,19 +124,32 @@ export class TvClient {
 
   /**
    * Get the details of a TV show by ID.
+   * Optionally includes awards data from OMDb when `includeAwards` is set and an OMDb API key was configured.
    * @see https://developer.themoviedb.org/reference/tv-series-details
    */
   async getDetails<T extends readonly TvAppendToResponseValue[] = never>(
     id: number,
     params?: TvSeriesDetailsParams & { appendToResponse?: T }
-  ): Promise<TvAppendToResponseResult<T>> {
-    const queryParams = buildQueryParams(params);
-    if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
+  ): Promise<TvSeriesDetailsWithAwards<T>> {
+    const { includeAwards, appendToResponse, ...restParams } = params ?? {};
+    let queryParams = buildQueryParams(restParams);
+    if (appendToResponse) {
+      queryParams.append_to_response = [...new Set(appendToResponse)].join(",");
     }
 
     const response = await this.httpClient.get(`tv/${id}`, { params: queryParams });
-    return response.data;
+    const data = response.data as TvSeriesDetails;
+
+    if (includeAwards && this.awardsClient) {
+      const extResp = await this.httpClient.get(`tv/${id}/external_ids`);
+      const imdbId = (extResp.data as { imdb_id: string | null }).imdb_id;
+      if (imdbId) {
+        const awards = await this.awardsClient.getByImdbId(imdbId);
+        return { ...data, awards: awards ?? undefined } as any;
+      }
+    }
+
+    return data as any;
   }
 
   /**

@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0] - 2026-06-03
+
+### Added
+- `AwardsClient` — standalone client that fetches award data from the OMDb API via `getByImdbId()`, returning structured win/nomination counts, ratings (IMDb, Rotten Tomatoes, Metacritic), and the raw award summary
+- `includeAwards` option on `MovieClient.getDetails()` and `TvClient.getDetails()` — when `true` and an OMDb API key is configured, award data is automatically fetched and merged into the response under an `awards` field
+- `omdbApiKey` option on `TMDBClientConfig` — accepts an OMDb API key; when provided, it's passed to both the `MovieClient` and `TvClient` for optional award enrichment
+- Type exports: `AwardsInfo`, `OmdbRating`, `AwardsClient`, `MovieDetailsWithAwards`, `TvSeriesDetailsWithAwards`
+- 11 test cases for awards parsing, movie awards integration, and TV awards integration
+
+### Changed
+- `MovieClient` and `TvClient` constructors now accept an optional `omdbApiKey` parameter
+
 ## [0.10.1] - 2026-05-31
 
 ### Fixed

@@ -11,6 +11,7 @@ import type {
   CountryWatchProviders,
 } from "./movie.js";
 import type { Genre } from "./genre.js";
+import type { AwardsInfo } from "./awards.js";
 
 export interface TvResult {
   adult: boolean;
@@ -176,9 +177,12 @@ export type TvAppendToResponseResult<T> =
     ? TvSeriesDetails & { [K in T[number]]: TvAppendToResponseMap[K] }
     : TvSeriesDetails;
 
+export type TvSeriesDetailsWithAwards<T> = TvAppendToResponseResult<T> & { awards?: AwardsInfo };
+
 export interface TvSeriesDetailsParams {
   appendToResponse?: TvAppendToResponseValue[];
   language?: string;
+  includeAwards?: boolean;
 }
 
 export interface TvSeriesAccountStates {

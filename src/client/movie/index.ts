@@ -9,6 +9,7 @@ import {
   type MovieAppendToResponseValue,
   type MovieDetails,
   type MovieDetailsParams,
+  type MovieDetailsWithAwards,
   type MovieAccountStates,
   type MovieAccountStatesParams,
   type MovieAlternativeTitlesResponse,
@@ -36,11 +37,19 @@ import {
   type AddRatingParams,
   type DeleteRatingParams,
 } from "../../types/movie.js";
+import type { AwardsInfo } from "../../types/awards.js";
+import { AwardsClient } from "../awards/index.js";
 import { type TMDBResponse } from "../../types/account.js";
 import { buildQueryParams } from "../../utils/query.js";
 
 export class MovieClient {
-  constructor(private httpClient: HttpClient) {}
+  private awardsClient: AwardsClient | null = null;
+
+  constructor(private httpClient: HttpClient, omdbApiKey?: string) {
+    if (omdbApiKey) {
+      this.awardsClient = new AwardsClient(omdbApiKey);
+    }
+  }
 
   /**
    * Get a list of movies that are currently in theatres.
@@ -80,19 +89,28 @@ export class MovieClient {
 
   /**
    * Get the top level details of a movie by ID.
+   * Optionally includes awards data from OMDb when `includeAwards` is set and an OMDb API key was configured.
    * @see https://developer.themoviedb.org/reference/movie-details
    */
   async getDetails<T extends readonly MovieAppendToResponseValue[] = never>(
     id: number,
     params?: MovieDetailsParams & { appendToResponse?: T }
-  ): Promise<MovieAppendToResponseResult<T>> {
-    const queryParams = buildQueryParams(params);
-    if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
+  ): Promise<MovieDetailsWithAwards<T>> {
+    const { includeAwards, appendToResponse, ...restParams } = params ?? {};
+    let queryParams = buildQueryParams(restParams);
+    if (appendToResponse) {
+      queryParams.append_to_response = [...new Set(appendToResponse)].join(",");
     }
 
     const response = await this.httpClient.get(`movie/${id}`, { params: queryParams });
-    return response.data;
+    const data = response.data as MovieDetails;
+
+    if (includeAwards && this.awardsClient && data.imdb_id) {
+      const awards = await this.awardsClient.getByImdbId(data.imdb_id);
+      return { ...data, awards: awards ?? undefined } as any;
+    }
+
+    return data as any;
   }
 
   /**

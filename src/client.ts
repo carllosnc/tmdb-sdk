@@ -28,12 +28,14 @@ import { TvEpisodeClient } from "./client/tv-episode/index.js";
 import { TvEpisodeGroupClient } from "./client/tv-episode-group/index.js";
 import { TvSeasonClient } from "./client/tv-season/index.js";
 import { WatchProvidersClient } from "./client/watch-providers/index.js";
+import { AwardsClient } from "./client/awards/index.js";
 
 export interface TMDBClientConfig {
   accessToken?: string;
   apiKey?: string;
   retry?: boolean | RetryConfig;
   httpClient?: HttpClient;
+  omdbApiKey?: string;
 }
 
 export class TMDBClient {
@@ -66,6 +68,7 @@ export class TMDBClient {
   public tvEpisodeGroup: TvEpisodeGroupClient;
   public tvSeason: TvSeasonClient;
   public watchProviders: WatchProvidersClient;
+  public awards: AwardsClient | null = null;
 
   constructor(config: TMDBClientConfig) {
     if (config.httpClient) {
@@ -112,16 +115,22 @@ export class TMDBClient {
     this.keyword = new KeywordClient(this.http);
     this.list = new ListClient(this.http);
     this.listV4 = new ListV4Client(this.http);
-    this.movie = new MovieClient(this.http);
+
+    const omdbKey = config.omdbApiKey;
+    this.movie = new MovieClient(this.http, omdbKey);
     this.network = new NetworkClient(this.http);
     this.person = new PersonClient(this.http);
     this.review = new ReviewClient(this.http);
     this.search = new SearchClient(this.http);
     this.trending = new TrendingClient(this.http);
-    this.tv = new TvClient(this.http);
+    this.tv = new TvClient(this.http, omdbKey);
     this.tvEpisode = new TvEpisodeClient(this.http);
     this.tvEpisodeGroup = new TvEpisodeGroupClient(this.http);
     this.tvSeason = new TvSeasonClient(this.http);
     this.watchProviders = new WatchProvidersClient(this.http);
+
+    if (omdbKey) {
+      this.awards = new AwardsClient(omdbKey);
+    }
   }
 }

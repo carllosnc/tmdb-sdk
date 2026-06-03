@@ -47,6 +47,7 @@ export interface BelongsToCollection {
 }
 
 import type { Genre } from "./genre.js";
+import type { AwardsInfo } from "./awards.js";
 
 export interface ProductionCompany {
   id: number;
@@ -138,12 +139,15 @@ export type WithMovieAppendToResponse<T extends readonly MovieAppendToResponseVa
 export interface MovieDetailsParams {
   appendToResponse?: MovieAppendToResponseValue[];
   language?: string;
+  includeAwards?: boolean;
 }
 
 export type MovieAppendToResponseResult<T> =
   [T] extends [readonly MovieAppendToResponseValue[]]
     ? MovieDetails & { [K in T[number]]: MovieAppendToResponseMap[K] }
     : MovieDetails;
+
+export type MovieDetailsWithAwards<T> = MovieAppendToResponseResult<T> & { awards?: AwardsInfo };
 
 export interface MovieAccountStates {
   id: number;
