@@ -55,6 +55,51 @@ const client = new TMDBClient({
 
 > When passing a custom `httpClient`, auth headers/params and retry are **not** injected automatically — your adapter handles those itself.
 
+## Framework Adapters
+
+Proxy TMDB API requests through your own server to keep your token server-side.
+
+### SvelteKit
+
+```typescript
+// src/routes/api/tmdb/[...path]/+server.ts
+import { createSvelteKitHandler } from "@carlosnc/tmdb-sdk/sveltekit";
+import { TMDB_TOKEN } from "$env/static/private";
+
+const tmdb = createSvelteKitHandler({ token: TMDB_TOKEN });
+
+export const GET  = tmdb;
+export const POST = tmdb;
+export const PUT = tmdb;
+export const PATCH = tmdb;
+export const DELETE = tmdb;
+```
+
+```bash
+curl http://localhost:5173/api/tmdb/movie/550
+```
+
+### Next.js (App Router)
+
+```typescript
+// app/api/tmdb/[...path]/route.ts
+import { createNextJsHandler } from "@carlosnc/tmdb-sdk/nextjs";
+
+const tmdb = createNextJsHandler({ token: process.env.TMDB_TOKEN! });
+
+export const GET  = tmdb;
+export const POST = tmdb;
+export const PUT = tmdb;
+export const PATCH = tmdb;
+export const DELETE = tmdb;
+```
+
+```bash
+curl http://localhost:3000/api/tmdb/movie/550
+```
+
+Both adapters forward query parameters, set the `Authorization: Bearer` header, and surface TMDB's `Cache-Control` on GET responses.
+
 ## Quick Start
 
 ```typescript
