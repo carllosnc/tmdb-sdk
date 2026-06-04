@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "A lightweight, fully-typed TypeScript client for the TMDB API v3",
   "license": "MIT",
   "author": "carllosnc",
@@ -28,6 +28,18 @@
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
+      }
+    },
+    "./sveltekit": {
+      "import": {
+        "types": "./dist/adapters/sveltekit.d.ts",
+        "default": "./dist/adapters/sveltekit.js"
+      }
+    },
+    "./nextjs": {
+      "import": {
+        "types": "./dist/adapters/nextjs.d.ts",
+        "default": "./dist/adapters/nextjs.js"
       }
     },
     "./*": {

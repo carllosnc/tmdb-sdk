@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0] - 2026-06-04
+
+### Added
+- `createSvelteKitHandler()` — SvelteKit request handler adapter that proxies requests to the TMDB API via a catch-all route, forwarding query params and preserving cache-control headers
+- `createNextJsHandler()` — Next.js App Router request handler adapter that proxies requests to the TMDB API via a catch-all route, forwarding query params and preserving cache-control headers
+- Subpath exports: `@carlosnc/tmdb-sdk/sveltekit` and `@carlosnc/tmdb-sdk/nextjs` for importing the adapters
+
 ## [0.11.0] - 2026-06-03
 
 ### Added
