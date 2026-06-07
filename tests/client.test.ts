@@ -48,6 +48,43 @@ describe("TMDBClient - Core Client", () => {
     expect(client.account).toBeDefined();
   });
 
+  test("should append defaultLanguage to API requests", async () => {
+    const originalFetch = global.fetch;
+    const mockFetch = mock((url: string | URL | Request) =>
+      Promise.resolve(new Response(JSON.stringify({}), { status: 200, statusText: "OK" })),
+    );
+    global.fetch = mockFetch as unknown as typeof global.fetch;
+
+    try {
+      const client = new TMDBClient({ accessToken: "fake-token", defaultLanguage: "pt-BR" });
+      await client.http.get("/movie/550");
+
+      const callUrl = mockFetch.mock.calls[0][0] as string;
+      expect(callUrl).toContain("language=pt-BR");
+    } finally {
+      global.fetch = originalFetch;
+    }
+  });
+
+  test("should allow explicit language to override defaultLanguage", async () => {
+    const originalFetch = global.fetch;
+    const mockFetch = mock((url: string | URL | Request) =>
+      Promise.resolve(new Response(JSON.stringify({}), { status: 200, statusText: "OK" })),
+    );
+    global.fetch = mockFetch as unknown as typeof global.fetch;
+
+    try {
+      const client = new TMDBClient({ accessToken: "fake-token", defaultLanguage: "pt-BR" });
+      await client.http.get("/movie/550", { params: { language: "es-ES" } });
+
+      const callUrl = mockFetch.mock.calls[0][0] as string;
+      expect(callUrl).toContain("language=es-ES");
+      expect(callUrl).not.toContain("language=pt-BR");
+    } finally {
+      global.fetch = originalFetch;
+    }
+  });
+
   // Live integration test if environment variables are set
   const token = process.env.TMDB_TOKEN;
   const key = process.env.TMDB_KEY;

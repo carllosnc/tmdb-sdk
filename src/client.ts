@@ -36,6 +36,7 @@ export interface TMDBClientConfig {
   retry?: boolean | RetryConfig;
   httpClient?: HttpClient;
   omdbApiKey?: string;
+  defaultLanguage?: string;
 }
 
 export class TMDBClient {
@@ -83,6 +84,10 @@ export class TMDBClient {
         params["api_key"] = config.apiKey;
       } else {
         throw new Error("Either accessToken or apiKey must be provided to TMDBClient.");
+      }
+
+      if (config.defaultLanguage) {
+        params["language"] = config.defaultLanguage;
       }
 
       let client: HttpClient = new FetchAdapter({
