@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.13.1] - 2026-06-07
+
+### Fixed
+- TypeScript strict mode errors in `defaultLanguage` test assertions (non-null assertion for mock call array)
+
 ## [0.13.0] - 2026-06-07
 
 ### Added
