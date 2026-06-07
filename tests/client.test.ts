@@ -59,7 +59,8 @@ describe("TMDBClient - Core Client", () => {
       const client = new TMDBClient({ accessToken: "fake-token", defaultLanguage: "pt-BR" });
       await client.http.get("/movie/550");
 
-      const callUrl = mockFetch.mock.calls[0][0] as string;
+      expect(mockFetch.mock.calls[0]).toBeDefined();
+      const callUrl = mockFetch.mock.calls[0]![0] as string;
       expect(callUrl).toContain("language=pt-BR");
     } finally {
       global.fetch = originalFetch;
@@ -77,7 +78,8 @@ describe("TMDBClient - Core Client", () => {
       const client = new TMDBClient({ accessToken: "fake-token", defaultLanguage: "pt-BR" });
       await client.http.get("/movie/550", { params: { language: "es-ES" } });
 
-      const callUrl = mockFetch.mock.calls[0][0] as string;
+      expect(mockFetch.mock.calls[0]).toBeDefined();
+      const callUrl = mockFetch.mock.calls[0]![0] as string;
       expect(callUrl).toContain("language=es-ES");
       expect(callUrl).not.toContain("language=pt-BR");
     } finally {
