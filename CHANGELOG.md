@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0] - 2026-06-07
+
+### Added
+- `defaultLanguage` option on `TMDBClientConfig` — set a global default language that is automatically appended to every API request
+- Explicit `language` param on any method call now overrides the global default
+- 2 test cases for defaultLanguage append and explicit override behavior
+
 ## [0.12.0] - 2026-06-04
 
 ### Added
