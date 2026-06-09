@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.13.2] - 2026-06-09
+
+### Added
+- `includeImageLanguage?` param to `TvEpisodeDetailsParams` — allows filtering episode images by language when using `append_to_response=images`
+- Optional `images?`, `credits?`, `videos?` properties on `TvEpisodeDetails` interface — common appended resources are now directly accessible on the base type
+
+### Fixed
+- `TvEpisodeClient.getDetails()` now destructures `appendToResponse` before calling `buildQueryParams`, matching the movie client pattern and preventing duplicate key conversion
+
 ## [0.13.1] - 2026-06-07
 
 ### Fixed

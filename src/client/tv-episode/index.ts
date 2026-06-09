@@ -38,9 +38,10 @@ export class TvEpisodeClient {
     episodeNumber: number,
     params?: TvEpisodeDetailsParams & { appendToResponse?: T }
   ): Promise<TvEpisodeAppendToResponseResult<T>> {
-    const queryParams = buildQueryParams(params);
-    if (queryParams.append_to_response) {
-      queryParams.append_to_response = [...new Set(params?.appendToResponse ?? [])].join(",");
+    const { appendToResponse, ...restParams } = params ?? {};
+    const queryParams = buildQueryParams(restParams);
+    if (appendToResponse) {
+      queryParams.append_to_response = [...new Set(appendToResponse)].join(",");
     }
 
     const response = await this.httpClient.get(

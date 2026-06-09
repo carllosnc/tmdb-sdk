@@ -569,6 +569,9 @@ export interface TvEpisodeDetails {
   still_path: string | null;
   vote_average: number;
   vote_count: number;
+  images?: TvEpisodeImagesResponse;
+  credits?: TvEpisodeCreditsResponse;
+  videos?: TvSeriesVideosResponse;
 }
 
 export type TvEpisodeAppendToResponseValue =
@@ -603,6 +606,7 @@ export type TvEpisodeAppendToResponseResult<T> =
 export interface TvEpisodeDetailsParams {
   appendToResponse?: TvEpisodeAppendToResponseValue[];
   language?: string;
+  includeImageLanguage?: string;
 }
 
 export interface TvEpisodeAccountStates {
