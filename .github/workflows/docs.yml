@@ -27,6 +27,9 @@ jobs:
       - name: Build docs
         run: bun run docs
 
+      - name: Copy llms.txt to docs output
+        run: cp llms.txt docs/llms.txt
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

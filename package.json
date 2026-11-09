@@ -3,8 +3,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.14.0",
-  "description": "A lightweight, fully-typed TypeScript client for the TMDB API v3",
+  "version": "0.14.1",
+  "description": "Zero-dependency, edge-ready TypeScript client for TMDB API v3/v4 with native fetch, auto-retries, full types, and Next.js / SvelteKit adapters.",
   "license": "MIT",
   "author": "carllosnc",
   "repository": {
@@ -14,11 +14,22 @@
   "homepage": "https://github.com/carllosnc/tmdb-sdk#readme",
   "keywords": [
     "tmdb",
+    "tmdb-api",
     "themoviedb",
     "api",
     "client",
     "typescript",
-    "sdk"
+    "sdk",
+    "zero-dependency",
+    "fetch",
+    "edge-ready",
+    "nextjs",
+    "sveltekit",
+    "bun",
+    "cloudflare-workers",
+    "movies",
+    "tv-shows",
+    "llms-txt"
   ],
   "type": "module",
   "main": "dist/index.js",

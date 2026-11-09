@@ -4,13 +4,25 @@
 
 # TMDB SDK
 
-[![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) [![Docs](https://github.com/carllosnc/tmdb-sdk/actions/workflows/docs.yml/badge.svg)](https://carllosnc.github.io/tmdb-sdk/) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun) [![npm](https://img.shields.io/npm/dm/@carlosnc/tmdb-sdk?logo=npm&label=downloads)](https://www.npmjs.com/package/@carlosnc/tmdb-sdk)
+[![CI](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/carllosnc/tmdb-sdk/actions/workflows/ci.yml) [![Docs](https://github.com/carllosnc/tmdb-sdk/actions/workflows/docs.yml/badge.svg)](https://carllosnc.github.io/tmdb-sdk/) [![llms.txt](https://img.shields.io/badge/llms.txt-available-blue)](https://carllosnc.github.io/tmdb-sdk/llms.txt) ![Bun](https://img.shields.io/badge/Bun-1.3.13-blue?logo=bun) [![npm](https://img.shields.io/npm/dm/@carlosnc/tmdb-sdk?logo=npm&label=downloads)](https://www.npmjs.com/package/@carlosnc/tmdb-sdk)
 
-A complete, fully-typed TypeScript client for the [TMDB API v3](https://developer.themoviedb.org/). All 25 namespaces, zero runtime dependencies beyond `axios`.
+A complete, zero-dependency, edge-ready TypeScript client for the [TMDB API v3/v4](https://developer.themoviedb.org/). Built with native `fetch()`, strict types, automatic retries, framework proxy adapters, and full LLM/AI indexing.
 
 ```bash
 bun add @carlosnc/tmdb-sdk
+# or npm install @carlosnc/tmdb-sdk
 ```
+
+## Why @carlosnc/tmdb-sdk?
+
+| Feature | `@carlosnc/tmdb-sdk` | Legacy TMDB Libraries |
+| :--- | :--- | :--- |
+| **Runtime Dependencies** | **0 (Zero)** — uses native `fetch()` | 1+ (`axios`, `node-fetch`) |
+| **Environments** | **Universal** (Node.js >= 18, Bun, Deno, Cloudflare Workers, Vercel Edge, Browser) | Node.js only |
+| **Framework Adapters** | Built-in secure proxy adapters for **Next.js App Router** and **SvelteKit** | None (manual implementation) |
+| **Resilience** | Built-in automatic retries with exponential backoff on `429` & `5xx` | Manual error handling |
+| **AI / LLM-Friendly** | Built-in [`llms.txt`](https://carllosnc.github.io/tmdb-sdk/llms.txt) specification for AI coding tools | None |
+| **OMDb Enrichment** | Optional award integration (IMDb, Rotten Tomatoes, Metacritic) | Not supported |
 
 ## Authentication
 

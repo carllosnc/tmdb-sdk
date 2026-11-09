@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.14.1] - 2026-11-09
+
+### Added
+- Automated `llms.txt` deployment to GitHub Pages docs site via `.github/workflows/docs.yml`
+- "Why @carlosnc/tmdb-sdk?" comparison matrix in `README.md` highlighting zero-dependency, edge runtimes, framework adapters, and AI indexing
+- `llms.txt` badge in `README.md` linking directly to the hosted specification
+- Expanded package metadata: semantic search keywords (`edge-ready`, `zero-dependency`, `nextjs`, `sveltekit`, `bun`, `cloudflare-workers`, `llms-txt`)
+
+### Changed
+- Clarified `package.json` description to highlight zero runtime dependencies, universal edge compatibility, and framework proxy adapters
+- Fixed outdated Axios reference in `README.md`
+
 ## [0.14.0] - 2026-11-09
 
 ### Added
