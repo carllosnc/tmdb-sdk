@@ -34,4 +34,4 @@ jobs:
           node-version: 24
 
       - name: Publish to npm
-        run: npx --yes npm@latest publish --access public --provenance
+        run: npm publish --access public --provenance
