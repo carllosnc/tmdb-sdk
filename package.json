@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "A lightweight, fully-typed TypeScript client for the TMDB API v3",
   "license": "MIT",
   "author": "carllosnc",
@@ -52,13 +52,15 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "llms.txt"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "bun run build",
     "typecheck": "tsc -p tsconfig.json",
     "test": "bun test",
+    "check": "tsc -p tsconfig.json && bun test",
     "docs": "typedoc"
   },
   "devDependencies": {

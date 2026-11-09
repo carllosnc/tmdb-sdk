@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.14.0] - 2026-11-09
+
+### Added
+- `llms.txt` — Structured LLM reference document following the llmstxt.org specification for AI agents and LLM tooling
+- AI developer assistant configurations: `CLAUDE.md`, `.cursorrules`, and `.github/copilot-instructions.md`
+- `check` script in `package.json` (`tsc -p tsconfig.json && bun test`) for single-step validation
+- Included `llms.txt` in npm package distribution files
+
+### Changed
+- Updated `.agents/skills/project-architecture` to reflect zero-dependency `FetchAdapter` architecture, recent sub-clients, and framework adapters
+- Updated `.agents/AGENTS.md` with multi-agent guidelines and `bun run check` script
+
 ## [0.13.2] - 2026-06-09
 
 ### Added

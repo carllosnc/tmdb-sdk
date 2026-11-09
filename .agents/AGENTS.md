@@ -4,6 +4,7 @@
 
 - `bun install` / `bun add <pkg>` / `bun remove <pkg>` — package management
 - `bun test` — run tests
+- `bun run check` — run typecheck + tests in one step
 - `bunx <cmd>` — execute packages (not npx)
 - `bun run <script>` — run package scripts
 - `bun <file.ts>` — execute TS/JS directly
@@ -17,8 +18,15 @@ Package: `@carlosnc/tmdb-sdk`
 1. **Determine bump**: `patch` (bug fixes), `minor` (new features), `major` (breaking). Check `git log --oneline v$(node -p "require('./package.json').version")..HEAD`.
 2. **Update CHANGELOG.md**: Insert entry at top following existing format (`## [X.Y.Z] - YYYY-MM-DD` with Added/Changed/Fixed sections).
 3. **Update version** in `package.json`.
-4. **Verify**: `bun run typecheck && bun run build && bun test`.
+4. **Verify**: `bun run check && bun run build`.
 5. **Commit & tag**: `git add package.json CHANGELOG.md && git commit -m "chore(release): vX.Y.Z" && git tag vX.Y.Z`.
+
+## Multi-Agent Conventions
+
+- `CLAUDE.md` — Guide for Claude Code
+- `.cursorrules` — Guide for Cursor
+- `.github/copilot-instructions.md` — Guide for GitHub Copilot
+- `llms.txt` — Structured LLM reference for consuming the SDK
 
 ## Project Skills
 

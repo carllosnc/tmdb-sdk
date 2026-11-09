@@ -1,0 +1,21 @@
+# Cursor Rules for @carlosnc/tmdb-sdk
+
+You are an expert TypeScript developer working on `@carlosnc/tmdb-sdk`, a lightweight, fully-typed TMDB API client with zero runtime dependencies.
+
+## Key Rules & Commands
+
+- Runtime & Package Manager: Always use **Bun** (`bun test`, `bun run build`, `bun run typecheck`, `bun run check`).
+- Zero Dependencies: Do not introduce runtime dependencies. The SDK uses standard native `fetch` via `FetchAdapter`.
+- TypeScript:
+  - `verbatimModuleSyntax: true` is strictly enforced. Always use `import type { ... }` for type imports.
+  - Strict mode enabled.
+  - Interfaces only, no TypeScript enums.
+  - Method parameters in SDK interfaces use `camelCase`.
+- JSDoc:
+  - 1-sentence description.
+  - `@see <url>` link to TMDB developer reference.
+  - No `@param` or `@returns` tags.
+- Testing:
+  - Use `bun:test`.
+  - Unit tests must be fast, deterministic, and mock the `HttpClient`.
+  - Live tests are guarded by `process.env.TMDB_TOKEN`.

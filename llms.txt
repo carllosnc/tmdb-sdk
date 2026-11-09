@@ -1,0 +1,183 @@
+# @carlosnc/tmdb-sdk
+
+> A lightweight, fully-typed TypeScript client for The Movie Database (TMDB) API v3/v4 with zero runtime dependencies.
+
+## Overview
+
+- **Runtime**: Works in Node.js >= 18, Bun, Deno, Cloudflare Workers, and browser environments.
+- **Dependencies**: 0 external runtime dependencies (uses native `fetch`).
+- **Typing**: 100% TypeScript with strict interfaces and autocompletion.
+- **Authentication**: Supports v3 API Key, v3 Bearer Token, and v4 User Access Tokens.
+- **Resilience**: Optional automatic retry with exponential backoff on rate limits (429) and server errors (5xx).
+- **Framework Adapters**: Built-in proxy adapters for SvelteKit and Next.js App Router to keep API keys secure server-side.
+
+## Installation
+
+```bash
+bun add @carlosnc/tmdb-sdk
+# or
+npm install @carlosnc/tmdb-sdk
+# or
+pnpm add @carlosnc/tmdb-sdk
+```
+
+## Quick Start
+
+```typescript
+import { TMDBClient } from "@carlosnc/tmdb-sdk";
+
+// Initialize client (API Read Access Token preferred)
+const tmdb = new TMDBClient({
+  accessToken: process.env.TMDB_ACCESS_TOKEN,
+  // Or fallback to API key:
+  // apiKey: process.env.TMDB_API_KEY,
+  defaultLanguage: "en-US",
+  retry: true, // Auto retry on 429 and 5xx
+});
+
+// Search movies
+const searchResults = await tmdb.search.movies({ query: "Inception" });
+
+// Get movie details with appended resources
+const movie = await tmdb.movie.getDetails(27205, {
+  appendToResponse: ["credits", "videos", "images", "recommendations"],
+});
+
+console.log(movie.title, movie.vote_average);
+```
+
+## Client Configuration
+
+```typescript
+interface TMDBClientConfig {
+  accessToken?: string;        // TMDB v3/v4 API Read Access Token (Bearer)
+  apiKey?: string;             // TMDB v3 API Key (query parameter fallback)
+  defaultLanguage?: string;    // Global default language (e.g. 'en-US', 'pt-BR')
+  retry?: boolean | RetryConfig; // Automatic exponential backoff
+  httpClient?: HttpClient;     // Custom HTTP client implementing HttpClient interface
+  omdbApiKey?: string;         // Optional OMDb API key for awards enrichment
+}
+```
+
+## Namespaces & Core Methods
+
+### Movies (`tmdb.movie`)
+- `getDetails(id, params?)`: Details, optionally with `appendToResponse` and `includeAwards: true`
+- `getNowPlaying(params?)`, `getPopular(params?)`, `getTopRated(params?)`, `getUpcoming(params?)`
+- `getCredits(id)`, `getVideos(id)`, `getImages(id)`, `getRecommendations(id)`, `getSimilar(id)`
+- `getWatchProviders(id)`, `getReleaseDates(id)`, `getTranslations(id)`
+- `addRating(id, rating, session?)`, `deleteRating(id, session?)`
+
+### TV Shows (`tmdb.tv`)
+- `getDetails(id, params?)`: Series details with `appendToResponse`
+- `getAiringToday(params?)`, `getOnTheAir(params?)`, `getPopular(params?)`, `getTopRated(params?)`
+- `getCredits(id)`, `getAggregateCredits(id)`, `getSeason(id, seasonNumber)`
+
+### TV Seasons & Episodes (`tmdb.tvSeason`, `tmdb.tvEpisode`)
+- `tvSeason.getDetails(tvId, seasonNumber, params?)`
+- `tvEpisode.getDetails(tvId, seasonNumber, episodeNumber, params?)`
+
+### Search (`tmdb.search`)
+- `search.movies({ query, page?, year?, includeAdult? })`
+- `search.tv({ query, page?, firstAirDateYear? })`
+- `search.people({ query, page? })`
+- `search.multi({ query, page? })`
+- `search.collections({ query, page? })`
+- `search.companies({ query, page? })`
+- `search.keywords({ query, page? })`
+
+### Trending & Discover (`tmdb.trending`, `tmdb.discover`)
+- `trending.getTrending(mediaType, timeWindow, params?)`: mediaType: `'all' | 'movie' | 'tv' | 'person'`; timeWindow: `'day' | 'week'`
+- `discover.movies({ sortBy?, withGenres?, primaryReleaseYear?, voteAverageGte?, ... })`
+- `discover.tv({ sortBy?, withGenres?, firstAirDateYear?, ... })`
+
+### People (`tmdb.person`)
+- `getDetails(id, params?)`: Biography, birth date, place of birth
+- `getMovieCredits(id)`, `getTvCredits(id)`, `getCombinedCredits(id)`, `getImages(id)`
+
+### Genres & Configuration (`tmdb.genre`, `tmdb.configuration`)
+- `genre.getMovieList({ language? })`, `genre.getTvList({ language? })`
+- `configuration.getApiConfiguration()`: Returns secure base URLs and sizes for images
+- `configuration.getLanguages()`, `configuration.getCountries()`
+
+### Watch Providers (`tmdb.watchProviders`)
+- `getAvailableRegions()`
+- `getMovieProviders({ watchRegion? })`, `getTvProviders({ watchRegion? })`
+
+## Helper Utilities
+
+### Image URLs
+```typescript
+import { getImageUrl } from "@carlosnc/tmdb-sdk";
+
+// Poster URL
+const posterUrl = getImageUrl("/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "w500");
+
+// Original resolution
+const backdropUrl = getImageUrl("/path.jpg", "original");
+```
+
+### Auto Pagination
+```typescript
+import { paginate } from "@carlosnc/tmdb-sdk";
+
+const allPages = await paginate(
+  (page) => tmdb.movie.getPopular({ page }),
+  { maxPages: 3 }
+);
+```
+
+## Error Handling
+
+All API errors throw specialized subclasses of `TMDBError`:
+
+```typescript
+import {
+  TMDBError,
+  TMDBUnauthorizedError,
+  TMDBNotFoundError,
+  TMDBRateLimitError,
+  TMDBValidationError
+} from "@carlosnc/tmdb-sdk";
+
+try {
+  await tmdb.movie.getDetails(99999999);
+} catch (error) {
+  if (error instanceof TMDBNotFoundError) {
+    console.error("Movie not found");
+  } else if (error instanceof TMDBRateLimitError) {
+    console.error(`Rate limited. Retry after ${error.retryAfter}s`);
+  } else if (error instanceof TMDBUnauthorizedError) {
+    console.error("Invalid token or API key");
+  } else if (error instanceof TMDBError) {
+    console.error(`TMDB error (${error.statusCode}): ${error.message}`);
+  }
+}
+```
+
+## Framework Adapters (Zero-Exposure API Keys)
+
+### Next.js (App Router)
+```typescript
+// app/api/tmdb/[...path]/route.ts
+import { createNextJsHandler } from "@carlosnc/tmdb-sdk/nextjs";
+
+export const { GET, POST, DELETE } = createNextJsHandler({
+  accessToken: process.env.TMDB_ACCESS_TOKEN!,
+});
+```
+
+### SvelteKit
+```typescript
+// src/routes/api/tmdb/[...path]/+server.ts
+import { createSvelteKitHandler } from "@carlosnc/tmdb-sdk/sveltekit";
+
+export const { GET, POST, DELETE } = createSvelteKitHandler({
+  accessToken: process.env.TMDB_ACCESS_TOKEN!,
+});
+```
+
+## Official Documentation & Source Links
+
+- Repository: https://github.com/carllosnc/tmdb-sdk
+- TMDB Official API Reference: https://developer.themoviedb.org/reference/intro/getting-started
