@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Zero-dependency, edge-ready TypeScript client for TMDB API v3/v4 with native fetch, auto-retries, full types, and Next.js / SvelteKit adapters.",
   "license": "MIT",
   "author": "carllosnc",

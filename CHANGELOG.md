@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.14.2] - 2026-11-09
+
+### Fixed
+- Automated npm Trusted Publishing (OIDC) workflow configuration using Node 24 and `npx npm@latest` with provenance
+
 ## [0.14.1] - 2026-11-09
 
 ### Added
